@@ -13,7 +13,7 @@ enum class Dimension {
 }
 
 /**
- * Diese beiden Funktionen erlauben es mir meine DP und SP die ich ver wende anhand der Displaygröße auszurechnen. Das heist die Elemente auf dem Screen so wie Schriften kann ich damit Prozentual anlegen. Somit ändert sich die Darstellung nicht wenn sich die Displaygröße ändert.
+ * Diese Funktion erlaubt es mir meine  SP die ich verwende Anhand der Displaygröße auszurechnen. Das heist die Schriftgröße auf dem Screen kann ich damit prozentual anlegen. Somit ändert sich die Darstellung nicht wenn sich die Displaygröße ändert.
  */
 @Composable
 fun calcSp(percentage: Float): TextUnit {
@@ -22,7 +22,9 @@ fun calcSp(percentage: Float): TextUnit {
         (percentage * density * dpi).toSp()
     }
 }
-
+/**
+ * Diese Funktion erlaubt es mir meine  DP die ich verwende Anhand der Displaygröße auszurechnen. Das heist die Elemente und Abstände auf dem Screen kann ich damit prozentual anlegen. Somit ändert sich die Darstellung nicht wenn sich die Displaygröße ändert.
+ */
 @Composable
 fun calcDp(percentage: Float, dimension: Dimension): Dp {
     val screenWidth = LocalConfiguration.current.screenWidthDp
