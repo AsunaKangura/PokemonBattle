@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">Abschlussarbeit Modul 3</string>
+
+    <!-- TODO: WelcomeScreen -->
+    <string name="welcome">Willkommen</string>
+    <string name="btn_login">Login</string>
+    <string name="text_over_login">Hier gehts zur Anmeldung</string>
+    <string name="btn_register">Registrieren</string>
+    <string name="text_over_register">Neu Hier?. Hier gehts zur Registrierung...</string>
+    <string name="btn_next">Weiter</string>
+
+    <!-- TODO: LoginScreen -->
+    <string name="text_Login">Einloggen</string>
+
+    <!--TODO: HomeScreen -->
+    <string name="homescreen">Pokemon Battle</string>
+    <string name="pokedexcard">PokeDex</string>
+    <string name="pokestorecard">Pokemon Store</string>
+    <string name="pokemonbattlecard">Pokemon Battle</string>
+
+    <!-- TODO: POKEDEX -->
+    <string name="searchbarHint">Nache einem Pokemon suchen</string>
+    <string name="moreinfos">Pokemon Details</string>
+    <string name="pokedex">PokeDex</string>
+
+    <!-- TODO: Passwort vergessen-->
+    <string name="titel_pw_forget">Passwort vergessen</string>
+    <string name="description_pw_forget">"Du hast dein Passwort vergessen. Bitte die E-Mail zu dem Account eingeben und den Anweisungen in der E-Mail befolgen."</string>
+
 </resources>
