@@ -14,7 +14,7 @@ import javax.inject.Singleton
 /**
  * Die Annotation "@Singleton" in der Programmierung bezieht sich auf das Designmuster Singleton. Ein Singleton ist ein Entwurfsmuster, bei dem nur eine einzige Instanz einer Klasse existiert und auf diese Instanz von überall im Code zugegriffen werden kann. Die Annotation "@Singleton" wird in einigen Programmiersprachen und Frameworks verwendet, um anzuzeigen, dass eine Klasse als Singleton implementiert ist. Dadurch wird sichergestellt, dass nur eine einzige Instanz dieser Klasse erstellt wird.
  *
- * Die Annotation "@Provides" wird in einigen Dependency Injection-Frameworks wie Dagger verwendet. Sie wird verwendet, um anzuzeigen, dass eine Methode oder ein Modul eine bestimmte Abhängigkeit bereitstellt. Wenn eine Klasse eine Methode mit der Annotation "@Provides" hat, kann das Framework diese Methode aufrufen, um die angeforderte Abhängigkeit zu erfüllen. Es ermöglicht eine deklarative Konfiguration der Abhängigkeiten in einer Anwendung.
+ * Die Annotation "@Provides" wird in einigen Dependency Injection-Frameworks wie Dagger Hilt verwendet. Sie wird verwendet, um anzuzeigen, dass eine Methode oder ein Modul eine bestimmte Abhängigkeit bereitstellt. Wenn eine Klasse eine Methode mit der Annotation "@Provides" hat, kann das Framework diese Methode aufrufen, um die angeforderte Abhängigkeit zu erfüllen. Es ermöglicht eine deklarative Konfiguration der Abhängigkeiten in einer Anwendung.
  */
 
 @Module
