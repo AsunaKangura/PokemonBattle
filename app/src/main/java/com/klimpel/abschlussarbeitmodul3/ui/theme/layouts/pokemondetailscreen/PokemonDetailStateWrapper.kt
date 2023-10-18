@@ -1,6 +1,5 @@
 package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.pokemondetailscreen
 
-import PokemonDetailSection
 import androidx.compose.foundation.layout.offset
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme

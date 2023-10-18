@@ -20,7 +20,7 @@ import java.util.Locale
 @Composable
 fun NavigationAppStart(navController: NavHostController){
 
-    NavHost(navController = navController, startDestination = "SplashScreen"){
+    NavHost(navController = navController, startDestination = "HomeScreen"){
 
         composable(Screen.Register.route) { RegisterScreen(navController) }
         composable(Screen.WelcomeScreen.route) { WelcomeScreen(navController) }

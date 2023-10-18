@@ -1,6 +1,6 @@
 package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.pokemondetailscreen
 
-import PokemonDetailDataItem
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer

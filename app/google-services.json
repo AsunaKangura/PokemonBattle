@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "192367265594",
+    "firebase_url": "https://pokemon-battle-69605-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "pokemon-battle-69605",
+    "storage_bucket": "pokemon-battle-69605.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:192367265594:android:2294836db0ce0944b97203",
+        "android_client_info": {
+          "package_name": "com.asunakangura.pokemonbattle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "192367265594-q3vfr6n476a6cf7goanltuhn2kfa3g19.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFBrJQ9F25FspgU7ZTZZqVwUasOmQ7jG4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "192367265594-q3vfr6n476a6cf7goanltuhn2kfa3g19.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:192367265594:android:8b2fa63d4f77eb28b97203",
+        "android_client_info": {
+          "package_name": "com.klimpel.pokemonbattlefinal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "192367265594-q3vfr6n476a6cf7goanltuhn2kfa3g19.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFBrJQ9F25FspgU7ZTZZqVwUasOmQ7jG4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "192367265594-q3vfr6n476a6cf7goanltuhn2kfa3g19.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

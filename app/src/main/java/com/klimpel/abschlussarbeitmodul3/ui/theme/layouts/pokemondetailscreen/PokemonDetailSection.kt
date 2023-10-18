@@ -1,7 +1,6 @@
 package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.pokemondetailscreen
 
-import PokemonBaseStats
-import PokemonDetailDataSection
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
