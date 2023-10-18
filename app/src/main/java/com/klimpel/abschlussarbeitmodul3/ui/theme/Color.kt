@@ -16,10 +16,6 @@ val LightBlue2 = Color(0xDD3166AE)
 val LightBlueBackground = Color(0xFF9CD4FF)
 val LightYellow = Color(0xFFF0C305)
 
-
-// Pokedex Colors
-val lightGrey = Color(0xFFF3F1F1)
-
 // Stats Colors der Pokemon's
 val HPColor = Color(0xFFF5FF00)
 val AtkColor = Color(1f, 0f, 0f, 0.66f)
