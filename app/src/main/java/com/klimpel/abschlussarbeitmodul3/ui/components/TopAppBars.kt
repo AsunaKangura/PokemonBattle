@@ -1,8 +1,10 @@
 package com.klimpel.abschlussarbeitmodul3.ui.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,14 +14,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.Groups
 import androidx.compose.material.icons.outlined.Logout
-import androidx.compose.material.icons.rounded.Person
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
@@ -34,26 +38,40 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.klimpel.abschlussarbeitmodul3.Screen
 import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
 import com.klimpel.abschlussarbeitmodul3.util.Contants.Companion.auth
 import com.klimpel.abschlussarbeitmodul3.util.Dimension
 import com.klimpel.abschlussarbeitmodul3.util.calcDp
+import com.klimpel.abschlussarbeitmodul3.viewmodels.ProfilViewModel
 import com.klimpel.pokemonbattlefinal.R
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBar(pageTitle: Int, navController: NavController) {
+fun TopAppBar(
+    pageTitle: Int,
+    navController: NavController,
+    viewModel: ProfilViewModel = hiltViewModel()
+) {
+    val context = LocalContext.current
 
     val showMenu = remember { mutableStateOf(false) }
+    val openDialog = remember { mutableStateOf(false) }
+
+    val setAvatar = viewModel.findAvatar()
 
     CenterAlignedTopAppBar(
         title = {
@@ -72,11 +90,87 @@ fun TopAppBar(pageTitle: Int, navController: NavController) {
                     .padding(end = 10.dp)
                     .border(2.dp, DeepRed, CircleShape)
             ) {
-                Icon(
-                    imageVector = Icons.Rounded.Person,
-                    contentDescription = null,
-                    tint = DeepRed
-                )
+                if (setAvatar != null) {
+                    Image(
+                        painterResource(id = setAvatar.imageResource),
+                        contentDescription = null,
+                        modifier = Modifier.fillMaxSize(0.8f)
+                    )
+                }
+            }
+
+            if (openDialog.value){
+                showMenu.value = false
+                Dialog(
+                    onDismissRequest = { openDialog.value = false },
+                ) {
+                    Card(
+                        modifier = Modifier
+                            .width(calcDp(percentage = 0.7f, dimension = Dimension.Width))
+                            .height(calcDp(percentage = 0.5f, dimension = Dimension.Height)),
+                        shape = RoundedCornerShape(topStart = 50.dp, topEnd = 20.dp, bottomStart = 20.dp, bottomEnd = 50.dp),
+                        elevation = CardDefaults.cardElevation(
+                            defaultElevation = 10.dp
+                        ),
+                    ) {
+                        ConstraintLayout(
+                            modifier = Modifier.fillMaxSize()
+                        ) {
+                            val (titel, avatar, alias, btnsave) = createRefs()
+                            // Profil Titel
+                            Card(
+                                colors = CardDefaults.cardColors(
+                                    containerColor = Color.White,
+                                ),
+                                border = BorderStroke(
+                                    4.dp, DeepRed
+                                ),
+                                modifier = Modifier
+                                    .width(180.dp)
+                                    .height(50.dp)
+                                    .constrainAs(titel) {
+                                        top.linkTo(parent.top)
+                                        start.linkTo(parent.start)
+                                    },
+                                shape = RoundedCornerShape(
+                                    topStart = 50.dp,
+                                    topEnd = 0.dp,
+                                    bottomStart = 0.dp,
+                                    bottomEnd = 50.dp
+                                ),
+                                elevation = CardDefaults.cardElevation(
+                                    defaultElevation = 10.dp
+                                ),
+                            ) {
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxSize(),
+                                    verticalArrangement = Arrangement.SpaceEvenly,
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Text(
+                                        text = stringResource(id = R.string.titelprofilbearbeiten),
+                                        color = DeepRed,
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        textAlign = TextAlign.Center,
+                                    )
+                                }
+                            }
+                            Row (
+                                horizontalArrangement = Arrangement.Center,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .constrainAs(avatar) {
+                                        top.linkTo(titel.bottom, 50.dp)
+                                    }
+                            ){
+                                CustomExposedDropdownMenuBox()
+                            }
+
+                        }
+                    }
+                }
             }
 
             DropdownMenu(
@@ -88,6 +182,7 @@ fun TopAppBar(pageTitle: Int, navController: NavController) {
                     .background(DeepRed)
             ) {
 
+                // Profil Details
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -104,13 +199,15 @@ fun TopAppBar(pageTitle: Int, navController: NavController) {
                                 .width(calcDp(percentage = 0.2f, dimension = Dimension.Width)),
                             contentAlignment = Alignment.Center
                         ) {
-                            Icon(
-                                imageVector = Icons.Filled.Person,
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(10.dp)
-                            )
+                            if (setAvatar != null) {
+                                Image(
+                                    painterResource(id = setAvatar.imageResource),
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(10.dp)
+                                )
+                            }
                         }
                         Box(
                             modifier = Modifier
@@ -121,7 +218,12 @@ fun TopAppBar(pageTitle: Int, navController: NavController) {
                                 modifier = Modifier
                                     .fillMaxSize(),
                             ) {
-                                Text(text = "AsunaKangura", modifier = Modifier.padding(top = 8.dp))
+                                viewModel.currentUser?.let {
+                                    Text(
+                                        text = it.alias, modifier = Modifier.padding(top = 8.dp)
+                                    )
+                                }
+
                                 Row(
                                     modifier = Modifier
                                         .fillMaxSize()
@@ -141,7 +243,7 @@ fun TopAppBar(pageTitle: Int, navController: NavController) {
                                         contentAlignment = Alignment.Center
                                     ) {
                                         Text(
-                                            text = "10.000 $",
+                                            text = viewModel.currentUser?.pokedollar.toString()+" $",
                                             fontSize = 14.sp,
                                             color = DeepRed,
                                             fontWeight = FontWeight.Bold
@@ -156,7 +258,7 @@ fun TopAppBar(pageTitle: Int, navController: NavController) {
                 Divider(thickness = 3.dp, color = DeepRed)
                 DropdownMenuItem(
                     text = { Text(text = "Profil bearbeiten") },
-                    onClick = { },
+                    onClick = { openDialog.value = true },
                     modifier = Modifier
                         .height(calcDp(percentage = 0.1f, dimension = Dimension.Height))
                         .background(Color.White),

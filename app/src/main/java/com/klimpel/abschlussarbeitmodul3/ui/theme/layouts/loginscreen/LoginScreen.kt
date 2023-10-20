@@ -38,12 +38,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.klimpel.abschlussarbeitmodul3.Screen
 import com.klimpel.abschlussarbeitmodul3.ui.components.GradientButton
 import com.klimpel.abschlussarbeitmodul3.ui.theme.AbschlussarbeitModul3Theme
 import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
 import com.klimpel.abschlussarbeitmodul3.util.Contants.Companion.auth
+import com.klimpel.abschlussarbeitmodul3.util.adminmail
+import com.klimpel.abschlussarbeitmodul3.util.adminpw
+import com.klimpel.abschlussarbeitmodul3.viewmodels.ProfilViewModel
 import com.klimpel.pokemonbattlefinal.R
 
 
@@ -57,7 +61,10 @@ fun previewLogin() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(
+    navController: NavController,
+    viewModel: ProfilViewModel = hiltViewModel()
+) {
     AbschlussarbeitModul3Theme {
         Column(
             modifier = Modifier.fillMaxSize()
@@ -72,7 +79,6 @@ fun LoginScreen(navController: NavController) {
             ) {
                 val (logo, contentbox) = createRefs()
 
-                //val auth = Firebase.auth
                 val context = LocalContext.current
 
                 Image(
@@ -149,8 +155,14 @@ fun LoginScreen(navController: NavController) {
                             modifier = Modifier
                                 .fillMaxSize()
                         ) {
+                            /*
                             var textStateUsername by remember { mutableStateOf(TextFieldValue("")) }
                             var textStatePassword by remember { mutableStateOf(TextFieldValue("")) }
+
+                             */
+
+                            var textStateUsername = adminmail
+                            var textStatePassword = adminpw
 
                             val (inputEmail, inputPassword, btnlogin) = createRefs()
 
@@ -201,10 +213,11 @@ fun LoginScreen(navController: NavController) {
 
                             GradientButton(
                                 onClick = {
-                                    if (textStateUsername.text.isNotEmpty() && textStatePassword.text.isNotEmpty()) {
+                                    // später .text in der If und beim Trim dazwischen schreiben
+                                    if (textStateUsername.isNotEmpty() && textStatePassword.isNotEmpty()) {
                                         auth.signInWithEmailAndPassword(
-                                            textStateUsername.text.trim(),
-                                            textStatePassword.text.trim()
+                                            textStateUsername.trim(),
+                                            textStatePassword.trim()
                                         )
                                             .addOnCompleteListener { task ->
                                                 if (task.isSuccessful) {
@@ -217,6 +230,7 @@ fun LoginScreen(navController: NavController) {
                                                     ).show()
                                                 }
                                             }
+                                        viewModel.updateUser(auth.currentUser?.uid.toString())
                                     } else {
                                         Toast.makeText(
                                             context,
@@ -242,7 +256,5 @@ fun LoginScreen(navController: NavController) {
                 }
             }
         }
-
-
     }
 }

@@ -12,6 +12,9 @@
     <!-- TODO: LoginScreen -->
     <string name="text_Login">Einloggen</string>
 
+    <!-- TODO: Profilbearbeiten -->
+    <string name="titelprofilbearbeiten">Profil bearbeiten</string>
+
     <!--TODO: HomeScreen -->
     <string name="homescreen">Pokemon Battle</string>
     <string name="pokedexcard">PokeDex</string>

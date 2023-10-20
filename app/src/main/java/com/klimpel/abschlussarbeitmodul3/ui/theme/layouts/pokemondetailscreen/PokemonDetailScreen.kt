@@ -35,9 +35,11 @@ fun PokemonDetailScreen(
     pokemonImageSize: Dp = 200.dp,
     viewModel: PokemonDetailViewModel = hiltViewModel()
 ) {
-    val pokemonInfo = produceState<Resource<Pokemon>>(initialValue = Resource.Loading()) {
+    val pokemonInfo = produceState<Resource<Pokemon>>(initialValue = Resource.Loading())
+    {
         value = viewModel.getPokemonInfo(pokemonName)
     }.value
+
     Box(modifier = Modifier
         .fillMaxSize()
         .background(dominantColor)

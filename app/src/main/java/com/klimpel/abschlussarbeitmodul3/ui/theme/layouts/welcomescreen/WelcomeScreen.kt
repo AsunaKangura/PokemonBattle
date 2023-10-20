@@ -144,6 +144,7 @@ fun WelcomeScreen(navController: NavController) {
                             bordercolor = DeepRed,
                             gradient = Brush.linearGradient(listOf(Color.White, Color.White)),
                             textcolor = DeepRed,
+                            paddingx = 80.dp
                         )
                         Spacer(modifier = Modifier.height(20.dp))
                         GradientButton(

@@ -22,6 +22,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -32,13 +34,18 @@ fun CategoryCard(
     onClick: () -> Unit,
     text: String,
     image: Int,
+    cardheight: Dp = 200.dp,
+    cardpadding: Dp = 20.dp,
+    fontSize: TextUnit = 18.sp,
+    titelcardwidth: Dp = 200.dp,
+    titelcardheight: Dp = 50.dp,
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onClick() }
-            .height(200.dp)
-            .padding(horizontal = 20.dp),
+            .height(cardheight)
+            .padding(horizontal = cardpadding),
         shape = RoundedCornerShape(
             topStart = 50.dp,
             topEnd = 20.dp,
@@ -72,8 +79,8 @@ fun CategoryCard(
                         4.dp, DeepRed
                     ),
                     modifier = Modifier
-                        .width(200.dp)
-                        .height(50.dp),
+                        .width(titelcardwidth)
+                        .height(titelcardheight),
                     shape = RoundedCornerShape(
                         topStart = 50.dp,
                         topEnd = 0.dp,
@@ -90,7 +97,7 @@ fun CategoryCard(
                         Text(
                             text = text,
                             color = DeepRed,
-                            fontSize = 18.sp,
+                            fontSize = fontSize,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
                         )
