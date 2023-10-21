@@ -3,12 +3,9 @@ package com.klimpel.abschlussarbeitmodul3.repository
 import android.app.Activity
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
-import androidx.compose.runtime.currentRecomposeScope
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.res.ResourcesCompat
 import com.asunakangura.pokemonbattle.data.remote.responses.Pokemon
 import com.asunakangura.pokemonbattle.data.remote.responses.PokemonList
@@ -19,7 +16,6 @@ import com.klimpel.abschlussarbeitmodul3.util.Resource
 import com.klimpel.abschlussarbeitmodul3.util.Contants.Companion.firestore
 import com.klimpel.pokemonbattlefinal.R
 import dagger.hilt.android.scopes.ActivityScoped
-import timber.log.Timber
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
 import javax.inject.Inject
@@ -138,7 +134,7 @@ class PokemonRepository @Inject constructor(
         return avatars.find { it.name == name }
     }
 
-    fun findAvatar2(name: String): Int {
+    fun findAvatarInt(name: String): Int {
         // Erstelle eine Liste von Avatar-Objekten mit den entsprechenden Namen und Ressourcen-IDs.
         val avatars = listOf(
             Avatar("default", R.drawable.ic_person),

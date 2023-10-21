@@ -40,6 +40,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -76,7 +77,7 @@ fun TopAppBar(
 ) {
     val context = LocalContext.current
 
-    val setAvatar = viewModel.findAvatar2()
+    val setAvatar = remember { mutableIntStateOf(viewModel.findAvatar2()) }
     val showMenu = remember { mutableStateOf(false) }
     val openAliasDialog = remember { mutableStateOf(false) }
     val openAvatarDialog = remember { mutableStateOf(false) }
@@ -101,7 +102,7 @@ fun TopAppBar(
                     .border(2.dp, DeepRed, CircleShape)
             ) {
                 Image(
-                    painterResource(id = setAvatar),
+                    painterResource(id = setAvatar.value),
                     contentDescription = null,
                     modifier = Modifier.fillMaxSize(0.8f)
                 )
@@ -343,7 +344,7 @@ fun TopAppBar(
                             contentAlignment = Alignment.Center
                         ) {
                             Image(
-                                painterResource(id = setAvatar),
+                                painterResource(id = setAvatar.intValue),
                                 contentDescription = null,
                                 modifier = Modifier
                                     .fillMaxSize()
@@ -420,7 +421,7 @@ fun TopAppBar(
                         .background(Color.White),
                     leadingIcon = {
                         Image(
-                            painterResource(id = setAvatar),
+                            painterResource(id = setAvatar.intValue),
                             contentDescription = null,
                             modifier = Modifier
                                 .size(25.dp)
