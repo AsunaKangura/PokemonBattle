@@ -14,6 +14,8 @@
 
     <!-- TODO: Profilbearbeiten -->
     <string name="titelprofilbearbeiten">Profil bearbeiten</string>
+    <string name="alaischange">Alias ändern</string>
+    <string name="avatarchange">Avatar ändern</string>
 
     <!--TODO: HomeScreen -->
     <string name="homescreen">Pokemon Battle</string>

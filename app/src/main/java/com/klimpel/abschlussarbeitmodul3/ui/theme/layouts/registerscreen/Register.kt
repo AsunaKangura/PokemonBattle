@@ -1,5 +1,6 @@
 package com.klimpel.pokemonbattlefinal.ui.theme.layouts
 
+import android.app.Activity
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -40,6 +41,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.NavController
 import com.klimpel.abschlussarbeitmodul3.Screen
 import com.klimpel.abschlussarbeitmodul3.ui.components.GradientButton
@@ -47,6 +49,8 @@ import com.klimpel.abschlussarbeitmodul3.ui.theme.AbschlussarbeitModul3Theme
 import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
 import com.klimpel.abschlussarbeitmodul3.util.Contants.Companion.auth
 import com.klimpel.pokemonbattlefinal.R
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -197,15 +201,27 @@ fun RegisterScreen(navController: NavController) {
                                             if (task.isSuccessful) {
                                                 navController.navigate(Screen.WelcomeScreen.route)
                                             } else {
-                                                Toast.makeText(
-                                                    context,
+                                                MotionToast.darkColorToast(
+                                                    context as Activity,
+                                                    "Fehlermeldung",
                                                     "Register fehlgeschlagen",
-                                                    Toast.LENGTH_LONG
-                                                ).show()
+                                                    MotionToastStyle.ERROR,
+                                                    MotionToast.GRAVITY_BOTTOM,
+                                                    MotionToast.LONG_DURATION,
+                                                    ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helvetica_regular)
+                                                )
                                             }
                                         }
                                 }else{
-                                    Toast.makeText(context, "Du musst alle Felder ausfüllen", Toast.LENGTH_LONG).show()
+                                    MotionToast.darkColorToast(
+                                        context as Activity,
+                                        "Fehlermeldung",
+                                        "Du musst alle Felder ausfüllen",
+                                        MotionToastStyle.ERROR,
+                                        MotionToast.GRAVITY_BOTTOM,
+                                        MotionToast.LONG_DURATION,
+                                        ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helvetica_regular)
+                                    )
                                 }
                             },
                             text = stringResource(id = R.string.btn_register),

@@ -1,7 +1,9 @@
 package com.klimpel.abschlussarbeitmodul3.repository
 
 import android.app.Activity
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.runtime.currentRecomposeScope
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -62,7 +64,6 @@ class PokemonRepository @Inject constructor(
         }
         return Resource.Success(response)
     }
-
     /**
      * Funktion zum Aktualisieren eines Benutzers
      *
@@ -85,6 +86,28 @@ class PokemonRepository @Inject constructor(
                 // Fehlerbehandlung bei Fehlschlag des Abrufs
                 Log.e("LOADUSER_FEHLER", "$it")
             }
+    }
+
+    fun updateFireStoreUser(context: Context){
+        val updatedUser = hashMapOf(
+            "alias" to currentUser?.alias,
+            "avatar" to currentUser?.avatar,
+            "pokedollar" to currentUser?.pokedollar
+        )
+        firestore.collection("user").document(currentUser?.id.toString())
+            .set(updatedUser)
+            .addOnSuccessListener {
+                MotionToast.darkColorToast(
+                    context as Activity,
+                    "Erfolgreich",
+                    "Änderungen wurden übernommen",
+                    MotionToastStyle.SUCCESS,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helvetica_regular)
+                )
+            }
+            .addOnFailureListener { e -> Log.w("ALIAS_CHANGE", "Error writing document", e) }
     }
 
 
@@ -115,8 +138,50 @@ class PokemonRepository @Inject constructor(
         return avatars.find { it.name == name }
     }
 
-    fun loadListOfAvatars() : List<String>{
-        return listOf ("evoli", "rattfratz", "abra", "menki", "pummeluff", "bisasam", "knofensa", "ponita","enton", "marill", "mauzi", "schiggy", "taubsi","pikachu"  )
+    fun findAvatar2(name: String): Int {
+        // Erstelle eine Liste von Avatar-Objekten mit den entsprechenden Namen und Ressourcen-IDs.
+        val avatars = listOf(
+            Avatar("default", R.drawable.ic_person),
+            Avatar("evoli", R.drawable.evoli),
+            Avatar("rattfratz", R.drawable.rattfratz),
+            Avatar("abra", R.drawable.abra),
+            Avatar("menki", R.drawable.menki),
+            Avatar("pummeluff", R.drawable.pummeluff),
+            Avatar("bisasam", R.drawable.bisasam),
+            Avatar("knofensa", R.drawable.knofensa),
+            Avatar("ponita", R.drawable.ponita),
+            Avatar("enton", R.drawable.enton),
+            Avatar("marill", R.drawable.marill),
+            Avatar("mauzi", R.drawable.mauzi),
+            Avatar("schiggy", R.drawable.schiggy),
+            Avatar("taubsi", R.drawable.taubsi),
+            Avatar("pikachu", R.drawable.pikachu),
+        ).find { it.name == name }
+        // Suche nach dem Avatar in der Liste anhand des Namens und gib ihn zurück.
+        if (avatars != null) {
+            return avatars.imageResource
+        }
+        return -1
+    }
+
+    fun loadListOfAvatars() : List<Avatar>{
+        return listOf (
+            Avatar("default", R.drawable.ic_person),
+            Avatar("evoli", R.drawable.evoli),
+            Avatar("rattfratz", R.drawable.rattfratz),
+            Avatar("abra", R.drawable.abra),
+            Avatar("menki", R.drawable.menki),
+            Avatar("pummeluff", R.drawable.pummeluff),
+            Avatar("bisasam", R.drawable.bisasam),
+            Avatar("knofensa", R.drawable.knofensa),
+            Avatar("ponita", R.drawable.ponita),
+            Avatar("enton", R.drawable.enton),
+            Avatar("marill", R.drawable.marill),
+            Avatar("mauzi", R.drawable.mauzi),
+            Avatar("schiggy", R.drawable.schiggy),
+            Avatar("taubsi", R.drawable.taubsi),
+            Avatar("pikachu", R.drawable.pikachu),
+        )
     }
 
 }

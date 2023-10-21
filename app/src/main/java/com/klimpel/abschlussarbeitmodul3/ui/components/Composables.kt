@@ -1,20 +1,36 @@
 package com.klimpel.abschlussarbeitmodul3.ui.components
 
 
-
+import android.app.Activity
+import android.content.Context
+import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -39,20 +55,31 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.core.content.res.ResourcesCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.klimpel.abschlussarbeitmodul3.data.models.Avatar
+import com.klimpel.abschlussarbeitmodul3.data.models.PokedexListEntry
 import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightYellow
+import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.pokedexscreen.PokemonCard
 import com.klimpel.abschlussarbeitmodul3.util.Dimension
 import com.klimpel.abschlussarbeitmodul3.util.calcDp
 import com.klimpel.abschlussarbeitmodul3.viewmodels.ProfilViewModel
+import com.klimpel.pokemonbattlefinal.R
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 
 
 @Composable
@@ -105,69 +132,78 @@ fun GradientButton(
 
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomExposedDropdownMenuBox(
+fun ListItemAvatar(
+    entry: Avatar,
     viewModel: ProfilViewModel = hiltViewModel()
-){
+) {
 
-    val options = viewModel.loadListOfAvatars()
-    var expanded by remember { mutableStateOf(false) }
-    var selectedOptionText by remember { mutableStateOf(options[0]) }
+    val isClicked = remember { mutableStateOf(false) }
+    var color: Color = Color.White
+    var clickCount = 0
 
-    ExposedDropdownMenuBox(
-        expanded = expanded,
-        onExpandedChange = {
-            expanded = !expanded
-        },
+    val context = LocalContext.current
+
+    color = if (isClicked.value){
+        Color.Green
+    } else {
+        Color.White
+    }
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(60.dp)
+            .clickable {
+                isClicked.value = !isClicked.value
+                viewModel.currentUser?.avatar = entry.name
+            },
+        colors = CardDefaults.cardColors(
+            containerColor = color,
+        ),
     ) {
-        ConstraintLayout (
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
                 .fillMaxSize()
+                .border(2.dp, DeepRed, RoundedCornerShape(10.dp))
         ) {
-
-            val (text, menu) = createRefs()
-
-            OutlinedTextField(
-                value = selectedOptionText,
-                onValueChange = { },
-                readOnly = true,
-                label = { Text("Avatar auswählen", fontSize = 14.sp) },
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = DeepRed,
-                    unfocusedBorderColor = Color.Black,
-                    focusedLabelColor = DeepRed,
-                    unfocusedLabelColor = Color.Black,
-                    textColor = Color.Black
-                ),
-                trailingIcon = {
-                    ExposedDropdownMenuDefaults.TrailingIcon(
-                        expanded = expanded
-                    )
-                },
+            Box(
                 modifier = Modifier
-                    .padding(horizontal = 40.dp)
-                    .menuAnchor()
-                    .constrainAs(text){
-                        top.linkTo(parent.top)
-                    }
-            )
-
-            ExposedDropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false },
-                modifier = Modifier
-                    .constrainAs(menu){
-                        top.linkTo(text.bottom)
-                    }
+                    .width(calcDp(percentage = 0.2f, dimension = Dimension.Width))
+                    .fillMaxHeight()
             ) {
-                options.forEach { label ->
-                    DropdownMenuItem(
-                        text = { Text(text = label) },
-                        onClick = {
-                            selectedOptionText = label
-                            expanded = false
-                        }
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .fillMaxSize()
+                ) {
+                    Image(
+                        painterResource(
+                            id = entry.imageResource
+                        ),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(40.dp)
+                    )
+                }
+            }
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(start = 20.dp)
+                ) {
+                    Text(
+                        text = entry.name,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = DeepRed
                     )
                 }
             }
@@ -175,6 +211,22 @@ fun CustomExposedDropdownMenuBox(
     }
 }
 
+@Composable
+fun AvatarRow(
+    rowIndex: Int,
+    entries: List<Avatar>,
+    modifier: Modifier = Modifier,
+) {
+    Column {
+        Row {
+
+            ListItemAvatar(
+                entry = entries[rowIndex],
+            )
+            Spacer(modifier = Modifier.width(16.dp))
+        }
+    }
+}
 
 @Preview
 @Composable

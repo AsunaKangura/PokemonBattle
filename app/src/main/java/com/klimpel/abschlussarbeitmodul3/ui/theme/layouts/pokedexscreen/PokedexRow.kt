@@ -18,7 +18,6 @@ fun PokedexRow(
     entries: List<PokedexListEntry>,
     navController: NavController,
 ) {
-
     Column {
         Row {
 

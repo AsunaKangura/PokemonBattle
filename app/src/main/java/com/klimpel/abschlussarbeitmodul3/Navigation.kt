@@ -29,7 +29,6 @@ fun NavigationAppStart(navController: NavHostController){
         composable(Screen.LoginScreen.route) { LoginScreen(navController) }
         composable(Screen.HomeScreen.route) { HomeScreen(navController) }
         composable(Screen.Pokedex.route) { Pokedex(navController) }
-        composable(Screen.Profilansehen.route) { ProfilbearbeitenScreen(navController) }
         composable(
             Screen.PokemonDetailScreen.route,
             arguments = listOf(
