@@ -17,8 +17,10 @@ class ProfilViewModel @Inject constructor(
 
     val currentUser = repository.currentUser
 
-    fun updateUser(id: String){
-        repository.updateUser(id)
+
+
+    fun updateCurrentUser(id: String){
+        repository.updateCurrentUser(id)
     }
 
     fun findAvatar() : Avatar?{

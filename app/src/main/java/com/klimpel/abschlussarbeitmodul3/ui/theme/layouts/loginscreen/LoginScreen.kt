@@ -1,6 +1,4 @@
 
-import android.app.Activity
-import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -18,10 +16,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -33,18 +27,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.core.content.res.ResourcesCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.klimpel.abschlussarbeitmodul3.Screen
 import com.klimpel.abschlussarbeitmodul3.ui.components.GradientButton
-import com.klimpel.abschlussarbeitmodul3.ui.components.MessageDialogError
+import com.klimpel.abschlussarbeitmodul3.ui.components.messageDialogError
 import com.klimpel.abschlussarbeitmodul3.ui.theme.AbschlussarbeitModul3Theme
 import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
 import com.klimpel.abschlussarbeitmodul3.util.Contants.Companion.auth
@@ -52,8 +44,6 @@ import com.klimpel.abschlussarbeitmodul3.util.adminmail
 import com.klimpel.abschlussarbeitmodul3.util.adminpw
 import com.klimpel.abschlussarbeitmodul3.viewmodels.ProfilViewModel
 import com.klimpel.pokemonbattlefinal.R
-import www.sanju.motiontoast.MotionToast
-import www.sanju.motiontoast.MotionToastStyle
 
 
 @Preview
@@ -228,28 +218,12 @@ fun LoginScreen(
                                                 if (task.isSuccessful) {
                                                     navController.navigate(Screen.HomeScreen.route)
                                                 } else {
-                                                    MotionToast.darkColorToast(
-                                                        context as Activity,
-                                                        "Fehlermeldung",
-                                                        "Logindaten waren nicht korrekt",
-                                                        MotionToastStyle.ERROR,
-                                                        MotionToast.GRAVITY_BOTTOM,
-                                                        MotionToast.LONG_DURATION,
-                                                        ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helvetica_regular)
-                                                    )
+                                                    messageDialogError(context,"Logindaten waren nicht korrekt")
                                                 }
                                             }
-                                        viewModel.updateUser(auth.currentUser?.uid.toString())
+                                        viewModel.updateCurrentUser(auth.currentUser?.uid.toString())
                                     } else {
-                                        MotionToast.darkColorToast(
-                                            context as Activity,
-                                            "Fehlermeldung",
-                                            "Du musst alle Felder ausfüllen",
-                                            MotionToastStyle.ERROR,
-                                            MotionToast.GRAVITY_BOTTOM,
-                                            MotionToast.LONG_DURATION,
-                                            ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helvetica_regular)
-                                        )
+                                        messageDialogError(context,"Du musst alle Felder ausfüllen")
                                     }
                                 },
                                 text = stringResource(id = R.string.btn_login),

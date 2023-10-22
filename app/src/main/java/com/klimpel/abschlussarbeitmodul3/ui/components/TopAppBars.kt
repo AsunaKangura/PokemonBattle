@@ -39,6 +39,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -102,7 +103,7 @@ fun TopAppBar(
                     .border(2.dp, DeepRed, CircleShape)
             ) {
                 Image(
-                    painterResource(id = setAvatar.value),
+                    painterResource(id = setAvatar.intValue),
                     contentDescription = null,
                     modifier = Modifier.fillMaxSize(0.8f)
                 )
@@ -316,6 +317,7 @@ fun TopAppBar(
                     }
                 }
             }
+
             // DropDown Menü
             DropdownMenu(
                 expanded = showMenu.value,

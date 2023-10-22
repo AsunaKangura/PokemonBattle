@@ -1,23 +1,20 @@
 package com.klimpel.abschlussarbeitmodul3.repository
 
-import android.app.Activity
 import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.core.content.res.ResourcesCompat
 import com.asunakangura.pokemonbattle.data.remote.responses.Pokemon
 import com.asunakangura.pokemonbattle.data.remote.responses.PokemonList
 import com.klimpel.abschlussarbeitmodul3.data.models.Avatar
 import com.klimpel.abschlussarbeitmodul3.data.models.User
 import com.klimpel.abschlussarbeitmodul3.data.remote.PokeApi
+import com.klimpel.abschlussarbeitmodul3.ui.components.messageDialogSuccess
 import com.klimpel.abschlussarbeitmodul3.util.Resource
 import com.klimpel.abschlussarbeitmodul3.util.Contants.Companion.firestore
 import com.klimpel.pokemonbattlefinal.R
 import dagger.hilt.android.scopes.ActivityScoped
-import www.sanju.motiontoast.MotionToast
-import www.sanju.motiontoast.MotionToastStyle
 import javax.inject.Inject
 
 @ActivityScoped
@@ -65,7 +62,7 @@ class PokemonRepository @Inject constructor(
      *
      * @param dokumententID von Firebase Firestore basierend auf den eingelogten User
      */
-    fun updateUser(id: String) {
+    fun updateCurrentUser(id: String) {
         // Firestore-Dokument mit der angegebenen ID abrufen
         firestore.collection("user").document(id)
             .get()
@@ -93,15 +90,7 @@ class PokemonRepository @Inject constructor(
         firestore.collection("user").document(currentUser?.id.toString())
             .set(updatedUser)
             .addOnSuccessListener {
-                MotionToast.darkColorToast(
-                    context as Activity,
-                    "Erfolgreich",
-                    "Änderungen wurden übernommen",
-                    MotionToastStyle.SUCCESS,
-                    MotionToast.GRAVITY_BOTTOM,
-                    MotionToast.LONG_DURATION,
-                    ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helvetica_regular)
-                )
+                messageDialogSuccess(context = context, messageText = "Änderungen wurden übernommen")
             }
             .addOnFailureListener { e -> Log.w("ALIAS_CHANGE", "Error writing document", e) }
     }

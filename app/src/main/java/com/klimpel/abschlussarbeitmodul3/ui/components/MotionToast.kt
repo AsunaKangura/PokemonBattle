@@ -7,15 +7,14 @@ import androidx.core.content.res.ResourcesCompat
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
 
-@Composable
-fun MessageDialogSuccess(
+
+fun messageDialogSuccess(
     context: Context,
     messageText: String,
-    messageTitle: String
 ){
     MotionToast.darkColorToast(
         context as Activity,
-        title = messageTitle,
+        title = "Erfolgreich",
         message = messageText,
         MotionToastStyle.SUCCESS,
         MotionToast.GRAVITY_BOTTOM,
@@ -24,15 +23,14 @@ fun MessageDialogSuccess(
     )
 }
 
-@Composable
-fun MessageDialogError(
+
+fun messageDialogError(
     context: Context,
     messageText: String,
-    messageTitle: String
 ){
     MotionToast.darkColorToast(
         context as Activity,
-        title = messageTitle,
+        title = "Fehlermeldung",
         message = messageText,
         MotionToastStyle.ERROR,
         MotionToast.GRAVITY_BOTTOM,
@@ -41,15 +39,13 @@ fun MessageDialogError(
     )
 }
 
-@Composable
-fun MessageDialogInfo(
+fun messageDialogInfo(
     context: Context,
     messageText: String,
-    messageTitle: String
 ){
     MotionToast.darkColorToast(
         context as Activity,
-        title = messageTitle,
+        title = "Info",
         message = messageText,
         MotionToastStyle.INFO,
         MotionToast.GRAVITY_BOTTOM,
@@ -58,15 +54,14 @@ fun MessageDialogInfo(
     )
 }
 
-@Composable
-fun MessageDialogWarning(
+
+fun messageDialogWarning(
     context: Context,
     messageText: String,
-    messageTitle: String
 ){
     MotionToast.darkColorToast(
         context as Activity,
-        title = messageTitle,
+        title = "Warnung",
         message = messageText,
         MotionToastStyle.WARNING,
         MotionToast.GRAVITY_BOTTOM,

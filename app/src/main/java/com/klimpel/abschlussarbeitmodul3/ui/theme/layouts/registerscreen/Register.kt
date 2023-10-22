@@ -1,7 +1,6 @@
 package com.klimpel.pokemonbattlefinal.ui.theme.layouts
 
-import android.app.Activity
-import android.widget.Toast
+
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -41,16 +40,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.NavController
 import com.klimpel.abschlussarbeitmodul3.Screen
 import com.klimpel.abschlussarbeitmodul3.ui.components.GradientButton
+import com.klimpel.abschlussarbeitmodul3.ui.components.messageDialogError
 import com.klimpel.abschlussarbeitmodul3.ui.theme.AbschlussarbeitModul3Theme
 import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
 import com.klimpel.abschlussarbeitmodul3.util.Contants.Companion.auth
 import com.klimpel.pokemonbattlefinal.R
-import www.sanju.motiontoast.MotionToast
-import www.sanju.motiontoast.MotionToastStyle
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -152,19 +150,8 @@ fun RegisterScreen(navController: NavController) {
                         OutlinedTextField(
                             value = textStateEmail,
                             onValueChange = { textStateEmail = it },
-                            label = {
-                                Text(
-                                    "E-Mail Adresse eingeben",
-                                    fontSize = 14.sp
-                                )
-                            },
-                            colors = TextFieldDefaults.outlinedTextFieldColors(
-                                focusedBorderColor = DeepRed,
-                                unfocusedBorderColor = Color.Black,
-                                focusedLabelColor = DeepRed,
-                                unfocusedLabelColor = Color.Black,
-                                textColor = Color.Black
-                            ),
+                            label = { Text("E-Mail Adresse eingeben", fontSize = 14.sp) },
+                            colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = DeepRed, unfocusedBorderColor = Color.Black, focusedLabelColor = DeepRed, unfocusedLabelColor = Color.Black, textColor = Color.Black),
                             modifier = Modifier
                                 .padding(horizontal = 40.dp)
                         )
@@ -173,19 +160,8 @@ fun RegisterScreen(navController: NavController) {
                             value = textStatePassword,
                             onValueChange = { textStatePassword = it },
                             visualTransformation = PasswordVisualTransformation(),
-                            label = {
-                                Text(
-                                    "Passwort eingeben",
-                                    fontSize = 14.sp
-                                )
-                            },
-                            colors = TextFieldDefaults.outlinedTextFieldColors(
-                                focusedBorderColor = DeepRed,
-                                unfocusedBorderColor = Color.Black,
-                                focusedLabelColor = DeepRed,
-                                unfocusedLabelColor = Color.Black,
-                                textColor = Color.Black
-                            ),
+                            label = { Text("Passwort eingeben", fontSize = 14.sp) },
+                            colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = DeepRed, unfocusedBorderColor = Color.Black, focusedLabelColor = DeepRed, unfocusedLabelColor = Color.Black, textColor = Color.Black),
                             modifier = Modifier
                                 .padding(horizontal = 40.dp)
                         )
@@ -201,27 +177,11 @@ fun RegisterScreen(navController: NavController) {
                                             if (task.isSuccessful) {
                                                 navController.navigate(Screen.WelcomeScreen.route)
                                             } else {
-                                                MotionToast.darkColorToast(
-                                                    context as Activity,
-                                                    "Fehlermeldung",
-                                                    "Register fehlgeschlagen",
-                                                    MotionToastStyle.ERROR,
-                                                    MotionToast.GRAVITY_BOTTOM,
-                                                    MotionToast.LONG_DURATION,
-                                                    ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helvetica_regular)
-                                                )
+                                                messageDialogError(context, "Registrieren fehlgeschlagen")
                                             }
                                         }
                                 }else{
-                                    MotionToast.darkColorToast(
-                                        context as Activity,
-                                        "Fehlermeldung",
-                                        "Du musst alle Felder ausfüllen",
-                                        MotionToastStyle.ERROR,
-                                        MotionToast.GRAVITY_BOTTOM,
-                                        MotionToast.LONG_DURATION,
-                                        ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helvetica_regular)
-                                    )
+                                    messageDialogError(context, "Du musst alle Felder ausfüllen")
                                 }
                             },
                             text = stringResource(id = R.string.btn_register),
@@ -235,8 +195,6 @@ fun RegisterScreen(navController: NavController) {
             }
         }
     }
-
-
 }
 
 
