@@ -11,10 +11,11 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 val DeepRed = Color(0xFF7E0000)
+//val DeepRed = Color(0xFF3166AE)
 val LightBlue = Color(0xFF3166AE)
-val LightBlue2 = Color(0xDD3166AE)
+val White = Color(0xFFFFFFFF)
 val LightBlueBackground = Color(0xFF9CD4FF)
-val LightYellow = Color(0xFFF0C305)
+
 
 // Stats Colors der Pokemon's
 val HPColor = Color(0xFFF5FF00)

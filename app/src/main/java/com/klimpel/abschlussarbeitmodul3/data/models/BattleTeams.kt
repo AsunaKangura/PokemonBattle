@@ -4,7 +4,7 @@ import com.asunakangura.pokemonbattle.data.remote.responses.Pokemon
 
 data class BattleTeams(
     val teamName: String,
-    val pokemonOne: Pokemon,
-    val pokemonTwo: Pokemon,
-    val pokemonThree: Pokemon,
+    val pokemonOne: String,
+    val pokemonTwo: String,
+    val pokemonThree: String,
 )

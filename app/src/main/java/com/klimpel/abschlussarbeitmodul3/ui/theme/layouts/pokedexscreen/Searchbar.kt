@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
+import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 
 @Composable
 fun Searchbar(
@@ -62,7 +63,7 @@ fun Searchbar(
         if (isHintDisplayed) {
             Text(
                 text = hint,
-                color = DeepRed,
+                color = LightBlue,
                 modifier = Modifier.padding(horizontal = 20.dp, vertical = 12.dp)
             )
         }

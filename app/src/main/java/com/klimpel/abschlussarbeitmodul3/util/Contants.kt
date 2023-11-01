@@ -10,7 +10,7 @@ class Contants {
 
         const val BASE_URL = "https://pokeapi.co/api/v2/"
 
-        const val LIMITS = 10000
+        const val LIMITS = 151
         const val OFFSET = 0
 
         val auth = Firebase.auth

@@ -35,11 +35,11 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -61,7 +61,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.klimpel.abschlussarbeitmodul3.Screen
 import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
+import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.profil.AvatarRow
+import com.klimpel.abschlussarbeitmodul3.ui.theme.pokemonFontFamily
 import com.klimpel.abschlussarbeitmodul3.util.Contants.Companion.auth
 import com.klimpel.abschlussarbeitmodul3.util.Dimension
 import com.klimpel.abschlussarbeitmodul3.util.calcDp
@@ -91,8 +93,9 @@ fun TopAppBar(
                 stringResource(id = pageTitle),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                color = DeepRed,
-                fontWeight = FontWeight.Bold
+                color = LightBlue,
+                fontWeight = FontWeight.Bold,
+                fontFamily = pokemonFontFamily,
             )
         },
         actions = {
@@ -100,7 +103,7 @@ fun TopAppBar(
                 onClick = { showMenu.value = true },
                 modifier = Modifier
                     .padding(end = 10.dp)
-                    .border(2.dp, DeepRed, CircleShape)
+                    .border(2.dp, MaterialTheme.colorScheme.primary, CircleShape)
             ) {
                 Image(
                     painterResource(id = setAvatar.intValue),
@@ -136,7 +139,7 @@ fun TopAppBar(
                                     containerColor = Color.White,
                                 ),
                                 border = BorderStroke(
-                                    4.dp, DeepRed
+                                    4.dp, MaterialTheme.colorScheme.primary
                                 ),
                                 modifier = Modifier
                                     .width(180.dp)
@@ -163,7 +166,7 @@ fun TopAppBar(
                                 ) {
                                     Text(
                                         text = stringResource(id = R.string.alaischange),
-                                        color = DeepRed,
+                                        color = MaterialTheme.colorScheme.primary,
                                         fontSize = 14.sp,
                                         fontWeight = FontWeight.Bold,
                                         textAlign = TextAlign.Center,
@@ -181,9 +184,9 @@ fun TopAppBar(
                                     )
                                 },
                                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                                    focusedBorderColor = DeepRed,
+                                    focusedBorderColor = LightBlue,
                                     unfocusedBorderColor = Color.Black,
-                                    focusedLabelColor = DeepRed,
+                                    focusedLabelColor = LightBlue,
                                     unfocusedLabelColor = Color.Black,
                                     textColor = Color.Black
                                 ),
@@ -244,7 +247,7 @@ fun TopAppBar(
                             // Profil Titel
                             Card(
                                 colors = CardDefaults.cardColors(containerColor = Color.White),
-                                border = BorderStroke(4.dp, DeepRed),
+                                border = BorderStroke(4.dp, LightBlue),
                                 modifier = Modifier
                                     .width(180.dp)
                                     .height(50.dp)
@@ -268,7 +271,7 @@ fun TopAppBar(
                                 ) {
                                     Text(
                                         text = stringResource(id = R.string.avatarchange),
-                                        color = DeepRed,
+                                        color = LightBlue,
                                         fontSize = 14.sp,
                                         fontWeight = FontWeight.Bold,
                                         textAlign = TextAlign.Center,
@@ -325,7 +328,7 @@ fun TopAppBar(
                 modifier = Modifier
                     .width(calcDp(percentage = 0.6f, dimension = Dimension.Width))
                     .height(calcDp(percentage = 0.6f, dimension = Dimension.Height))
-                    .background(DeepRed)
+                    .background(LightBlue)
             ) {
 
                 // Profil Details
@@ -399,7 +402,7 @@ fun TopAppBar(
                     }
                 }
 
-                Divider(thickness = 3.dp, color = DeepRed)
+                Divider(thickness = 3.dp, color = LightBlue)
                 DropdownMenuItem(
                     text = { Text(text = stringResource(id = R.string.alaischange)) },
                     onClick = { openAliasDialog.value = true },
@@ -414,7 +417,7 @@ fun TopAppBar(
                         )
                     }
                 )
-                Divider(color = DeepRed)
+                Divider(color = LightBlue)
                 DropdownMenuItem(
                     text = { Text(text = "Avatar ändern") },
                     onClick = { openAvatarDialog.value = true },
@@ -430,10 +433,10 @@ fun TopAppBar(
                         )
                     }
                 )
-                Divider(color = DeepRed)
+                Divider(color = LightBlue)
                 DropdownMenuItem(
                     text = { Text(text = "Team Übersicht") },
-                    onClick = { },
+                    onClick = { navController.navigate(Screen.Teamubersicht.route)},
                     modifier = Modifier
                         .height(calcDp(percentage = 0.09f, dimension = Dimension.Height))
                         .background(Color.White),
@@ -445,10 +448,10 @@ fun TopAppBar(
                         )
                     }
                 )
-                Divider(color = DeepRed)
+                Divider(color = LightBlue)
                 DropdownMenuItem(
                     text = { Text(text = "Meine Pokemons") },
-                    onClick = { },
+                    onClick = { navController.navigate(Screen.MeinePokemon.route) },
                     modifier = Modifier
                         .height(calcDp(percentage = 0.09f, dimension = Dimension.Height))
                         .background(Color.White),
@@ -459,7 +462,7 @@ fun TopAppBar(
                         )
                     }
                 )
-                Divider(color = DeepRed)
+                Divider(color = LightBlue)
                 DropdownMenuItem(
                     text = { Text(text = "Ausloggen") },
                     onClick = {
@@ -495,8 +498,9 @@ fun TopAppBarTitelBackArrow(pageTitle: Int, navController: NavController) {
                 stringResource(id = pageTitle),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                color = DeepRed,
-                fontWeight = FontWeight.Bold
+                color = LightBlue,
+                fontWeight = FontWeight.Bold,
+                fontFamily = pokemonFontFamily,
             )
         },
 
@@ -505,7 +509,7 @@ fun TopAppBarTitelBackArrow(pageTitle: Int, navController: NavController) {
                 Icon(
                     imageVector = Icons.Filled.ArrowBack,
                     contentDescription = "Back Arrow",
-                    tint = DeepRed
+                    tint = LightBlue
                 )
             }
         },

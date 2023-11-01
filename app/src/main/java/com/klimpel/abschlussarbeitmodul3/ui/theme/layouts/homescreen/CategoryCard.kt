@@ -28,6 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
+import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
+import com.klimpel.abschlussarbeitmodul3.ui.theme.pokemonFontFamily
 
 @Composable
 fun CategoryCard(
@@ -76,7 +78,7 @@ fun CategoryCard(
                         containerColor = Color.White,
                     ),
                     border = BorderStroke(
-                        4.dp, DeepRed
+                        4.dp, LightBlue
                     ),
                     modifier = Modifier
                         .width(titelcardwidth)
@@ -96,9 +98,10 @@ fun CategoryCard(
                     ) {
                         Text(
                             text = text,
-                            color = DeepRed,
+                            color = LightBlue,
                             fontSize = fontSize,
                             fontWeight = FontWeight.Bold,
+                            fontFamily = pokemonFontFamily,
                             textAlign = TextAlign.Center,
                         )
                     }

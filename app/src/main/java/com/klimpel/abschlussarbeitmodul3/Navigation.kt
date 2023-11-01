@@ -11,7 +11,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
-import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.profil.ProfilbearbeitenScreen
+import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.meinepokemon.MeinePokemon
+import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.TeamErstellenScreen
+import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.TeamScreen
 import com.klimpel.pokemonbattlefinal.ui.theme.layouts.HomeScreen
 import com.klimpel.pokemonbattlefinal.ui.theme.layouts.RegisterScreen
 import com.klimpel.pokemonbattlefinal.ui.theme.layouts.SplashScreen
@@ -29,6 +31,9 @@ fun NavigationAppStart(navController: NavHostController){
         composable(Screen.LoginScreen.route) { LoginScreen(navController) }
         composable(Screen.HomeScreen.route) { HomeScreen(navController) }
         composable(Screen.Pokedex.route) { Pokedex(navController) }
+        composable(Screen.Teamubersicht.route) { TeamScreen(navController) }
+        composable(Screen.MeinePokemon.route) { MeinePokemon(navController) }
+        composable(Screen.Teamerstellen.route) { TeamErstellenScreen(navController) }
         composable(
             Screen.PokemonDetailScreen.route,
             arguments = listOf(

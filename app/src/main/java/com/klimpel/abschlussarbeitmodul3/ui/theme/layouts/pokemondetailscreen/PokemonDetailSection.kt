@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.asunakangura.pokemonbattle.data.remote.responses.Pokemon
+import com.klimpel.abschlussarbeitmodul3.util.parsePokemonNameToGerman
 import java.util.Locale
 
 @Composable
@@ -34,11 +35,7 @@ fun PokemonDetailSection(
             .verticalScroll(scrollState)
     ) {
         Text(
-            text = "#${pokemonInfo.id} ${pokemonInfo.name.replaceFirstChar {
-                if (it.isLowerCase()) it.titlecase(
-                    Locale.ROOT
-                ) else it.toString()
-            }}",
+            text = "#${pokemonInfo.id} ${parsePokemonNameToGerman(pokemonInfo.name)}",
             fontWeight = FontWeight.Bold,
             fontSize = 30.sp,
             textAlign = TextAlign.Center,

@@ -5,16 +5,24 @@ import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.asunakangura.pokemonbattle.data.remote.responses.Pokemon
 import com.asunakangura.pokemonbattle.data.remote.responses.PokemonList
 import com.klimpel.abschlussarbeitmodul3.data.models.Avatar
+import com.klimpel.abschlussarbeitmodul3.data.models.BattleTeams
+import com.klimpel.abschlussarbeitmodul3.data.models.PokedexListEntry
+import com.klimpel.abschlussarbeitmodul3.data.models.PokemonGrindEntry
 import com.klimpel.abschlussarbeitmodul3.data.models.User
 import com.klimpel.abschlussarbeitmodul3.data.remote.PokeApi
 import com.klimpel.abschlussarbeitmodul3.ui.components.messageDialogSuccess
 import com.klimpel.abschlussarbeitmodul3.util.Resource
 import com.klimpel.abschlussarbeitmodul3.util.Contants.Companion.firestore
+import com.klimpel.abschlussarbeitmodul3.util.STARTER_TEAM
 import com.klimpel.pokemonbattlefinal.R
 import dagger.hilt.android.scopes.ActivityScoped
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @ActivityScoped
@@ -24,15 +32,62 @@ class PokemonRepository @Inject constructor(
     //LiveData von dem eingeloggten User
     var currentUser by mutableStateOf<User?>(null)
 
+    // Current Team Flow
+    private val _currentTeam = MutableStateFlow(STARTER_TEAM)
+    var currentTeam: StateFlow<BattleTeams> = _currentTeam.asStateFlow()
 
-    /**
-     * Retrieves a list of Pokemon.
-     *
-     * @param limit The maximum number of Pokemon to retrieve.
-     * @param offset The number of Pokemon to skip before starting to retrieve.
-     *
-     * @return A [Resource] object containing the result of the API call.
-     */
+    // Current TeamList
+    var currentTeamList by mutableStateOf<MutableList<String>>(mutableListOf())
+    private var _teamList = MutableStateFlow(currentTeamList)
+    var teamList: StateFlow<List<String>> = _teamList.asStateFlow()
+
+    // Laden der eigenen Pokemon
+    var PokemonList by mutableStateOf<MutableList<PokemonGrindEntry>>(mutableListOf())
+    private var _ownedPokemonList = MutableStateFlow(PokemonList)
+    var ownedPokemonList: StateFlow<List<PokemonGrindEntry>> = _ownedPokemonList.asStateFlow()
+
+    fun loadOwnedPokemon(){
+        firestore.collection("user")
+            .document(currentUser?.id.toString())
+            .collection("meinepokemon")
+            .get()
+            .addOnSuccessListener{result->
+                val pokemonList = mutableListOf<PokemonGrindEntry>()
+                for (document in result){
+                    pokemonList.add(
+                        PokemonGrindEntry(
+                            document.data["name"].toString(),
+                            document.data["anzahl"].toString().toInt(),
+                            document.data["collectedexp"].toString().toInt(),
+                            document.data["level"].toString().toInt(),
+                            document.data["id"].toString().toInt()
+                        )
+                    )
+                }
+                _ownedPokemonList.value = pokemonList
+            }
+            .addOnFailureListener {
+
+            }
+    }
+
+    fun loadTeamList() {
+        firestore.collection("user")
+            .document(currentUser?.id.toString())
+            .collection("teams")
+            .get()
+            .addOnSuccessListener {result ->
+                val teamlist = mutableListOf<String>()
+                for (document in result){
+                    teamlist.add(document.id)
+                }
+                _teamList.value = teamlist
+            }
+            .addOnFailureListener {
+                Log.e("REPOSITORY", "Error getting documents: ")
+            }
+    }
+
     suspend fun getPokemonList(limit: Int, offset: Int): Resource<PokemonList> {
         val response = try {
             api.getPokemonList(limit, offset)
@@ -42,13 +97,6 @@ class PokemonRepository @Inject constructor(
         return Resource.Success(response)
     }
 
-    /**
-     * Retrieves information about a specific Pokemon.
-     *
-     * @param pokemonName The name of the Pokemon to retrieve information for.
-     *
-     * @return A [Resource] object containing the result of the API call.
-     */
     suspend fun getPokemonInfo(pokemonName: String): Resource<Pokemon> {
         val response = try {
             api.getPokemonInfo(pokemonName)
@@ -57,11 +105,32 @@ class PokemonRepository @Inject constructor(
         }
         return Resource.Success(response)
     }
-    /**
-     * Funktion zum Aktualisieren eines Benutzers
-     *
-     * @param dokumententID von Firebase Firestore basierend auf den eingelogten User
-     */
+
+    fun deleteCurrentTeam(){
+        _currentTeam.value = BattleTeams("","","","")
+    }
+
+    fun getTeam(id: String) : BattleTeams {
+        firestore.collection("user")
+            .document(currentUser?.id.toString())
+            .collection("teams")
+            .document(id)
+            .get()
+            .addOnSuccessListener {result ->
+                _currentTeam.value = BattleTeams(
+                    result.data?.get("teamname").toString(),
+                    result.data?.get("pokemon1").toString(),
+                    result.data?.get("pokemon2").toString(),
+                    result.data?.get("pokemon3").toString()
+                )
+                Log.e("Repository", "${currentTeam}")
+            }
+            .addOnFailureListener { exception ->
+                Log.d("TAG", "Error getting documents: ", exception)
+            }
+        return currentTeam.value ?: BattleTeams("","","","")
+    }
+
     fun updateCurrentUser(id: String) {
         // Firestore-Dokument mit der angegebenen ID abrufen
         firestore.collection("user").document(id)
@@ -72,7 +141,8 @@ class PokemonRepository @Inject constructor(
                     result.id,
                     result.data?.get("alias").toString(),
                     result.data?.get("pokedollar").toString().toInt(),
-                    result.data?.get("avatar").toString()
+                    result.data?.get("avatar").toString(),
+                    result.data?.get("teams").toString().toInt()
                 )
             }
             .addOnFailureListener {
@@ -81,11 +151,12 @@ class PokemonRepository @Inject constructor(
             }
     }
 
-    fun updateFireStoreUser(context: Context){
+    fun updateFireStoreUser(context: Context) {
         val updatedUser = hashMapOf(
             "alias" to currentUser?.alias,
             "avatar" to currentUser?.avatar,
-            "pokedollar" to currentUser?.pokedollar
+            "pokedollar" to currentUser?.pokedollar,
+            "teams" to currentUser?.teams.toString().toInt()
         )
         firestore.collection("user").document(currentUser?.id.toString())
             .set(updatedUser)
@@ -95,11 +166,6 @@ class PokemonRepository @Inject constructor(
             .addOnFailureListener { e -> Log.w("ALIAS_CHANGE", "Error writing document", e) }
     }
 
-
-    /** Die Funktion `findAvatar` sucht nach einem Avatar-Objekt in einer Liste von Avataren,
-    basierend auf dem Namen des Avatars. Wenn der Avatar gefunden wird, wird er zurückgegeben,
-    andernfalls wird `null` zurückgegeben.
-    */
     fun findAvatar(name: String): Avatar? {
         // Erstelle eine Liste von Avatar-Objekten mit den entsprechenden Namen und Ressourcen-IDs.
         val avatars = listOf(

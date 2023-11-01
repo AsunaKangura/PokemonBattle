@@ -22,6 +22,7 @@ import com.klimpel.abschlussarbeitmodul3.Screen
 import com.klimpel.abschlussarbeitmodul3.ui.components.TopAppBar
 import com.klimpel.abschlussarbeitmodul3.ui.theme.AbschlussarbeitModul3Theme
 import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
+import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.homescreen.CategoryCard
 import com.klimpel.pokemonbattlefinal.R
@@ -40,7 +41,7 @@ fun HomeScreen(navController: NavController) {
             topBar = { TopAppBar(R.string.homescreen, navController) },
             containerColor = LightBlueBackground,
         ) { innerPadding ->
-            Divider(thickness = 4.dp, color = DeepRed, modifier = Modifier.padding(innerPadding))
+            Divider(thickness = 4.dp, color = LightBlue, modifier = Modifier.padding(innerPadding))
             Column(
                 modifier = Modifier
                     .fillMaxSize()

@@ -15,6 +15,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.klimpel.abschlussarbeitmodul3.ui.components.TopAppBarTitelBackArrow
 import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
+import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.pokedexscreen.PokemonList
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.pokedexscreen.Searchbar
@@ -33,7 +34,7 @@ fun Pokedex(
         topBar = { TopAppBarTitelBackArrow(pageTitle = R.string.pokedex, navController) },
         containerColor = LightBlueBackground,
     ) { innerpadding ->
-        Divider(thickness = 4.dp, color = DeepRed, modifier = Modifier.padding(innerpadding))
+        Divider(thickness = 4.dp, color = LightBlue, modifier = Modifier.padding(innerpadding))
         Column(
             modifier = Modifier
                 .fillMaxSize()

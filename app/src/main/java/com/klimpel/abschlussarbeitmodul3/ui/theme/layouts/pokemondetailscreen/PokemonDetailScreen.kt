@@ -1,5 +1,6 @@
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,12 +16,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.asunakangura.pokemonbattle.data.remote.responses.Pokemon
+import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.pokemondetailscreen.PokemonDetailStateWrapper
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.pokemondetailscreen.PokemonDetailTopSection
 import com.klimpel.abschlussarbeitmodul3.util.Resource
@@ -73,6 +76,7 @@ fun PokemonDetailScreen(
                 )
                 .clip(RoundedCornerShape(10.dp))
                 .background(Color.White)
+                .border(4.dp, LightBlue, RoundedCornerShape(topStart = 50.dp, topEnd = 20.dp, bottomStart = 20.dp, bottomEnd = 50.dp))
                 .padding(16.dp)
                 .align(Alignment.BottomCenter),
             loadingModifier = Modifier

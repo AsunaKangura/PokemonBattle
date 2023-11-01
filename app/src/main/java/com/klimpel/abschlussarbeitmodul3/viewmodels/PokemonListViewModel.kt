@@ -14,6 +14,7 @@ import com.klimpel.abschlussarbeitmodul3.repository.PokemonRepository
 import com.klimpel.abschlussarbeitmodul3.util.Contants.Companion.LIMITS
 import com.klimpel.abschlussarbeitmodul3.util.Contants.Companion.OFFSET
 import com.klimpel.abschlussarbeitmodul3.util.Resource
+import com.klimpel.abschlussarbeitmodul3.util.parsePokemonNameToGerman
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

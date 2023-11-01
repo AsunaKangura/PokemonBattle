@@ -36,6 +36,8 @@ import com.klimpel.abschlussarbeitmodul3.Screen
 import com.klimpel.abschlussarbeitmodul3.ui.components.GradientButton
 import com.klimpel.abschlussarbeitmodul3.ui.theme.AbschlussarbeitModul3Theme
 import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
+import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
+import com.klimpel.abschlussarbeitmodul3.ui.theme.pokemonFontFamily
 import com.klimpel.pokemonbattlefinal.R
 
 
@@ -99,7 +101,7 @@ fun WelcomeScreen(navController: NavController) {
                             containerColor = Color.White,
                         ),
                         border = BorderStroke(
-                            4.dp, DeepRed
+                            4.dp, LightBlue
                         ),
                         modifier = Modifier
                             .width(200.dp)
@@ -122,9 +124,10 @@ fun WelcomeScreen(navController: NavController) {
                         ) {
                             Text(
                                 text = stringResource(id = R.string.welcome),
-                                color = DeepRed,
+                                color = LightBlue,
                                 fontSize = 18.sp,
                                 fontWeight = FontWeight.Bold,
+                                fontFamily = pokemonFontFamily,
                                 textAlign = TextAlign.Center,
                             )
                         }
@@ -141,18 +144,18 @@ fun WelcomeScreen(navController: NavController) {
                         GradientButton(
                             onClick = { navController.navigate(Screen.LoginScreen.route) },
                             text = stringResource(id = R.string.btn_login),
-                            bordercolor = DeepRed,
+                            bordercolor = LightBlue,
                             gradient = Brush.linearGradient(listOf(Color.White, Color.White)),
-                            textcolor = DeepRed,
+                            textcolor = LightBlue,
                             paddingx = 80.dp
                         )
                         Spacer(modifier = Modifier.height(20.dp))
                         GradientButton(
                             onClick = { navController.navigate(Screen.Register.route) },
                             text = stringResource(id = R.string.btn_register),
-                            bordercolor = DeepRed,
+                            bordercolor = LightBlue,
                             gradient = Brush.linearGradient(listOf(Color.White, Color.White)),
-                            textcolor = DeepRed,
+                            textcolor = LightBlue,
                             paddingx = 60.dp
                         )
 

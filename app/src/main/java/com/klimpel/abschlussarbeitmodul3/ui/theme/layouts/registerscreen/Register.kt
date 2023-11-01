@@ -46,6 +46,8 @@ import com.klimpel.abschlussarbeitmodul3.ui.components.GradientButton
 import com.klimpel.abschlussarbeitmodul3.ui.components.messageDialogError
 import com.klimpel.abschlussarbeitmodul3.ui.theme.AbschlussarbeitModul3Theme
 import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
+import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
+import com.klimpel.abschlussarbeitmodul3.ui.theme.pokemonFontFamily
 import com.klimpel.abschlussarbeitmodul3.util.Contants.Companion.auth
 import com.klimpel.pokemonbattlefinal.R
 
@@ -106,7 +108,7 @@ fun RegisterScreen(navController: NavController) {
                             containerColor = Color.White,
                         ),
                         border = BorderStroke(
-                            4.dp, DeepRed
+                            4.dp, LightBlue
                         ),
                         modifier = Modifier
                             .width(200.dp)
@@ -129,9 +131,10 @@ fun RegisterScreen(navController: NavController) {
                         ) {
                             Text(
                                 text = stringResource(id = R.string.btn_register),
-                                color = DeepRed,
+                                color = LightBlue,
                                 fontSize = 18.sp,
                                 fontWeight = FontWeight.Bold,
+                                fontFamily = pokemonFontFamily,
                                 textAlign = TextAlign.Center,
                             )
                         }
@@ -151,7 +154,7 @@ fun RegisterScreen(navController: NavController) {
                             value = textStateEmail,
                             onValueChange = { textStateEmail = it },
                             label = { Text("E-Mail Adresse eingeben", fontSize = 14.sp) },
-                            colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = DeepRed, unfocusedBorderColor = Color.Black, focusedLabelColor = DeepRed, unfocusedLabelColor = Color.Black, textColor = Color.Black),
+                            colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = LightBlue, unfocusedBorderColor = Color.Black, focusedLabelColor = LightBlue, unfocusedLabelColor = Color.Black, textColor = Color.Black),
                             modifier = Modifier
                                 .padding(horizontal = 40.dp)
                         )
@@ -161,7 +164,7 @@ fun RegisterScreen(navController: NavController) {
                             onValueChange = { textStatePassword = it },
                             visualTransformation = PasswordVisualTransformation(),
                             label = { Text("Passwort eingeben", fontSize = 14.sp) },
-                            colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = DeepRed, unfocusedBorderColor = Color.Black, focusedLabelColor = DeepRed, unfocusedLabelColor = Color.Black, textColor = Color.Black),
+                            colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = LightBlue, unfocusedBorderColor = Color.Black, focusedLabelColor = LightBlue, unfocusedLabelColor = Color.Black, textColor = Color.Black),
                             modifier = Modifier
                                 .padding(horizontal = 40.dp)
                         )
@@ -185,9 +188,9 @@ fun RegisterScreen(navController: NavController) {
                                 }
                             },
                             text = stringResource(id = R.string.btn_register),
-                            bordercolor = DeepRed,
+                            bordercolor = LightBlue,
                             gradient = Brush.linearGradient(listOf(Color.White, Color.White)),
-                            textcolor = DeepRed,
+                            textcolor = LightBlue,
                             paddingx = 60.dp
                         )
                     }

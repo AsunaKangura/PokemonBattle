@@ -12,6 +12,14 @@
     <!-- TODO: LoginScreen -->
     <string name="text_Login">Einloggen</string>
 
+    <!--TODO:Team Übersicht -->
+    <string name="titelTeamScreen">Teams Übersicht</string>
+    <string name="titelTeamErstellenScreen">Team Erstellen</string>
+    <string name="btnsave">Team speichern</string>
+
+    <!-- TODO: Meine Pokemon -->
+    <string name="titelmeinepokemon">Meine Pokemon</string>
+
     <!-- TODO: Profilbearbeiten -->
     <string name="titelprofilbearbeiten">Profil bearbeiten</string>
     <string name="alaischange">Alias ändern</string>

@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.klimpel.abschlussarbeitmodul3.data.models.Avatar
 import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
+import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.util.Dimension
 import com.klimpel.abschlussarbeitmodul3.util.calcDp
 import com.klimpel.abschlussarbeitmodul3.viewmodels.ProfilViewModel
@@ -70,7 +71,7 @@ fun ListItemAvatar(
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
                 .fillMaxSize()
-                .border(2.dp, DeepRed, RoundedCornerShape(10.dp))
+                .border(2.dp, LightBlue, RoundedCornerShape(10.dp))
         ) {
             Box(
                 modifier = Modifier
@@ -107,7 +108,7 @@ fun ListItemAvatar(
                         text = entry.name,
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
-                        color = DeepRed
+                        color = LightBlue
                     )
                 }
             }

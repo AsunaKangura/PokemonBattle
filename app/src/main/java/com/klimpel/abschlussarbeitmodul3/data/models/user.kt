@@ -4,5 +4,6 @@ data class User(
     var id : String,
     var alias : String,
     var pokedollar: Int,
-    var avatar: String
+    var avatar: String,
+    var teams: Int,
 )

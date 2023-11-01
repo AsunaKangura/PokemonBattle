@@ -3,6 +3,7 @@ package com.klimpel.abschlussarbeitmodul3.data.remote
 import com.asunakangura.pokemonbattle.data.remote.responses.Pokemon
 import com.asunakangura.pokemonbattle.data.remote.responses.PokemonList
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -17,6 +18,7 @@ interface PokeApi {
      * @param offset Der Versatz, um das Abrufen der Pokémon-Liste zu starten.
      * @return Eine PokemonListe mit den abgerufenen Pokémon.
      */
+
     @GET("pokemon")
     suspend fun getPokemonList(
         @Query("limit") limit: Int,
@@ -29,6 +31,7 @@ interface PokeApi {
      * @param name Der Name des Pokémon, von dem Informationen abgerufen werden sollen.
      * @return Ein Pokémon-Objekt mit den abgerufenen Informationen.
      */
+
     @GET("pokemon/{name}")
     suspend fun getPokemonInfo(
         @Path("name") name: String

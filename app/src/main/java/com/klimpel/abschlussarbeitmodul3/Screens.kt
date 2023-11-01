@@ -22,9 +22,11 @@ sealed class Screen(val route: String) {
     // Der Bildschirm für den Pokedex-Bildschirm
     object Pokedex : Screen("Pokedex")
 
-    object Profilansehen : Screen("Profilbearbeiten")
+    object MeinePokemon : Screen("meinepokemon")
 
-    // Der Bildschirm für den Pokemon-Detailbildschirm
-    // Dieser Bildschirm hat zusätzliche Parameter für die dominierende Farbe und den Pokemon-Namen
+    object Teamubersicht : Screen("Teamübersicht")
+
+    object Teamerstellen: Screen("Teamerstellen")
+
     object PokemonDetailScreen : Screen("PokemonDetailScreen/{pokemonName}")
 }
