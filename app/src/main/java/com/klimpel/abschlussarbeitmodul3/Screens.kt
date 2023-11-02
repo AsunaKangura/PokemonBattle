@@ -5,7 +5,7 @@ package com.klimpel.abschlussarbeitmodul3
  */
 sealed class Screen(val route: String) {
     // Der Bildschirm für den Splash-Bildschirm
-    object SplashOut : Screen("SplashScreen")
+    object SplashOut : Screen("SplashOut")
 
     // Der Bildschirm für den Willkommensbildschirm
     object WelcomeScreen : Screen("WelcomeScreen")
