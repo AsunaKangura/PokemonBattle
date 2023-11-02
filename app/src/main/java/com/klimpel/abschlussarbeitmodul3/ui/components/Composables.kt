@@ -52,6 +52,7 @@ import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.rotate
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -67,6 +68,7 @@ import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.pokemondetailscreen.PokemonTypeSection
 import com.klimpel.abschlussarbeitmodul3.ui.theme.pokemonFontFamily
 import com.klimpel.abschlussarbeitmodul3.util.Dimension
+import com.klimpel.abschlussarbeitmodul3.util.PokemonEvoloutionBorder
 import com.klimpel.abschlussarbeitmodul3.util.Resource
 import com.klimpel.abschlussarbeitmodul3.util.calcDp
 import com.klimpel.abschlussarbeitmodul3.util.parsePokemonNameToGerman
@@ -221,13 +223,10 @@ fun PokemonTeamCard(
         onClick = { navController.navigate("PokemonDetailScreen/${pokemonName}") },
         modifier = Modifier
             .fillMaxWidth()
-            .height(calcDp(percentage = 0.15f, dimension = Dimension.Height)),
-        shape = RoundedCornerShape(
-            topStart = 50.dp,
-            topEnd = 20.dp,
-            bottomStart = 20.dp,
-            bottomEnd = 50.dp
-        ),
+            .height(calcDp(percentage = 0.15f, dimension = Dimension.Height))
+            .padding(4.dp),
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(Color.White),
         elevation = CardDefaults.elevatedCardElevation(
             defaultElevation = 10.dp
         ),
@@ -306,13 +305,9 @@ fun PokemonTeamCardAdd(
         onClick = { },
         modifier = Modifier
             .fillMaxWidth()
-            .height(calcDp(percentage = 0.15f, dimension = Dimension.Height)),
-        shape = RoundedCornerShape(
-            topStart = 50.dp,
-            topEnd = 20.dp,
-            bottomStart = 20.dp,
-            bottomEnd = 50.dp
-        ),
+            .height(calcDp(percentage = 0.15f, dimension = Dimension.Height))
+            .padding(4.dp),
+        shape = RoundedCornerShape(20.dp),
         elevation = CardDefaults.elevatedCardElevation(
             defaultElevation = 10.dp
         ),
@@ -328,8 +323,8 @@ fun PokemonTeamCardAdd(
                 imageVector = Icons.Filled.Add,
                 contentDescription = "Add",
                 modifier = Modifier
-                    .size(80.dp)
-
+                    .size(80.dp),
+                tint = LightBlue
             )
         }
     }
@@ -361,16 +356,20 @@ fun CardWithAnimatedBorder(
     Surface(modifier = modifier.clickable { onCardClick() }, shape = RoundedCornerShape(20.dp)) {
         Surface(
             modifier =
-            Modifier.clipToBounds().fillMaxWidth().padding(4.dp).drawWithContent {
-                rotate(angle) {
-                    drawCircle(
-                        brush = brush,
-                        radius = size.width,
-                        blendMode = BlendMode.SrcIn,
-                    )
-                }
-                drawContent()
-            },
+            Modifier
+                .clipToBounds()
+                .fillMaxWidth()
+                .padding(4.dp)
+                .drawWithContent {
+                    rotate(angle) {
+                        drawCircle(
+                            brush = brush,
+                            radius = size.width,
+                            blendMode = BlendMode.SrcIn,
+                        )
+                    }
+                    drawContent()
+                },
             color = LightBlue,
             shape = RoundedCornerShape(19.dp)
         ) {
@@ -382,21 +381,10 @@ fun CardWithAnimatedBorder(
 @Preview
 @Composable
 fun test() {
-    CardWithAnimatedBorder(content = {
-        Text(
-        text = "Gen 1",
-        fontFamily = pokemonFontFamily,
-        fontSize = 40.sp,
-        color = Color.White,
-    )},
-        borderColors = listOf(
-            Color(0xFFFF595A),
-            Color(0xFFFFC766),
-            Color(0xFF35A07F),
-            Color(0xFF35A07F),
-            Color(0xFFFFC766),
-            Color(0xFFFF595A)
-        )
-
-    )
+    val content = LocalContext.current
+    CardWithAnimatedBorder(
+        borderColors = PokemonEvoloutionBorder("gengar"),
+    ) {
+        PokemonTeamCardAdd(navController = NavController(content))
+    }
 }

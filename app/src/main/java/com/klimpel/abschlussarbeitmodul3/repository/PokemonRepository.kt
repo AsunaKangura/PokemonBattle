@@ -132,10 +132,12 @@ class PokemonRepository @Inject constructor(
     }
 
     fun updateCurrentUser(id: String) {
+        Log.e("GIVEN_ID", "$id")
         // Firestore-Dokument mit der angegebenen ID abrufen
         firestore.collection("user").document(id)
             .get()
             .addOnSuccessListener { result ->
+                Log.e("DOK_ID", "${result.id}")
                 // Benutzerobjekt mit den abgerufenen Daten erstellen
                 currentUser = User(
                     result.id,
@@ -144,6 +146,7 @@ class PokemonRepository @Inject constructor(
                     result.data?.get("avatar").toString(),
                     result.data?.get("teams").toString().toInt()
                 )
+                Log.e("CUREENT_USER", "$currentUser")
             }
             .addOnFailureListener {
                 // Fehlerbehandlung bei Fehlschlag des Abrufs

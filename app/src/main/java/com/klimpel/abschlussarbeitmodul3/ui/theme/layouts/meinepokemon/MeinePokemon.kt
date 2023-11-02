@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Divider
@@ -23,9 +25,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.klimpel.abschlussarbeitmodul3.ui.components.CardWithAnimatedBorder
 import com.klimpel.abschlussarbeitmodul3.ui.components.TopAppBarTitelBackArrow
 import com.klimpel.abschlussarbeitmodul3.ui.theme.AbschlussarbeitModul3Theme
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
+import com.klimpel.abschlussarbeitmodul3.util.Dimension
+import com.klimpel.abschlussarbeitmodul3.util.PokemonEvoloutionBorder
+import com.klimpel.abschlussarbeitmodul3.util.calcDp
 import com.klimpel.abschlussarbeitmodul3.viewmodels.MeinePokemonViewModel
 import com.klimpel.pokemonbattlefinal.R
 
@@ -69,7 +75,8 @@ fun MeinePokemon(
             ) {
                 viewModelMeinPokemon.loadOwnedPokemon()
                 LazyVerticalGrid(
-                    columns = GridCells.Adaptive(130.dp),
+                    //columns = GridCells.Adaptive(130.dp),
+                    columns = GridCells.Fixed(2),
                     modifier = Modifier
                         .fillMaxWidth(0.9f)
                         .fillMaxHeight(0.9f),
@@ -79,14 +86,24 @@ fun MeinePokemon(
                         end = 12.dp,
                         bottom = 16.dp
                     ),
-                ){
+                    content = {
+                        val itemcount = ownedPokemonList.value.size
+                        /*
+                        items(itemcount){
+                            PokemonGridCard(navController, ownedPokemonList.value[it])
+                        }
+                         */
 
-                    val itemcount = ownedPokemonList.value.size
-
-                    items(itemcount){
-                        PokemonGridCard(navController, ownedPokemonList.value[it])
+                        items(itemcount){
+                            val pokemonname = ownedPokemonList.value[it]
+                            CardWithAnimatedBorder(
+                                borderColors = PokemonEvoloutionBorder(pokemonname.name)
+                            ) {
+                                PokemonGridCard(navController, ownedPokemonList.value[it])
+                            }
+                        }
                     }
-                }
+                )
             }
         }
     }

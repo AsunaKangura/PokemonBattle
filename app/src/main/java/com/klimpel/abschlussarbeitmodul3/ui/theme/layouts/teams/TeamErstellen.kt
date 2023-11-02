@@ -57,6 +57,7 @@ import com.klimpel.abschlussarbeitmodul3.ui.theme.AbschlussarbeitModul3Theme
 import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
+import com.klimpel.abschlussarbeitmodul3.ui.theme.pokemonFontFamily
 import com.klimpel.abschlussarbeitmodul3.util.Dimension
 import com.klimpel.abschlussarbeitmodul3.util.calcDp
 import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
@@ -228,6 +229,7 @@ fun TeamErstellenScreen(
                                 fontSize = 28.sp,
                                 color = LightBlue,
                                 fontWeight = FontWeight.Bold,
+                                fontFamily = pokemonFontFamily
                             )
 
                             OutlinedTextField(
@@ -237,7 +239,7 @@ fun TeamErstellenScreen(
                                 label = {
                                     Text(
                                         "Teamname eingeben",
-                                        fontSize = 14.sp
+                                        fontSize = 14.sp,
                                     )
                                 },
                                 colors = TextFieldDefaults.outlinedTextFieldColors(

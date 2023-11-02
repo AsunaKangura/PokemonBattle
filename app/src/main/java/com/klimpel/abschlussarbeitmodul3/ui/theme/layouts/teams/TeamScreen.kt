@@ -32,6 +32,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.klimpel.abschlussarbeitmodul3.Screen
 import com.klimpel.abschlussarbeitmodul3.data.models.BattleTeams
+import com.klimpel.abschlussarbeitmodul3.ui.components.CardWithAnimatedBorder
 import com.klimpel.abschlussarbeitmodul3.ui.components.PokemonTeamCard
 import com.klimpel.abschlussarbeitmodul3.ui.components.PokemonTeamCardAdd
 import com.klimpel.abschlussarbeitmodul3.ui.components.TopAppBarTitelBackArrow
@@ -42,6 +43,7 @@ import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
 import com.klimpel.abschlussarbeitmodul3.ui.theme.pokemonFontFamily
 import com.klimpel.abschlussarbeitmodul3.util.Dimension
+import com.klimpel.abschlussarbeitmodul3.util.PokemonEvoloutionBorder
 import com.klimpel.abschlussarbeitmodul3.util.calcDp
 import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
 import com.klimpel.pokemonbattlefinal.R
@@ -102,7 +104,10 @@ fun TeamScreen(
                                 .fillMaxHeight()
                         ) {
                             Text(text = "Teams", color = LightBlue)
-                            Text(text = "${viewModelTeam.currentUser?.teams} / 10", color = LightBlue)
+                            Text(
+                                text = "${viewModelTeam.currentUser?.teams} / 10",
+                                color = LightBlue
+                            )
                         }
                     }
 
@@ -128,9 +133,7 @@ fun TeamScreen(
                             .background(Color.White)
                     ) {
 
-
                         viewModelTeam.loadTeamubersicht()
-
 
                         LazyRow(
                             horizontalArrangement = Arrangement.spacedBy(10.dp),
@@ -185,17 +188,11 @@ fun TeamScreen(
                         Divider(thickness = 1.dp, color = LightBlue)
                         Spacer(modifier = Modifier.height(30.dp))
 
-                        if (currentTeam.teamName == "") {
-                            TeamInfoDetail2(
-                                navController = navController,
-                                battleTeams = currentTeam
-                            )
-                        } else {
-                            TeamInfoDetail(
-                                navController = navController,
-                                battleTeams = currentTeam
-                            )
-                        }
+                        TeamInfoDetail(
+                            navController = navController,
+                            battleTeams = currentTeam
+                        )
+
                     }
 
                 }
@@ -218,27 +215,31 @@ fun TeamInfoDetail(
     LazyColumn {
         item {
             if (battleTeams.teamName != "") {
-                PokemonTeamCard(navController, pokemonOneName)
+                CardWithAnimatedBorder(
+                    borderColors = PokemonEvoloutionBorder(pokemonOneName)
+                ) {
+                    PokemonTeamCard(navController, pokemonOneName)
+                }
                 Spacer(modifier = Modifier.height(40.dp))
-            } else {
-                PokemonTeamCardAdd(navController = navController)
             }
         }
         item {
             if (battleTeams.teamName != "") {
-                PokemonTeamCard(navController, pokemonTwoName)
+                CardWithAnimatedBorder(
+                    borderColors = PokemonEvoloutionBorder(pokemonTwoName)
+                ) {
+                    PokemonTeamCard(navController, pokemonTwoName)
+                }
                 Spacer(modifier = Modifier.height(40.dp))
-            } else {
-                PokemonTeamCardAdd(navController = navController)
             }
         }
         item {
-            if (battleTeams.teamName != "") {
+            CardWithAnimatedBorder(
+                borderColors = PokemonEvoloutionBorder(pokemonThreeName)
+            ) {
                 PokemonTeamCard(navController, pokemonThreeName)
-                Spacer(modifier = Modifier.height(40.dp))
-            } else {
-                PokemonTeamCardAdd(navController = navController)
             }
+            Spacer(modifier = Modifier.height(40.dp))
         }
     }
 
