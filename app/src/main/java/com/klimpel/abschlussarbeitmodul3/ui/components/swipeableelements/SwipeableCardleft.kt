@@ -52,7 +52,7 @@ fun SwipeableCardleft(
         // Width for the left side of the view which will be shown when swiped.
         //leftViewWidth = calcDp(percentage = 0.25f, dimension = Dimension.Width),
         // Width for the right side of the view which will be shown when swiped.
-        rightViewWidth = calcDp(percentage = 0.25f, dimension = Dimension.Width),
+        rightViewWidth = calcDp(percentage = 0.30f, dimension = Dimension.Width),
         // Height for the swipeable view.
         height = calcDp(percentage = 0.15f, dimension = Dimension.Height),
         // Background color for left view.
@@ -62,9 +62,8 @@ fun SwipeableCardleft(
         // Corner radius for swipeable view.
         cornerRadius = 20.dp,
         // Space between left swipeable view and your main content view.
-        leftSpace = 10.dp,
-        // Space between right swipeable view and your main content view.
-        rightSpace = 10.dp,
+        leftSpace = (-30).dp,
+        rightSpace = (-30).dp,
         // fractionalThreshold for the swipe
         fractionalThreshold = 0.4f
     ) {

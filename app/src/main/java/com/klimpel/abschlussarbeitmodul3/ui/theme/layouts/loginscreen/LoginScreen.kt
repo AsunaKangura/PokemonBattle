@@ -1,4 +1,3 @@
-
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -20,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,15 +44,13 @@ import com.klimpel.abschlussarbeitmodul3.Screen
 import com.klimpel.abschlussarbeitmodul3.ui.components.GradientButton
 import com.klimpel.abschlussarbeitmodul3.ui.components.messageDialogError
 import com.klimpel.abschlussarbeitmodul3.ui.theme.AbschlussarbeitModul3Theme
-import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.pokemonFontFamily
 import com.klimpel.abschlussarbeitmodul3.util.Contants.Companion.auth
-import com.klimpel.abschlussarbeitmodul3.util.adminmail
-import com.klimpel.abschlussarbeitmodul3.util.adminpw
 import com.klimpel.abschlussarbeitmodul3.viewmodels.ProfilViewModel
-import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
 import com.klimpel.pokemonbattlefinal.R
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 @Preview
@@ -114,7 +112,7 @@ fun LoginScreen(
                         defaultElevation = 10.dp
                     ),
                     colors = CardDefaults.cardColors(Color.White.copy(alpha = 0.9f))
-                ){
+                ) {
                     Card(
                         colors = CardDefaults.cardColors(
                             containerColor = Color.White,
@@ -153,7 +151,7 @@ fun LoginScreen(
                     }
 
                     Column(
-                        modifier= Modifier
+                        modifier = Modifier
                             .fillMaxSize()
                     ) {
                         ConstraintLayout(
@@ -161,24 +159,22 @@ fun LoginScreen(
                                 .fillMaxSize()
                         ) {
 
-                            /*
                             var textStateUsername by remember { mutableStateOf(TextFieldValue("")) }
                             var textStatePassword by remember { mutableStateOf(TextFieldValue("")) }
 
-                             */
-
-                            var textStateUsername = adminmail
-                            var textStatePassword = adminpw
-
                             val (inputEmail, inputPassword, btnlogin) = createRefs()
+
+                            var coroutinescope = rememberCoroutineScope()
 
                             OutlinedTextField(
                                 value = textStateUsername,
                                 onValueChange = { textStateUsername = it },
-                                label = { Text(
-                                    "E-Mail Adresse eingeben",
-                                    fontSize = 14.sp
-                                ) },
+                                label = {
+                                    Text(
+                                        "E-Mail Adresse eingeben",
+                                        fontSize = 14.sp
+                                    )
+                                },
                                 colors = TextFieldDefaults.outlinedTextFieldColors(
                                     focusedBorderColor = LightBlue,
                                     unfocusedBorderColor = Color.Black,
@@ -198,10 +194,12 @@ fun LoginScreen(
                                 value = textStatePassword,
                                 onValueChange = { textStatePassword = it },
                                 visualTransformation = PasswordVisualTransformation(),
-                                label = { Text(
-                                    "Passwort eingeben",
-                                    fontSize = 14.sp
-                                ) },
+                                label = {
+                                    Text(
+                                        "Passwort eingeben",
+                                        fontSize = 14.sp
+                                    )
+                                },
                                 colors = TextFieldDefaults.outlinedTextFieldColors(
                                     focusedBorderColor = LightBlue,
                                     unfocusedBorderColor = Color.Black,
@@ -220,33 +218,54 @@ fun LoginScreen(
                             GradientButton(
                                 onClick = {
                                     // .text.isNotEmpty // .text.trim ändern
-                                    if (textStateUsername.isNotEmpty() && textStatePassword.isNotEmpty()) {
+                                    if (textStateUsername.text.isNotEmpty() && textStatePassword.text.isNotEmpty()) {
                                         auth.signInWithEmailAndPassword(
-                                            textStateUsername.trim(),
-                                            textStatePassword.trim()
+                                            textStateUsername.text.trim(),
+                                            textStatePassword.text.trim()
                                         )
                                             .addOnCompleteListener { task ->
                                                 if (task.isSuccessful) {
-                                                    Log.e("LOGIN_ID2", "${auth.currentUser?.uid.toString()}")
-                                                    navController.navigate(Screen.HomeScreen.route)
+                                                    Log.e(
+                                                        "LOGIN_ID",
+                                                        "${auth.currentUser?.uid.toString()}"
+                                                    )
+                                                    viewModel.updateCurrentUser(auth.currentUser?.uid.toString())
+                                                    coroutinescope.launch {
+                                                        delay(500)
+                                                        navController.navigate(Screen.HomeScreen.route)
+                                                    }
                                                 } else {
-                                                    messageDialogError(context,"Logindaten waren nicht korrekt")
+                                                    messageDialogError(
+                                                        context,
+                                                        "Logindaten waren nicht korrekt"
+                                                    )
                                                 }
                                             }
-
-                                        Log.e("LOGIN_ID", "${auth.currentUser?.uid.toString()}")
-                                        viewModel.updateCurrentUser(auth.currentUser?.uid.toString())
+                                            .addOnFailureListener {
+                                                Log.e(
+                                                    "LOGIN_FEHLER",
+                                                    "Verbindung nicht vorhanden"
+                                                )
+                                            }
 
                                     } else {
-                                        messageDialogError(context,"Du musst alle Felder ausfüllen")
+                                        messageDialogError(
+                                            context,
+                                            "Du musst alle Felder ausfüllen"
+                                        )
                                     }
                                 },
                                 text = stringResource(id = R.string.btn_login),
                                 bordercolor = LightBlue,
-                                gradient = Brush.linearGradient(listOf(Color.White, Color.White)),
+                                gradient = Brush.linearGradient(
+                                    listOf(
+                                        Color.White,
+                                        Color.White
+                                    )
+                                ),
                                 textcolor = LightBlue,
                                 modifier = Modifier
-                                    .constrainAs(btnlogin){
+                                    .constrainAs(btnlogin) {
                                         top.linkTo(inputPassword.bottom, 30.dp)
                                         centerHorizontallyTo(parent)
                                     },
@@ -255,6 +274,7 @@ fun LoginScreen(
                         }
                     }
                 }
+
             }
         }
     }

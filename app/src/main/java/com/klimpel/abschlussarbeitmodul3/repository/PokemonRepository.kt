@@ -69,10 +69,10 @@ class PokemonRepository @Inject constructor(
 
     fun addTeam(context: Context) {
         val teamerstellen = hashMapOf(
-            "pokemon1" to addTeam.pokemonOne,
-            "pokemon2" to addTeam.pokemonTwo,
-            "pokemon3" to addTeam.pokemonThree,
-            "teamname" to addTeam.teamName,
+            "pokemon1" to _currentTeam.value.pokemonOne,
+            "pokemon2" to _currentTeam.value.pokemonTwo,
+            "pokemon3" to _currentTeam.value.pokemonThree,
+            "teamname" to _currentTeam.value.teamName,
         )
 
         currentUser?.teams = currentUser?.teams?.plus(1)!!
@@ -81,7 +81,7 @@ class PokemonRepository @Inject constructor(
         firestore.collection("user")
             .document(currentUser?.id.toString())
             .collection("teams")
-            .document(addTeam.teamName)
+            .document(currentTeam.value.teamName)
             .set(teamerstellen)
             .addOnSuccessListener {
                 updateFireStoreUser(context)

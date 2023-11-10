@@ -30,21 +30,5 @@ fun TopAppBarTitelBackArrowTeamBearbeiten(pageTitle: Int, navController: NavCont
                 fontFamily = pokemonFontFamily,
             )
         },
-        /*
-        navigationIcon = {
-            IconButton(
-                onClick = {
-                    navController.navigate(Screen.HomeScreen.route)
-                }
-            ) {
-                Icon(
-                    imageVector = Icons.Filled.ArrowBack,
-                    contentDescription = "Back Arrow",
-                    tint = LightBlue
-                )
-            }
-        },
-
-         */
     )
 }

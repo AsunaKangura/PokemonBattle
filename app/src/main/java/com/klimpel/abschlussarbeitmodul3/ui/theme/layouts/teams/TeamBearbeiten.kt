@@ -43,7 +43,7 @@ import com.klimpel.abschlussarbeitmodul3.Screen
 import com.klimpel.abschlussarbeitmodul3.ui.components.CardWithAnimatedBorder
 import com.klimpel.abschlussarbeitmodul3.ui.components.GradientButton
 import com.klimpel.abschlussarbeitmodul3.ui.components.PokemonTeamCard
-import com.klimpel.abschlussarbeitmodul3.ui.components.PokemonTeamCardAdd
+import com.klimpel.abschlussarbeitmodul3.ui.components.PokemonTeamCardAddBearbeiten
 
 import com.klimpel.abschlussarbeitmodul3.ui.components.messageDialogError
 import com.klimpel.abschlussarbeitmodul3.ui.components.swipeableelements.SwipeableCardBoth
@@ -247,15 +247,13 @@ fun TeamBearbeitenScreen(
                         Spacer(modifier = Modifier.height(20.dp))
                         // Pokemon One
                         if (currentTeam.pokemonOne == "") {
-                            Log.e("TESTLOG1", "$currentTeam")
                             CardWithAnimatedBorder(
                                 borderColors = PokemonEvoloutionBorder(currentTeam.pokemonOne),
                             ) {
-                                PokemonTeamCardAdd(navController = navController, context = context, clickeid = 1)
+                                PokemonTeamCardAddBearbeiten(navController = navController, context = context, clickeid = 1)
                             }
                             Spacer(modifier = Modifier.height(40.dp))
                         } else {
-                            Log.e("TESTLOG2", "$currentTeam")
                             SwipeableCardBoth(context = context, id = 1, navController =navController, team = currentTeam, pokemon = currentTeam.pokemonOne) {
                                 CardWithAnimatedBorder(
                                     borderColors = listOf(Color.White, Color.White),
@@ -271,7 +269,7 @@ fun TeamBearbeitenScreen(
                             CardWithAnimatedBorder(
                                 borderColors = listOf(Color.White, Color.White),
                             ) {
-                                PokemonTeamCardAdd(navController= navController, context, clickeid = 2)
+                                PokemonTeamCardAddBearbeiten(navController= navController, context, clickeid = 2)
                             }
                             Spacer(modifier = Modifier.height(40.dp))
                         } else {
@@ -290,7 +288,7 @@ fun TeamBearbeitenScreen(
                             CardWithAnimatedBorder(
                                 borderColors = listOf(Color.White, Color.White),
                             ) {
-                                PokemonTeamCardAdd(navController = navController, context = context, clickeid = 3)
+                                PokemonTeamCardAddBearbeiten(navController = navController, context = context, clickeid = 3)
                             }
                             Spacer(modifier = Modifier.height(40.dp))
                         } else {

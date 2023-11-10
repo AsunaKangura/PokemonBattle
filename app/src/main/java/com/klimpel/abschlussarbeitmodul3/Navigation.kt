@@ -24,7 +24,7 @@ import java.util.Locale
 @Composable
 fun NavigationAppStart(navController: NavHostController){
 
-    NavHost(navController = navController, startDestination = "LoginScreen"){
+    NavHost(navController = navController, startDestination = "SplashOut"){
 
         composable(Screen.Register.route) { RegisterScreen(navController) }
         composable(Screen.WelcomeScreen.route) { WelcomeScreen(navController) }

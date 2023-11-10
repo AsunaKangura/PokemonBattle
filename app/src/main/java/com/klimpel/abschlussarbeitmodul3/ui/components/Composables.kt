@@ -70,10 +70,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.asunakangura.pokemonbattle.data.remote.responses.Pokemon
-import com.klimpel.abschlussarbeitmodul3.Screen
 import com.klimpel.abschlussarbeitmodul3.data.models.PokemonTeamCard
+import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
+import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.pokedexscreen.Searchbar
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.pokemondetailscreen.PokemonTypeSection
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.AvailablePokemonRow
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.AvailablePokemonRowEditTeam
@@ -269,7 +270,7 @@ fun TeamCardAdd(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PokemonTeamCardAdd(
+fun PokemonTeamCardAddBearbeiten(
     navController: NavController,
     context: Context,
     clickeid: Int,
@@ -352,48 +353,203 @@ fun PokemonTeamCardAdd(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .fillMaxHeight(0.7f)
+                            .fillMaxHeight(0.8f)
                             .padding(horizontal = 20.dp)
                             .constrainAs(listViewPokemon) {
-                                top.linkTo(titel.bottom)
-                                centerVerticallyTo(parent)
+                                top.linkTo(titel.bottom, 20.dp)
+                                //centerVerticallyTo(parent)
                             }
                     ) {
-                        LazyVerticalGrid(
-                            columns = GridCells.Adaptive(130.dp),
-                        ) {
-                            viewModel.loadOwnedPokemon()
-                            val itemCount = pokemonList.value.size
-                            Log.e("LISTE_TEAMEDIT", "$itemCount")
-                            Log.e("LISTE_TEAMEDIT", "$pokemonList")
-                            items(itemCount) {
 
-                                AvailablePokemonRowEditTeam(
-                                    navController= navController,
-                                    context = context,
-                                    clickedID = clickedID,
-                                    rowIndex = it,
-                                    entries = pokemonList.value
-                                )
+                        Column (
+                            modifier = Modifier.fillMaxSize().background(DeepRed)
+                        ){
 
-                                Spacer(modifier = Modifier.height(10.dp))
+                            Searchbar(hint = stringResource(R.string.searchbarHint))
+
+                            Spacer(modifier = Modifier.height(20.dp))
+
+                            LazyVerticalGrid(
+                                columns = GridCells.Adaptive(130.dp),
+                            ) {
+                                viewModel.loadOwnedPokemon()
+                                val itemCount = pokemonList.value.size
+                                items(itemCount) {
+                                    AvailablePokemonRowEditTeam(
+                                        navController = navController,
+                                        context = context,
+                                        clickedID = clickedID,
+                                        rowIndex = it,
+                                        entries = pokemonList.value
+                                    )
+                                    Spacer(modifier = Modifier.height(10.dp))
+                                }
                             }
                         }
                     }
-                    GradientButton(
-                        onClick = {
-                            viewModelteam.getTeamInfo(viewModelteam.currentTeam.value.teamName)
-                            openPokemonAddDialog.value = false
-                            // Hier muss ich aber eine andere Lösung finden
-                            navController.navigate(Screen.Teambearbeiten.route)
-                        },
-                        text = "Bestätigen",
+                }
+            }
+        }
+    }
+
+    Card(
+        onClick = {
+            openPokemonAddDialog.value = true
+            clickedID = clickeid
+        },
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(calcDp(percentage = 0.15f, dimension = Dimension.Height))
+            .padding(4.dp),
+        colors = CardDefaults.cardColors(Color.White),
+        shape = RoundedCornerShape(
+            topStart = 50.dp,
+            topEnd = 20.dp,
+            bottomStart = 20.dp,
+            bottomEnd = 50.dp
+        ),
+        elevation = CardDefaults.elevatedCardElevation(
+            defaultElevation = 10.dp
+        ),
+        border = BorderStroke(2.dp, LightBlue)
+    ) {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            Icon(
+                imageVector = Icons.Filled.Add,
+                contentDescription = "Add",
+                modifier = Modifier
+                    .size(80.dp),
+                tint = LightBlue
+            )
+        }
+    }
+    Spacer(modifier = Modifier.height(40.dp))
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun PokemonTeamCardAddErstellen(
+    navController: NavController,
+    context: Context,
+    clickeid: Int,
+    viewModel: MeinePokemonViewModel = hiltViewModel(),
+    viewModelteam: TeamViewModel = hiltViewModel()
+) {
+    var clickedID = clickeid
+    val pokemonList = viewModel.pokemonUbersicht.collectAsState()
+    val openPokemonAddDialog = remember { mutableStateOf(false) }
+    if (openPokemonAddDialog.value) {
+        Dialog(
+            onDismissRequest = { openPokemonAddDialog.value = false },
+            properties = DialogProperties(usePlatformDefaultWidth = false),
+        ) {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth(0.9f)
+                    .height(
+                        calcDp(
+                            percentage = 0.8f,
+                            dimension = Dimension.Height
+                        )
+                    ),
+                colors = CardDefaults.cardColors(Color.White),
+                shape = RoundedCornerShape(
+                    topStart = 50.dp,
+                    topEnd = 20.dp,
+                    bottomStart = 20.dp,
+                    bottomEnd = 50.dp
+                ),
+                elevation = CardDefaults.elevatedCardElevation(
+                    defaultElevation = 10.dp
+                ),
+            ) {
+                ConstraintLayout(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    val (titel, listViewPokemon, btnsave) = createRefs()
+                    // Profil Titel
+                    Card(
+                        colors = CardDefaults.cardColors(
+                            containerColor = Color.White,
+                        ),
+                        border = BorderStroke(
+                            4.dp, LightBlue
+                        ),
                         modifier = Modifier
-                            .constrainAs(btnsave) {
-                                bottom.linkTo(parent.bottom, 20.dp)
-                                centerHorizontallyTo(parent)
+                            .width(180.dp)
+                            .height(50.dp)
+                            .constrainAs(titel) {
+                                top.linkTo(parent.top)
+                                start.linkTo(parent.start)
+                            },
+                        shape = RoundedCornerShape(
+                            topStart = 50.dp,
+                            topEnd = 0.dp,
+                            bottomStart = 0.dp,
+                            bottomEnd = 50.dp
+                        ),
+                        elevation = CardDefaults.cardElevation(
+                            defaultElevation = 10.dp
+                        ),
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            verticalArrangement = Arrangement.SpaceEvenly,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.titelpokemonchoice),
+                                color = LightBlue,
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center,
+                            )
+                        }
+                    }
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.8f)
+                            .padding(horizontal = 20.dp)
+                            .constrainAs(listViewPokemon) {
+                                top.linkTo(titel.bottom, 20.dp)
+                                //centerVerticallyTo(parent)
                             }
-                    )
+                    ) {
+
+                        Column (
+                            modifier = Modifier.fillMaxSize().background(DeepRed)
+                        ){
+
+                            Searchbar(hint = stringResource(R.string.searchbarHint))
+
+                            Spacer(modifier = Modifier.height(20.dp))
+
+                            LazyVerticalGrid(
+                                columns = GridCells.Adaptive(130.dp),
+                            ) {
+                                viewModel.loadOwnedPokemon()
+                                val itemCount = pokemonList.value.size
+                                items(itemCount) {
+                                    AvailablePokemonRow(
+                                        navController = navController,
+                                        context = context,
+                                        clickedID = clickedID,
+                                        rowIndex = it,
+                                        entries = pokemonList.value
+                                    )
+                                    Spacer(modifier = Modifier.height(10.dp))
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -55,7 +55,8 @@ import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
 @Composable
 fun AvailablePokemonListItem(
     navController: NavController,
-    clickedId: Int,
+    context: Context,
+    clickid: Int,
     pokemon: PokemonGrindEntry,
     viewModel: TeamViewModel = hiltViewModel()
 ) {
@@ -74,12 +75,11 @@ fun AvailablePokemonListItem(
 
             Card(
                 onClick = {
-                    when(clickedId){
-                        1 -> viewModel.addTeam.pokemonOne = pokemon.name
-                        2 -> viewModel.addTeam.pokemonTwo = pokemon.name
-                        3 -> viewModel.addTeam.pokemonThree = pokemon.name
+                    when(clickid){
+                        1 -> viewModel.currentTeam.value.pokemonOne = pokemon.name
+                        2 -> viewModel.currentTeam.value.pokemonTwo = pokemon.name
+                        3 -> viewModel.currentTeam.value.pokemonThree = pokemon.name
                     }
-                    Log.e("POKEMON_CLICK", "${viewModel.addTeam}")
                     navController.navigate(Screen.Teamerstellen.route)
                 },
                 modifier = Modifier
@@ -198,6 +198,7 @@ fun AvailablePokemonListItem(
         }
     }
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

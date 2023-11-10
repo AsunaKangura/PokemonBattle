@@ -51,6 +51,7 @@ import com.klimpel.abschlussarbeitmodul3.ui.components.CardWithAnimatedBorder
 import com.klimpel.abschlussarbeitmodul3.ui.components.PokemonTeamCard
 import com.klimpel.abschlussarbeitmodul3.ui.components.TeamCard
 import com.klimpel.abschlussarbeitmodul3.ui.components.TeamCardAdd
+import com.klimpel.abschlussarbeitmodul3.ui.components.swipeableelements.SwipeableCardleft
 import com.klimpel.abschlussarbeitmodul3.ui.theme.AbschlussarbeitModul3Theme
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
@@ -61,6 +62,7 @@ import com.klimpel.abschlussarbeitmodul3.util.PokemonEvoloutionBorder
 import com.klimpel.abschlussarbeitmodul3.util.calcDp
 import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
 import com.klimpel.pokemonbattlefinal.R
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -347,33 +349,46 @@ fun TeamInfoDetail(
     LazyColumn {
         item {
             if (battleTeams.teamName != "") {
-                CardWithAnimatedBorder(
-                    borderColors = PokemonEvoloutionBorder(pokemonOneName)
-                ) {
-                    PokemonTeamCard(navController, pokemonOneName)
+                val route = "PokemonDetailScreen/${battleTeams.pokemonOne}"
+                SwipeableCardleft(navController = navController, route = route) {
+                    CardWithAnimatedBorder(
+                        borderColors = PokemonEvoloutionBorder(pokemonOneName)
+                    ) {
+                        PokemonTeamCard(navController, pokemonOneName)
+                    }
+                    Spacer(modifier = Modifier.height(40.dp))
                 }
-                Spacer(modifier = Modifier.height(40.dp))
             }
+            Spacer(modifier = Modifier.height(40.dp))
+        }
+
+        item {
+            if (battleTeams.teamName != "") {
+                val route = "PokemonDetailScreen/${battleTeams.pokemonTwo}"
+                SwipeableCardleft(navController = navController, route = route ) {
+                    CardWithAnimatedBorder(
+                        borderColors = PokemonEvoloutionBorder(pokemonTwoName)
+                    ) {
+                        PokemonTeamCard(navController, pokemonTwoName)
+                    }
+                    Spacer(modifier = Modifier.height(40.dp))
+                }
+            }
+            Spacer(modifier = Modifier.height(40.dp))
         }
         item {
             if (battleTeams.teamName != "") {
-                CardWithAnimatedBorder(
-                    borderColors = PokemonEvoloutionBorder(pokemonTwoName)
-                ) {
-                    PokemonTeamCard(navController, pokemonTwoName)
+                val route = "PokemonDetailScreen/${battleTeams.pokemonThree}"
+                SwipeableCardleft(navController = navController, route = route) {
+                    CardWithAnimatedBorder(
+                        borderColors = PokemonEvoloutionBorder(pokemonThreeName)
+                    ) {
+                        PokemonTeamCard(navController, pokemonThreeName)
+                    }
+                    Spacer(modifier = Modifier.height(40.dp))
                 }
-                Spacer(modifier = Modifier.height(40.dp))
             }
-        }
-        item {
-            if (battleTeams.teamName != "") {
-                CardWithAnimatedBorder(
-                    borderColors = PokemonEvoloutionBorder(pokemonThreeName)
-                ) {
-                    PokemonTeamCard(navController, pokemonThreeName)
-                }
-                Spacer(modifier = Modifier.height(40.dp))
-            }
+            Spacer(modifier = Modifier.height(40.dp))
         }
     }
 

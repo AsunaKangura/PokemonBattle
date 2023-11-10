@@ -17,6 +17,7 @@ import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.profil.ListItemAvatar
 @Composable
 fun AvailablePokemonRow(
     navController: NavController,
+    context: Context,
     clickedID: Int,
     rowIndex: Int,
     entries: List<PokemonGrindEntry>,
@@ -25,8 +26,9 @@ fun AvailablePokemonRow(
     Column {
         Row {
             AvailablePokemonListItem(
-                navController = navController,
-                clickedId = clickedID,
+                navController= navController,
+                context= context,
+                clickid = clickedID,
                 pokemon = entries[rowIndex],
             )
             Spacer(modifier = Modifier.width(16.dp))
