@@ -71,10 +71,3 @@ fun HomeScreen(navController: NavController) {
         }
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-fun previeHomeScreen() {
-    val context = LocalContext.current
-    HomeScreen(navController = NavController(context))
-}

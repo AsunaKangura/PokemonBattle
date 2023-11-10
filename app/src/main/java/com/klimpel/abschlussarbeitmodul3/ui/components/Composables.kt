@@ -1,6 +1,8 @@
 package com.klimpel.abschlussarbeitmodul3.ui.components
 
 
+import android.content.Context
+import android.util.Log
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -8,7 +10,6 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -24,6 +25,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -37,44 +40,51 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.geometry.CornerRadius
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.rotate
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
+import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.asunakangura.pokemonbattle.data.remote.responses.Pokemon
+import com.klimpel.abschlussarbeitmodul3.Screen
+import com.klimpel.abschlussarbeitmodul3.data.models.PokemonTeamCard
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.pokemondetailscreen.PokemonTypeSection
-import com.klimpel.abschlussarbeitmodul3.ui.theme.pokemonFontFamily
+import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.AvailablePokemonRow
+import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.AvailablePokemonRowEditTeam
 import com.klimpel.abschlussarbeitmodul3.util.Dimension
-import com.klimpel.abschlussarbeitmodul3.util.PokemonEvoloutionBorder
 import com.klimpel.abschlussarbeitmodul3.util.Resource
 import com.klimpel.abschlussarbeitmodul3.util.calcDp
 import com.klimpel.abschlussarbeitmodul3.util.parsePokemonNameToGerman
+import com.klimpel.abschlussarbeitmodul3.viewmodels.MeinePokemonViewModel
 import com.klimpel.abschlussarbeitmodul3.viewmodels.PokemonDetailViewModel
 import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
-import java.util.Collections.rotate
+import com.klimpel.pokemonbattlefinal.R
 
 
 @Composable
@@ -129,7 +139,7 @@ fun GradientButton(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun teamCard(
+fun TeamCard2(
     teamId: String,
     teamname: String,
     viewModelteam: TeamViewModel = hiltViewModel()
@@ -169,15 +179,66 @@ fun teamCard(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TeamCard(
+    pokemonTeamCard: PokemonTeamCard,
+    viewModelteam: TeamViewModel = hiltViewModel()
+) {
+
+   var bordercolor = if (pokemonTeamCard.isClicked){
+        Color.Green
+    }else{
+        LightBlue
+    }
+    Log.e("POKEMON_TEAM_CARD_BEFOR_CLICK", "${pokemonTeamCard.isClicked} / ${pokemonTeamCard.teamName}")
+    Card(
+        onClick = {
+            viewModelteam.deleteCurrentTeam()
+            viewModelteam.getTeamInfo(pokemonTeamCard.teamId)
+            pokemonTeamCard.isClicked = true
+            Log.e("POKEMON_TEAM_CARD_AFTER_CLICK", "${pokemonTeamCard.isClicked}")
+        },
+        modifier = Modifier
+            .width(calcDp(percentage = 0.3f, dimension = Dimension.Width))
+            .height(calcDp(percentage = 0.05f, dimension = Dimension.Height)),
+        shape = RoundedCornerShape(
+            topStart = 25.dp,
+            topEnd = 10.dp,
+            bottomStart = 10.dp,
+            bottomEnd = 25.dp
+        ),
+        elevation = CardDefaults.elevatedCardElevation(
+            defaultElevation = 10.dp
+        ),
+        border = BorderStroke(1.dp, bordercolor)
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Text(
+                text = pokemonTeamCard.teamName,
+                fontSize = 12.sp,
+                color = LightBlue,
+                fontWeight = FontWeight.Bold
+            )
+        }
+    }
+}
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun teamCardAdd(
+fun TeamCardAdd(
     onClick: () -> Unit,
     viewModelteam: TeamViewModel = hiltViewModel()
 ) {
     Card(
-        onClick = { onClick() },
+        onClick = {
+            onClick()
+        },
         modifier = Modifier
             .width(calcDp(percentage = 0.3f, dimension = Dimension.Width))
             .height(calcDp(percentage = 0.05f, dimension = Dimension.Height)),
@@ -206,13 +267,184 @@ fun teamCardAdd(
     }
 }
 
-
 @OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun PokemonTeamCardAdd(
+    navController: NavController,
+    context: Context,
+    clickeid: Int,
+    viewModel: MeinePokemonViewModel = hiltViewModel(),
+    viewModelteam: TeamViewModel = hiltViewModel()
+) {
+    var clickedID = clickeid
+    val pokemonList = viewModel.pokemonUbersicht.collectAsState()
+    val openPokemonAddDialog = remember { mutableStateOf(false) }
+    if (openPokemonAddDialog.value) {
+        Dialog(
+            onDismissRequest = { openPokemonAddDialog.value = false },
+            properties = DialogProperties(usePlatformDefaultWidth = false),
+        ) {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth(0.9f)
+                    .height(
+                        calcDp(
+                            percentage = 0.8f,
+                            dimension = Dimension.Height
+                        )
+                    ),
+                colors = CardDefaults.cardColors(Color.White),
+                shape = RoundedCornerShape(
+                    topStart = 50.dp,
+                    topEnd = 20.dp,
+                    bottomStart = 20.dp,
+                    bottomEnd = 50.dp
+                ),
+                elevation = CardDefaults.elevatedCardElevation(
+                    defaultElevation = 10.dp
+                ),
+            ) {
+                ConstraintLayout(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    val (titel, listViewPokemon, btnsave) = createRefs()
+                    // Profil Titel
+                    Card(
+                        colors = CardDefaults.cardColors(
+                            containerColor = Color.White,
+                        ),
+                        border = BorderStroke(
+                            4.dp, LightBlue
+                        ),
+                        modifier = Modifier
+                            .width(180.dp)
+                            .height(50.dp)
+                            .constrainAs(titel) {
+                                top.linkTo(parent.top)
+                                start.linkTo(parent.start)
+                            },
+                        shape = RoundedCornerShape(
+                            topStart = 50.dp,
+                            topEnd = 0.dp,
+                            bottomStart = 0.dp,
+                            bottomEnd = 50.dp
+                        ),
+                        elevation = CardDefaults.cardElevation(
+                            defaultElevation = 10.dp
+                        ),
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            verticalArrangement = Arrangement.SpaceEvenly,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.titelpokemonchoice),
+                                color = LightBlue,
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center,
+                            )
+                        }
+                    }
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.7f)
+                            .padding(horizontal = 20.dp)
+                            .constrainAs(listViewPokemon) {
+                                top.linkTo(titel.bottom)
+                                centerVerticallyTo(parent)
+                            }
+                    ) {
+                        LazyVerticalGrid(
+                            columns = GridCells.Adaptive(130.dp),
+                        ) {
+                            viewModel.loadOwnedPokemon()
+                            val itemCount = pokemonList.value.size
+                            Log.e("LISTE_TEAMEDIT", "$itemCount")
+                            Log.e("LISTE_TEAMEDIT", "$pokemonList")
+                            items(itemCount) {
+
+                                AvailablePokemonRowEditTeam(
+                                    navController= navController,
+                                    context = context,
+                                    clickedID = clickedID,
+                                    rowIndex = it,
+                                    entries = pokemonList.value
+                                )
+
+                                Spacer(modifier = Modifier.height(10.dp))
+                            }
+                        }
+                    }
+                    GradientButton(
+                        onClick = {
+                            viewModelteam.getTeamInfo(viewModelteam.currentTeam.value.teamName)
+                            openPokemonAddDialog.value = false
+                            // Hier muss ich aber eine andere Lösung finden
+                            navController.navigate(Screen.Teambearbeiten.route)
+                        },
+                        text = "Bestätigen",
+                        modifier = Modifier
+                            .constrainAs(btnsave) {
+                                bottom.linkTo(parent.bottom, 20.dp)
+                                centerHorizontallyTo(parent)
+                            }
+                    )
+                }
+            }
+        }
+    }
+
+    Card(
+        onClick = {
+            openPokemonAddDialog.value = true
+            clickedID = clickeid
+        },
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(calcDp(percentage = 0.15f, dimension = Dimension.Height))
+            .padding(4.dp),
+        colors = CardDefaults.cardColors(Color.White),
+        shape = RoundedCornerShape(
+            topStart = 50.dp,
+            topEnd = 20.dp,
+            bottomStart = 20.dp,
+            bottomEnd = 50.dp
+        ),
+        elevation = CardDefaults.elevatedCardElevation(
+            defaultElevation = 10.dp
+        ),
+        border = BorderStroke(2.dp, LightBlue)
+    ) {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            Icon(
+                imageVector = Icons.Filled.Add,
+                contentDescription = "Add",
+                modifier = Modifier
+                    .size(80.dp),
+                tint = LightBlue
+            )
+        }
+    }
+    Spacer(modifier = Modifier.height(40.dp))
+}
+
+
 @Composable
 fun PokemonTeamCard(
     navController: NavController,
     pokemonName: String,
-    viewModel: PokemonDetailViewModel = hiltViewModel()
+    viewModel: PokemonDetailViewModel = hiltViewModel(),
+    viewModelDetail: PokemonDetailViewModel = hiltViewModel()
 ) {
     val pokemonInfo = produceState<Resource<Pokemon>>(initialValue = Resource.Loading())
     {
@@ -220,12 +452,16 @@ fun PokemonTeamCard(
     }.value
 
     Card(
-        onClick = { navController.navigate("PokemonDetailScreen/${pokemonName}") },
         modifier = Modifier
             .fillMaxWidth()
             .height(calcDp(percentage = 0.15f, dimension = Dimension.Height))
             .padding(4.dp),
-        shape = RoundedCornerShape(20.dp),
+        shape = RoundedCornerShape(
+            topStart = 50.dp,
+            topEnd = 20.dp,
+            bottomStart = 20.dp,
+            bottomEnd = 50.dp
+        ),
         colors = CardDefaults.cardColors(Color.White),
         elevation = CardDefaults.elevatedCardElevation(
             defaultElevation = 10.dp
@@ -294,20 +530,110 @@ fun PokemonTeamCard(
         }
     }
 }
-
+/*
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PokemonTeamCardAdd(
     navController: NavController,
+    viewModel: MeinePokemonViewModel = hiltViewModel(),
 ) {
+    val pokemonList = viewModel.pokemonUbersicht.collectAsState()
+
+    val openPokemonAddDialog = remember { mutableStateOf(false) }
+    if (openPokemonAddDialog.value){
+        Dialog(onDismissRequest = { openPokemonAddDialog.value = false }) {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth(0.9f)
+                    .height(calcDp(percentage = 0.8f, dimension = Dimension.Height)),
+                colors = CardDefaults.cardColors(Color.White),
+                shape = RoundedCornerShape(topStart = 50.dp, topEnd = 20.dp, bottomStart = 20.dp, bottomEnd = 50.dp),
+            ){
+                ConstraintLayout(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    val (titel, listViewPokemon) = createRefs()
+                    // Profil Titel
+                    Card(
+                        colors = CardDefaults.cardColors(
+                            containerColor = Color.White,
+                        ),
+                        border = BorderStroke(
+                            4.dp, MaterialTheme.colorScheme.primary
+                        ),
+                        modifier = Modifier
+                            .width(180.dp)
+                            .height(50.dp)
+                            .constrainAs(titel) {
+                                top.linkTo(parent.top)
+                                start.linkTo(parent.start)
+                            },
+                        shape = RoundedCornerShape(
+                            topStart = 50.dp,
+                            topEnd = 0.dp,
+                            bottomStart = 0.dp,
+                            bottomEnd = 50.dp
+                        ),
+                        elevation = CardDefaults.cardElevation(
+                            defaultElevation = 10.dp
+                        ),
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            verticalArrangement = Arrangement.SpaceEvenly,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.alaischange),
+                                color = MaterialTheme.colorScheme.primary,
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center,
+                            )
+                        }
+                    }
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.7f)
+                            .padding(horizontal = 20.dp)
+                            .constrainAs(listViewPokemon) {
+                                top.linkTo(titel.bottom)
+                                centerVerticallyTo(parent)
+                            }
+                    ) {
+                        LazyColumn(
+                            contentPadding = PaddingValues(0.dp)
+                        ) {
+                            viewModel.loadOwnedPokemon()
+                            val itemCount = pokemonList.value.size
+                            Log.e("LISTE" , "$itemCount")
+                            Log.e("LISTE" , "$pokemonList")
+                            items(itemCount) {
+                                AvailablePokemonRow(
+                                    rowIndex = it,
+                                    entries = pokemonList.value,
+                                )
+                                Spacer(modifier = Modifier.height(10.dp))
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+    }
 
     Card(
-        onClick = { },
+        onClick = { openPokemonAddDialog.value = true },
         modifier = Modifier
             .fillMaxWidth()
             .height(calcDp(percentage = 0.15f, dimension = Dimension.Height))
             .padding(4.dp),
-        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(Color.White),
+        shape = RoundedCornerShape(topStart = 50.dp, topEnd = 20.dp, bottomStart = 20.dp, bottomEnd = 50.dp),
         elevation = CardDefaults.elevatedCardElevation(
             defaultElevation = 10.dp
         ),
@@ -329,6 +655,8 @@ fun PokemonTeamCardAdd(
         }
     }
 }
+
+ */
 
 @Composable
 fun CardWithAnimatedBorder(
@@ -370,8 +698,62 @@ fun CardWithAnimatedBorder(
                     }
                     drawContent()
                 },
-            color = LightBlue,
-            shape = RoundedCornerShape(19.dp)
+            color = LightBlueBackground,
+            shape = RoundedCornerShape(
+                topStart = 50.dp,
+                topEnd = 20.dp,
+                bottomStart = 20.dp,
+                bottomEnd = 50.dp
+            )
+        ) {
+            Box(modifier = Modifier.padding(0.dp)) { content() }
+        }
+    }
+}
+
+
+@Composable
+fun CardWithAnimatedBorderOwnedPokemon(
+    modifier: Modifier = Modifier,
+    onCardClick: () -> Unit = {},
+    borderColors: List<Color> = emptyList(),
+    content: @Composable () -> Unit
+) {
+    val infiniteTransition = rememberInfiniteTransition(label = "")
+    val angle by
+    infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 360f,
+        animationSpec =
+        infiniteRepeatable(
+            animation = tween(1500, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
+        ), label = ""
+    )
+
+    val brush =
+        if (borderColors.isNotEmpty()) Brush.sweepGradient(borderColors)
+        else Brush.sweepGradient(listOf(Color.Gray, Color.White))
+
+    Surface(modifier = modifier.clickable { onCardClick() }, shape = RoundedCornerShape(20.dp)) {
+        Surface(
+            modifier =
+            Modifier
+                .clipToBounds()
+                .fillMaxWidth()
+                .padding(4.dp)
+                .drawWithContent {
+                    rotate(angle) {
+                        drawCircle(
+                            brush = brush,
+                            radius = size.width,
+                            blendMode = BlendMode.SrcIn,
+                        )
+                    }
+                    drawContent()
+                },
+            color = LightBlueBackground,
+            shape = RoundedCornerShape(20.dp)
         ) {
             Box(modifier = Modifier.padding(0.dp)) { content() }
         }
@@ -381,10 +763,5 @@ fun CardWithAnimatedBorder(
 @Preview
 @Composable
 fun test() {
-    val content = LocalContext.current
-    CardWithAnimatedBorder(
-        borderColors = PokemonEvoloutionBorder("gengar"),
-    ) {
-        PokemonTeamCardAdd(navController = NavController(content))
-    }
+
 }

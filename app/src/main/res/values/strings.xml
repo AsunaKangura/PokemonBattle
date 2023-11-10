@@ -9,13 +9,18 @@
     <string name="text_over_register">Neu Hier?. Hier gehts zur Registrierung...</string>
     <string name="btn_next">Weiter</string>
 
+    <!-- TODO: BattleStartScreen -->
+    <string name="titelbattelstartscreen">Pokemon Battle</string>
+
     <!-- TODO: LoginScreen -->
     <string name="text_Login">Einloggen</string>
 
-    <!--TODO:Team Übersicht -->
+    <!--TODO:Team Screens-->
     <string name="titelTeamScreen">Teams Übersicht</string>
     <string name="titelTeamErstellenScreen">Team Erstellen</string>
+    <string name="titelTeamBearbeitenScreen">Team Bearbeiten</string>
     <string name="btnsave">Team speichern</string>
+    <string name="titelpokemonchoice">Pokemon Auswahl</string>
 
     <!-- TODO: Meine Pokemon -->
     <string name="titelmeinepokemon">Meine Pokemon</string>

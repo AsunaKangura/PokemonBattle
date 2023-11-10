@@ -57,7 +57,6 @@ fun CategoryCard(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 10.dp
         ),
-
         ) {
 
         Column(

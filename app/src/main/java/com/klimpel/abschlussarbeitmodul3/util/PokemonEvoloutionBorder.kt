@@ -1,56 +1,90 @@
 package com.klimpel.abschlussarbeitmodul3.util
 
 import androidx.compose.ui.graphics.Color
-import com.klimpel.abschlussarbeitmodul3.ui.theme.RainbowColor
+import com.klimpel.abschlussarbeitmodul3.ui.theme.LegendaryColor
+import com.klimpel.abschlussarbeitmodul3.ui.theme.EvoloutionColor
 
 fun PokemonEvoloutionBorder(name: String) : List<Color> {
     return when (name) {
-        "venusaur" -> RainbowColor
-        "charizard" -> RainbowColor
-        "blastoise" -> RainbowColor
-        "butterfree" -> RainbowColor
-        "beedrill" -> RainbowColor
-        "pidgeot" -> RainbowColor
-        "raticate" -> RainbowColor
-        "fearow" -> RainbowColor
-        "arbok" -> RainbowColor
-        "raichu" -> RainbowColor
-        "sandslash" -> RainbowColor
-        "nidoqueen" -> RainbowColor
-        "nidoking" -> RainbowColor
-        "clefable" -> RainbowColor
-        "ninetales" -> RainbowColor
-        "wigglytuff" -> RainbowColor
-        "golbat" -> RainbowColor
-        "vileplume" -> RainbowColor
-        "parasect" -> RainbowColor
-        "venomoth" -> RainbowColor
-        "dugtrio" -> RainbowColor
-        "persian" -> RainbowColor
-        "golduck" -> RainbowColor
-        "primeape" -> RainbowColor
-        "arcanine" -> RainbowColor
-        "poliwrath" -> RainbowColor
-        "alakazam" -> RainbowColor
-        "machamp" -> RainbowColor
-        "victreebel" -> RainbowColor
-        "tentacruel" -> RainbowColor
-        "golem" -> RainbowColor
-        "rapidash" -> RainbowColor
-        "slowbro" -> RainbowColor
-        "magneton" -> RainbowColor
-        "dodrio" -> RainbowColor
-        "dewgong" -> RainbowColor
-        "muk" -> RainbowColor
-        "cloyster" -> RainbowColor
-        "gengar" -> RainbowColor
-        "hypno" -> RainbowColor
-        "kingler" -> RainbowColor
-        "electrode" -> RainbowColor
-        "exeggutor" -> RainbowColor
-        "marowak" -> RainbowColor
-        "hitmonchan" -> RainbowColor
-        "weezing" -> RainbowColor
+        "" -> listOf(Color.White, Color.White)
+        "venusaur" -> EvoloutionColor
+        "charizard" -> EvoloutionColor
+        "blastoise" -> EvoloutionColor
+        "butterfree" -> EvoloutionColor
+        "beedrill" -> EvoloutionColor
+        "pidgeot" -> EvoloutionColor
+        "raticate" -> EvoloutionColor
+        "fearow" -> EvoloutionColor
+        "arbok" -> EvoloutionColor
+        "raichu" -> EvoloutionColor
+        "sandslash" -> EvoloutionColor
+        "nidoqueen" -> EvoloutionColor
+        "nidoking" -> EvoloutionColor
+        "clefable" -> EvoloutionColor
+        "ninetales" -> EvoloutionColor
+        "wigglytuff" -> EvoloutionColor
+        "golbat" -> EvoloutionColor
+        "vileplume" -> EvoloutionColor
+        "parasect" -> EvoloutionColor
+        "venomoth" -> EvoloutionColor
+        "dugtrio" -> EvoloutionColor
+        "persian" -> EvoloutionColor
+        "golduck" -> EvoloutionColor
+        "primeape" -> EvoloutionColor
+        "arcanine" -> EvoloutionColor
+        "poliwrath" -> EvoloutionColor
+        "alakazam" -> EvoloutionColor
+        "machamp" -> EvoloutionColor
+        "victreebel" -> EvoloutionColor
+        "tentacruel" -> EvoloutionColor
+        "golem" -> EvoloutionColor
+        "rapidash" -> EvoloutionColor
+        "slowbro" -> EvoloutionColor
+        "magneton" -> EvoloutionColor
+        "dodrio" -> EvoloutionColor
+        "dewgong" -> EvoloutionColor
+        "muk" -> EvoloutionColor
+        "cloyster" -> EvoloutionColor
+        "gengar" -> EvoloutionColor
+        "hypno" -> EvoloutionColor
+        "kingler" -> EvoloutionColor
+        "electrode" -> EvoloutionColor
+        "exeggutor" -> EvoloutionColor
+        "marowak" -> EvoloutionColor
+        "hitmonchan" -> EvoloutionColor
+        "weezing" -> EvoloutionColor
+        "rhydon" -> EvoloutionColor
+        "chansey" -> EvoloutionColor
+        "tangela" -> EvoloutionColor
+        "kangaskhan" -> EvoloutionColor
+        "seadra" -> EvoloutionColor
+        "seaking" -> EvoloutionColor
+        "starmie" -> EvoloutionColor
+        "mr-mime" -> EvoloutionColor
+        "scyther" -> EvoloutionColor
+        "jynx" -> EvoloutionColor
+        "electabuzz" -> EvoloutionColor
+        "magmar" -> EvoloutionColor
+        "pinsir" -> EvoloutionColor
+        "tauros" -> EvoloutionColor
+        "gyarados" -> EvoloutionColor
+        "lapras" -> EvoloutionColor
+        "ditto" -> EvoloutionColor
+        "vaporeon" -> EvoloutionColor
+        "onix" -> EvoloutionColor
+        "jolteon" -> EvoloutionColor
+        "flareon" -> EvoloutionColor
+        "omastar" -> EvoloutionColor
+        "kabutops" -> EvoloutionColor
+        "aerodactyl" -> EvoloutionColor
+        "snorlax" -> EvoloutionColor
+        "lickitung" -> EvoloutionColor
+        "articuno" -> LegendaryColor // Legendär
+        "zapdos" -> LegendaryColor // Legendär
+        "moltres" -> LegendaryColor // Legendär
+        "dragonite" -> EvoloutionColor
+        "mewtwo" -> LegendaryColor // Legendär
+        "mew" -> LegendaryColor // Legendär
         else -> {
             listOf(Color.White, Color.White)
         }

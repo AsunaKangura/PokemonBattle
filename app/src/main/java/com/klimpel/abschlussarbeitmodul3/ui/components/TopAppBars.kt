@@ -1,6 +1,5 @@
 package com.klimpel.abschlussarbeitmodul3.ui.components
 
-
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -68,16 +67,12 @@ import com.klimpel.abschlussarbeitmodul3.util.Contants.Companion.auth
 import com.klimpel.abschlussarbeitmodul3.util.Dimension
 import com.klimpel.abschlussarbeitmodul3.util.calcDp
 import com.klimpel.abschlussarbeitmodul3.viewmodels.ProfilViewModel
+import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
 import com.klimpel.pokemonbattlefinal.R
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBar(
-    pageTitle: Int,
-    navController: NavController,
-    viewModel: ProfilViewModel = hiltViewModel()
-) {
+fun TopAppBar(pageTitle: Int, navController: NavController, viewModel: ProfilViewModel = hiltViewModel()) {
     val context = LocalContext.current
 
     val setAvatar = remember { mutableIntStateOf(viewModel.findAvatar2()) }
@@ -292,10 +287,11 @@ fun TopAppBar(
                                 LazyColumn(
                                     contentPadding = PaddingValues(0.dp)
                                 ) {
+
                                     val itemCount = viewModel.loadListOfAvatar().size
-                                    items(itemCount) {
+                                    items(itemCount) {index ->
                                         AvatarRow(
-                                            rowIndex = it,
+                                            rowIndex = index,
                                             entries = avatarList,
                                         )
                                         Spacer(modifier = Modifier.height(10.dp))
@@ -335,7 +331,7 @@ fun TopAppBar(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(calcDp(percentage = 0.1f, dimension = Dimension.Height))
+                        .height(calcDp(percentage = 0.10f, dimension = Dimension.Height))
                         .background(Color.White)
                 ) {
                     Row(
@@ -375,23 +371,32 @@ fun TopAppBar(
                                     modifier = Modifier
                                         .fillMaxSize()
                                 ) {
-                                    Box(
+                                    Column(
+                                        verticalArrangement = Arrangement.Center,
                                         modifier = Modifier
+                                            .padding(5.dp)
                                             .fillMaxHeight()
                                             .fillMaxWidth(0.5f),
-                                        contentAlignment = Alignment.Center
                                     ) {
-                                        Text(text = "PokeDollar:", fontSize = 14.sp)
+                                        Text(text = "PokeDollar:", fontSize = 12.sp)
+                                        Text(text = "Tickets:", fontSize = 12.sp)
                                     }
-                                    Box(
+                                    Column(
+                                        verticalArrangement = Arrangement.Center,
                                         modifier = Modifier
+                                            .padding(5.dp)
                                             .fillMaxHeight()
                                             .fillMaxWidth(),
-                                        contentAlignment = Alignment.Center
                                     ) {
                                         Text(
                                             text = viewModel.currentUser?.pokedollar.toString() + " $",
-                                            fontSize = 14.sp,
+                                            fontSize = 12.sp,
+                                            color = DeepRed,
+                                            fontWeight = FontWeight.Bold
+                                        )
+                                        Text(
+                                            text = viewModel.currentUser?.pokemontickets.toString()+" Stk.",
+                                            fontSize = 12.sp,
                                             color = DeepRed,
                                             fontWeight = FontWeight.Bold
                                         )
@@ -407,7 +412,7 @@ fun TopAppBar(
                     text = { Text(text = stringResource(id = R.string.alaischange)) },
                     onClick = { openAliasDialog.value = true },
                     modifier = Modifier
-                        .height(calcDp(percentage = 0.1f, dimension = Dimension.Height))
+                        .height(calcDp(percentage = 0.08f, dimension = Dimension.Height))
                         .background(Color.White),
                     leadingIcon = {
                         Icon(
@@ -422,7 +427,7 @@ fun TopAppBar(
                     text = { Text(text = "Avatar ändern") },
                     onClick = { openAvatarDialog.value = true },
                     modifier = Modifier
-                        .height(calcDp(percentage = 0.09f, dimension = Dimension.Height))
+                        .height(calcDp(percentage = 0.08f, dimension = Dimension.Height))
                         .background(Color.White),
                     leadingIcon = {
                         Image(
@@ -435,10 +440,26 @@ fun TopAppBar(
                 )
                 Divider(color = LightBlue)
                 DropdownMenuItem(
+                    text = { Text(text = "Rucksack") },
+                    onClick = {  },
+                    modifier = Modifier
+                        .height(calcDp(percentage = 0.08f, dimension = Dimension.Height))
+                        .background(Color.White),
+                    leadingIcon = {
+                        Image(
+                            painterResource(id = R.drawable.backpack),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(25.dp)
+                        )
+                    }
+                )
+                Divider(color = LightBlue)
+                DropdownMenuItem(
                     text = { Text(text = "Team Übersicht") },
                     onClick = { navController.navigate(Screen.Teamubersicht.route)},
                     modifier = Modifier
-                        .height(calcDp(percentage = 0.09f, dimension = Dimension.Height))
+                        .height(calcDp(percentage = 0.08f, dimension = Dimension.Height))
                         .background(Color.White),
                     leadingIcon = {
                         Icon(
@@ -450,10 +471,10 @@ fun TopAppBar(
                 )
                 Divider(color = LightBlue)
                 DropdownMenuItem(
-                    text = { Text(text = "Meine Pokemons") },
+                    text = { Text(text = "Meine Pokemon") },
                     onClick = { navController.navigate(Screen.MeinePokemon.route) },
                     modifier = Modifier
-                        .height(calcDp(percentage = 0.09f, dimension = Dimension.Height))
+                        .height(calcDp(percentage = 0.08f, dimension = Dimension.Height))
                         .background(Color.White),
                     leadingIcon = {
                         Image(
@@ -470,7 +491,7 @@ fun TopAppBar(
                         navController.navigate(Screen.WelcomeScreen.route)
                     },
                     modifier = Modifier
-                        .height(calcDp(percentage = 0.09f, dimension = Dimension.Height))
+                        .height(calcDp(percentage = 0.08f, dimension = Dimension.Height))
                         .background(Color.White),
                     leadingIcon = {
                         Icon(
@@ -505,7 +526,11 @@ fun TopAppBarTitelBackArrow(pageTitle: Int, navController: NavController) {
         },
 
         navigationIcon = {
-            IconButton(onClick = { navController.popBackStack() }) {
+            IconButton(
+                onClick = {
+                    navController.popBackStack()
+                }
+            ) {
                 Icon(
                     imageVector = Icons.Filled.ArrowBack,
                     contentDescription = "Back Arrow",
@@ -515,3 +540,7 @@ fun TopAppBarTitelBackArrow(pageTitle: Int, navController: NavController) {
         },
     )
 }
+
+
+
+

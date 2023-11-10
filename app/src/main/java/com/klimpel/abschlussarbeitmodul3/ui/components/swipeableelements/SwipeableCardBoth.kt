@@ -1,0 +1,65 @@
+package com.klimpel.abschlussarbeitmodul3.ui.components.swipeableelements
+
+import android.content.Context
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import com.example.ssjetpackcomposeswipeableview.SwipeAbleItemView
+import com.example.ssjetpackcomposeswipeableview.SwipeDirection
+import com.klimpel.abschlussarbeitmodul3.data.models.BattleTeams
+import com.klimpel.abschlussarbeitmodul3.ui.components.CardWithAnimatedBorder
+import com.klimpel.abschlussarbeitmodul3.ui.components.PokemonTeamCard
+import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
+import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
+import com.klimpel.abschlussarbeitmodul3.util.Dimension
+import com.klimpel.abschlussarbeitmodul3.util.PokemonEvoloutionBorder
+import com.klimpel.abschlussarbeitmodul3.util.calcDp
+import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
+
+
+@Composable
+fun SwipeableCardBoth(
+    context: Context,
+    id:Int,
+    navController: NavController,
+    viewModelTeam: TeamViewModel = hiltViewModel(),
+    team: BattleTeams,
+    pokemon: String,
+    content: @Composable () -> Unit
+){
+    SwipeAbleItemView(
+        leftViewIcons = arrayListOf(Triple(rememberVectorPainter(image = Icons.Filled.Delete), Color.White, "btnDeleteLeft")),
+        rightViewIcons = arrayListOf(Triple((rememberVectorPainter(image = Icons.Filled.Search)), Color.White, "btnDetailRight")),
+        position = 0,
+        swipeDirection = SwipeDirection.BOTH,
+        onClick = {
+            val route = "PokemonDetailScreen/${pokemon}"
+            if (it.second == "btnDetailRight") {
+                navController.navigate(route)
+            }
+            if (it.second == "btnDeleteLeft"){
+                viewModelTeam.deldeletePokemoninTeam(context,id, team.teamName)
+            }
+        },
+        leftViewWidth = calcDp(percentage = 0.3f, dimension = Dimension.Width),
+        rightViewWidth = calcDp(percentage = 0.3f, dimension = Dimension.Width),
+        height = calcDp(percentage = 0.15f, dimension = Dimension.Height),
+        leftViewBackgroundColor = DeepRed,
+        rightViewBackgroundColor = LightBlue,
+        cornerRadius = 20.dp,
+        leftSpace = (-30).dp,
+        rightSpace = (-30).dp,
+        fractionalThreshold = 0f
+    ) {
+        content()
+    }
+}

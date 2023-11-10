@@ -36,6 +36,7 @@ import com.klimpel.abschlussarbeitmodul3.Screen
 import com.klimpel.abschlussarbeitmodul3.ui.components.CardWithAnimatedBorder
 import com.klimpel.abschlussarbeitmodul3.ui.theme.AbschlussarbeitModul3Theme
 import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
+import com.klimpel.abschlussarbeitmodul3.ui.theme.EvoloutionColor
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
 import com.klimpel.abschlussarbeitmodul3.ui.theme.SpdColor
@@ -128,14 +129,7 @@ fun SplashScreen(navController: NavController) {
                             top.linkTo(logo.bottom, 50.dp)
                             centerHorizontallyTo(parent)
                         },
-                    borderColors = listOf(
-                        Color(0xFFFF595A),
-                        Color(0xFFFFC766),
-                        Color(0xFF35A07F),
-                        Color(0xFF35A07F),
-                        Color(0xFFFFC766),
-                        Color(0xFFFF595A)
-                    )
+                    borderColors = EvoloutionColor
                 ) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,

@@ -85,6 +85,9 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
+    implementation ("com.github.SimformSolutionsPvtLtd:SSJetpackComposeSwipeableView:1.0.1")
+
     // ROOM
     implementation("androidx.room:room-runtime:2.5.2")
     implementation("androidx.room:room-ktx:2.5.2")

@@ -43,8 +43,8 @@ fun PokemonGridCard(
 
         Column(
             modifier = Modifier
-               // .width(calcDp(percentage = 0.4f, dimension = Dimension.Width))
-                //.height(calcDp(percentage = 0.2f, dimension = Dimension.Height))
+                .width(calcDp(percentage = 0.4f, dimension = Dimension.Width))
+                .height(calcDp(percentage = 0.2f, dimension = Dimension.Height))
             //.background(DeepRed)
         ) {
             ConstraintLayout(

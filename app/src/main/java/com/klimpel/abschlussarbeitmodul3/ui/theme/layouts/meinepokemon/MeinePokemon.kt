@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.klimpel.abschlussarbeitmodul3.ui.components.CardWithAnimatedBorder
+import com.klimpel.abschlussarbeitmodul3.ui.components.CardWithAnimatedBorderOwnedPokemon
 import com.klimpel.abschlussarbeitmodul3.ui.components.TopAppBarTitelBackArrow
 import com.klimpel.abschlussarbeitmodul3.ui.theme.AbschlussarbeitModul3Theme
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
@@ -48,7 +49,7 @@ fun MeinePokemon(
     navController: NavController,
     viewModelMeinPokemon: MeinePokemonViewModel = hiltViewModel()
 ){
-    var ownedPokemonList = viewModelMeinPokemon.pokemonUbersicht.collectAsState()
+    val ownedPokemonList = viewModelMeinPokemon.pokemonUbersicht.collectAsState()
 
     AbschlussarbeitModul3Theme {
         Scaffold (
@@ -75,17 +76,12 @@ fun MeinePokemon(
             ) {
                 viewModelMeinPokemon.loadOwnedPokemon()
                 LazyVerticalGrid(
-                    //columns = GridCells.Adaptive(130.dp),
-                    columns = GridCells.Fixed(2),
+                    columns = GridCells.Adaptive(130.dp),
                     modifier = Modifier
                         .fillMaxWidth(0.9f)
                         .fillMaxHeight(0.9f),
-                    contentPadding = PaddingValues(
-                        start = 12.dp,
-                        top = 16.dp,
-                        end = 12.dp,
-                        bottom = 16.dp
-                    ),
+                    verticalArrangement = Arrangement.spacedBy(20.dp),
+                    horizontalArrangement = Arrangement.spacedBy(20.dp),
                     content = {
                         val itemcount = ownedPokemonList.value.size
                         /*
@@ -96,7 +92,7 @@ fun MeinePokemon(
 
                         items(itemcount){
                             val pokemonname = ownedPokemonList.value[it]
-                            CardWithAnimatedBorder(
+                            CardWithAnimatedBorderOwnedPokemon(
                                 borderColors = PokemonEvoloutionBorder(pokemonname.name)
                             ) {
                                 PokemonGridCard(navController, ownedPokemonList.value[it])

@@ -3,6 +3,7 @@ package com.klimpel.abschlussarbeitmodul3.util
 import androidx.compose.ui.graphics.Color
 import com.asunakangura.pokemonbattle.data.remote.responses.Stat
 import com.asunakangura.pokemonbattle.data.remote.responses.Type
+import com.google.android.play.integrity.internal.w
 import com.klimpel.abschlussarbeitmodul3.ui.theme.AtkColor
 import com.klimpel.abschlussarbeitmodul3.ui.theme.DefColor
 import com.klimpel.abschlussarbeitmodul3.ui.theme.HPColor
@@ -31,6 +32,7 @@ import java.util.Locale
 
 fun parsePokemonNameToGerman(name: String) : String{
     return when(name){
+        "" -> ""
         "bulbasaur" -> "Bisasam"
         "ivysaur" -> "Bisaknosp"
         "venusaur" -> "Bisaflor"

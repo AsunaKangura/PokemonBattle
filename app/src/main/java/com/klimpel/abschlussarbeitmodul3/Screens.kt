@@ -21,6 +21,7 @@ sealed class Screen(val route: String) {
 
     // Der Bildschirm für den Pokedex-Bildschirm
     object Pokedex : Screen("Pokedex")
+    object PokemonDetailScreen : Screen("PokemonDetailScreen/{pokemonName}")
 
     object MeinePokemon : Screen("meinepokemon")
 
@@ -28,5 +29,5 @@ sealed class Screen(val route: String) {
 
     object Teamerstellen: Screen("Teamerstellen")
 
-    object PokemonDetailScreen : Screen("PokemonDetailScreen/{pokemonName}")
+    object Teambearbeiten: Screen("Teambearbeiten")
 }

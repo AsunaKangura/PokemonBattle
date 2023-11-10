@@ -9,7 +9,9 @@ val White = Color(0xFFFFFFFF)
 val LightBlueBackground = Color(0xFF9CD4FF)
 
 // RainBow Colors
-val RainbowColor = listOf(Color(0xFFFF595A), Color(0xFFFFC766), Color(0xFF35A07F), Color(0xFF35A07F), Color(0xFFFFC766), Color(0xFFFF595A))
+val LegendaryColor = listOf(Color(0xFFFF595A), Color(0xFFFFC766), Color(0xFF35A07F), Color(0xFF35A07F), Color(0xFFFFC766), Color(0xFFFF595A))
+val EvoloutionColor = listOf(Color(0xFF3166AE), Color(0xFF9CD4FF), Color(0xFFF5FF00), Color(0xFF3166AE), Color(0xFF9CD4FF), Color(0xFF3166AE))
+
 
 // Stats Colors der Pokemon's
 val HPColor = Color(0xFFF5FF00)

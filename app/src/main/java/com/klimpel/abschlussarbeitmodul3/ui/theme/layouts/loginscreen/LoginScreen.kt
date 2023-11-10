@@ -161,18 +161,14 @@ fun LoginScreen(
                                 .fillMaxSize()
                         ) {
 
-
+                            /*
                             var textStateUsername by remember { mutableStateOf(TextFieldValue("")) }
                             var textStatePassword by remember { mutableStateOf(TextFieldValue("")) }
 
-
-
-                            /*
-                            var textStateUsername = adminmail
-                            var textStatePassword = adminpw
-
                              */
 
+                            var textStateUsername = adminmail
+                            var textStatePassword = adminpw
 
                             val (inputEmail, inputPassword, btnlogin) = createRefs()
 
@@ -224,21 +220,22 @@ fun LoginScreen(
                             GradientButton(
                                 onClick = {
                                     // .text.isNotEmpty // .text.trim ändern
-                                    if (textStateUsername.text.isNotEmpty() && textStatePassword.text.isNotEmpty()) {
+                                    if (textStateUsername.isNotEmpty() && textStatePassword.isNotEmpty()) {
                                         auth.signInWithEmailAndPassword(
-                                            textStateUsername.text.trim(),
-                                            textStatePassword.text.trim()
+                                            textStateUsername.trim(),
+                                            textStatePassword.trim()
                                         )
                                             .addOnCompleteListener { task ->
                                                 if (task.isSuccessful) {
+                                                    Log.e("LOGIN_ID2", "${auth.currentUser?.uid.toString()}")
                                                     navController.navigate(Screen.HomeScreen.route)
                                                 } else {
                                                     messageDialogError(context,"Logindaten waren nicht korrekt")
                                                 }
                                             }
+
                                         Log.e("LOGIN_ID", "${auth.currentUser?.uid.toString()}")
                                         viewModel.updateCurrentUser(auth.currentUser?.uid.toString())
-
 
                                     } else {
                                         messageDialogError(context,"Du musst alle Felder ausfüllen")
@@ -253,7 +250,7 @@ fun LoginScreen(
                                         top.linkTo(inputPassword.bottom, 30.dp)
                                         centerHorizontallyTo(parent)
                                     },
-                                paddingx = 80.dp
+                                paddingx = 80.dp,
                             )
                         }
                     }
