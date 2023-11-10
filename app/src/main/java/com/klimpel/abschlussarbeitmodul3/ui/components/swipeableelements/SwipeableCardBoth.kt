@@ -26,28 +26,39 @@ import com.klimpel.abschlussarbeitmodul3.util.calcDp
 import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
 
 
+/**
+ * Eine Composable-Funktion, die eine swipebare Karte mit beiden Richtungen erstellt.
+ *
+ * @param context Der Kontext der Anwendung.
+ * @param id Die eindeutige ID der Custom Teams.
+ * @param navController Der NavController für die Navigation.
+ * @param viewModelTeam Das TeamViewModel für die Teamverwaltung.
+ * @param team Das BattleTeams-Objekt.
+ * @param pokemon Der Name des Pokemon.
+ * @param content Der Inhalt der Karte.
+ */
 @Composable
 fun SwipeableCardBoth(
     context: Context,
-    id:Int,
+    id: Int,
     navController: NavController,
     viewModelTeam: TeamViewModel = hiltViewModel(),
     team: BattleTeams,
     pokemon: String,
     content: @Composable () -> Unit
-){
+) {
     SwipeAbleItemView(
         leftViewIcons = arrayListOf(Triple(rememberVectorPainter(image = Icons.Filled.Delete), Color.White, "btnDeleteLeft")),
         rightViewIcons = arrayListOf(Triple((rememberVectorPainter(image = Icons.Filled.Search)), Color.White, "btnDetailRight")),
         position = 0,
         swipeDirection = SwipeDirection.BOTH,
-        onClick = {
+        onClick = { clickInfo ->
             val route = "PokemonDetailScreen/${pokemon}"
-            if (it.second == "btnDetailRight") {
+            if (clickInfo.second == "btnDetailRight") {
                 navController.navigate(route)
             }
-            if (it.second == "btnDeleteLeft"){
-                viewModelTeam.deldeletePokemoninTeam(context,id, team.teamName)
+            if (clickInfo.second == "btnDeleteLeft"){
+                viewModelTeam.deldeletePokemoninTeam(context, id, team.teamName)
             }
         },
         leftViewWidth = calcDp(percentage = 0.3f, dimension = Dimension.Width),

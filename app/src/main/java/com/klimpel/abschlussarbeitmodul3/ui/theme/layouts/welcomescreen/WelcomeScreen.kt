@@ -181,7 +181,7 @@ fun WelcomeScreen(navController: NavController, viewModel: ProfilViewModel = hil
         Contants.auth.uid?.let { viewModel.updateCurrentUser(it) }
         Log.e("WELCOMSCREEN_ELSE", "${Contants.auth.uid}")
         LaunchedEffect(key1 = "key") {
-            delay(500)
+            delay(1000)
             Log.e("WELCOMSCREEN_ELSE", "CurrentUSER: ${viewModel.currentUser}")
             navController.navigate(Screen.HomeScreen.route)
         }

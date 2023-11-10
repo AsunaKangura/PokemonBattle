@@ -8,17 +8,16 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
- * Eine Schnittstelle für die PokeApi, die verschiedene Endpunkte zum Abrufen von Pokémon-Daten bereitstellt.
+ * Schnittstelle für die PokeApi.
  */
 interface PokeApi {
     /**
-     * Ruft eine Liste von Pokémon ab, basierend auf einer begrenzten Anzahl und einem Versatz.
+     * Ruft eine Liste von Pokemon ab.
      *
-     * @param limit Die maximale Anzahl von Pokémon in der Liste.
-     * @param offset Der Versatz, um das Abrufen der Pokémon-Liste zu starten.
-     * @return Eine PokemonListe mit den abgerufenen Pokémon.
+     * @param limit Die maximale Anzahl von Pokemon in der Liste.
+     * @param offset Der Offset, um Pokemon in der Liste zu überspringen.
+     * @return Die PokemonList, die die abgerufene Liste von Pokemon enthält.
      */
-
     @GET("pokemon")
     suspend fun getPokemonList(
         @Query("limit") limit: Int,
@@ -26,12 +25,11 @@ interface PokeApi {
     ): PokemonList
 
     /**
-     * Ruft Informationen zu einem bestimmten Pokémon basierend auf seinem Namen ab.
+     * Ruft Informationen zu einem bestimmten Pokemon ab.
      *
-     * @param name Der Name des Pokémon, von dem Informationen abgerufen werden sollen.
-     * @return Ein Pokémon-Objekt mit den abgerufenen Informationen.
+     * @param name Der Name des Pokemon.
+     * @return Das Pokemon-Objekt, das die abgerufenen Informationen enthält.
      */
-
     @GET("pokemon/{name}")
     suspend fun getPokemonInfo(
         @Path("name") name: String

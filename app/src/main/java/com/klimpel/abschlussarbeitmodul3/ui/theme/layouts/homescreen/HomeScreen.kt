@@ -14,14 +14,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.klimpel.abschlussarbeitmodul3.Screen
 import com.klimpel.abschlussarbeitmodul3.ui.components.TopAppBar
 import com.klimpel.abschlussarbeitmodul3.ui.theme.AbschlussarbeitModul3Theme
-import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.homescreen.CategoryCard
@@ -34,38 +31,20 @@ fun HomeScreen(navController: NavController) {
     val context = LocalContext.current
 
     AbschlussarbeitModul3Theme {
-        var selectedItemIndex by rememberSaveable {
-            mutableIntStateOf(0)
-        }
+        var selectedItemIndex by rememberSaveable { mutableIntStateOf(0) }
         Scaffold(
             topBar = { TopAppBar(R.string.homescreen, navController) },
             containerColor = LightBlueBackground,
         ) { innerPadding ->
             Divider(thickness = 4.dp, color = LightBlue, modifier = Modifier.padding(innerPadding))
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding),
-                verticalArrangement = Arrangement.SpaceEvenly
+            Column(modifier = Modifier.fillMaxSize().padding(innerPadding), verticalArrangement = Arrangement.SpaceEvenly
             ) {
                 // Pokemon Battle
-                CategoryCard(
-                    onClick = { },
-                    text = stringResource(id = R.string.pokemonbattlecard),
-                    image = R.drawable.pokemon_battle_pikachu_mewtwo_large
-                )
+                CategoryCard(onClick = { }, text = R.string.pokemonbattlecard, image = R.drawable.pokemon_battle_pikachu_mewtwo_large)
                 // Pokemon Store
-                CategoryCard(
-                    onClick = { },
-                    text = stringResource(id = R.string.pokestorecard),
-                    image = R.drawable.pokemon_centre_launch_edited_large
-                )
+                CategoryCard(onClick = { }, text = R.string.pokestorecard, image = R.drawable.pokemon_centre_launch_edited_large)
                 // PokeDex Card
-                CategoryCard(
-                    onClick = { navController.navigate(Screen.Pokedex.route) },
-                    text = stringResource(id = R.string.pokedexcard),
-                    image = R.drawable.pokemondex
-                )
+                CategoryCard(onClick = { navController.navigate(Screen.Pokedex.route) }, text = R.string.pokedexcard, image = R.drawable.pokemondex)
             }
 
         }

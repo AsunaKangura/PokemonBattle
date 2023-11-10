@@ -74,52 +74,9 @@ fun SplashScreen(navController: NavController) {
                         }
                 )
                 LaunchedEffect(key1 = true){
-                    delay(5000)
+                    delay(2000)
                     navController.navigate(Screen.WelcomeScreen.route)
                 }
-
-                /*
-                Image(
-                    painterResource(id = R.drawable.ic_pokeball),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .constrainAs(ball) {
-                            top.linkTo(logo.bottom, 50.dp)
-                            centerHorizontallyTo(parent)
-                        }
-                        .scale(5f)
-                )
-
-                 */
-                /*
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth(0.7f)
-                        .fillMaxHeight(0.08f)
-                        .constrainAs(ball) {
-                            top.linkTo(logo.bottom, 50.dp)
-                            centerHorizontallyTo(parent)
-                        },
-                    colors = CardDefaults.cardColors(
-                        containerColor = LightBlue,
-                    ),
-                    shape = RoundedCornerShape(topStart = 50.dp, topEnd = 20.dp, bottomStart = 20.dp, bottomEnd = 50.dp)
-                ) {
-                    Column(
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.fillMaxSize()
-                    ) {
-                        Text(
-                            text = "Gen 1",
-                            fontFamily = pokemonFontFamily,
-                            fontSize = 40.sp,
-                            color = Color.White,
-                        )
-                    }
-                }
-
-                 */
 
                 CardWithAnimatedBorder (
                     modifier = Modifier
@@ -148,10 +105,4 @@ fun SplashScreen(navController: NavController) {
             }
         }
     }
-}
-@Preview
-@Composable
-fun testView(){
-    val context = LocalContext.current
-    SplashScreen(navController = NavController(context))
 }

@@ -84,11 +84,6 @@ fun MeinePokemon(
                     horizontalArrangement = Arrangement.spacedBy(20.dp),
                     content = {
                         val itemcount = ownedPokemonList.value.size
-                        /*
-                        items(itemcount){
-                            PokemonGridCard(navController, ownedPokemonList.value[it])
-                        }
-                         */
 
                         items(itemcount){
                             val pokemonname = ownedPokemonList.value[it]

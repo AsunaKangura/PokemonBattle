@@ -7,7 +7,12 @@ import androidx.core.content.res.ResourcesCompat
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
 
-
+/**
+ * Zeigt eine Erfolgsmeldung als Toast an.
+ *
+ * @param context Der Kontext der Anwendung.
+ * @param messageText Der Text der Erfolgsmeldung.
+ */
 fun messageDialogSuccess(
     context: Context,
     messageText: String,
@@ -23,7 +28,12 @@ fun messageDialogSuccess(
     )
 }
 
-
+/**
+ * Zeigt eine Fehlermeldung als Toast an.
+ *
+ * @param context Der Kontext der Anwendung.
+ * @param messageText Der Text der Fehlermeldung.
+ */
 fun messageDialogError(
     context: Context,
     messageText: String,
@@ -39,6 +49,12 @@ fun messageDialogError(
     )
 }
 
+/**
+ * Zeigt eine Informationsmeldung als Toast an.
+ *
+ * @param context Der Kontext der Anwendung.
+ * @param messageText Der Text der Informationsmeldung.
+ */
 fun messageDialogInfo(
     context: Context,
     messageText: String,
@@ -55,6 +71,12 @@ fun messageDialogInfo(
 }
 
 
+/**
+ * Zeigt eine Warnungsmeldung als Toast an.
+ *
+ * @param context Der Kontext der Anwendung.
+ * @param messageText Der Text der Warnungsmeldung.
+ */
 fun messageDialogWarning(
     context: Context,
     messageText: String,

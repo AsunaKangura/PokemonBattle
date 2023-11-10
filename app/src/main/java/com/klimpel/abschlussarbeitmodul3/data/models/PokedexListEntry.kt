@@ -1,14 +1,16 @@
 package com.klimpel.abschlussarbeitmodul3.data.models
 
-
-// Datenklasse für einen Eintrag in der Pokedex-Liste
+/**
+ * Stellt einen Eintrag in der Pokedex-Liste dar.
+ *
+ * @property pokemonName Der Name des Pokémons.
+ * @property imageUrl Die URL des Bildes des Pokémons.
+ * @property number Die Nummer des Pokémons im Pokedex.
+ * @property owned Gibt an, ob das Pokémon im Besitz ist oder nicht.
+ */
 data class PokedexListEntry(
-    // Name des Pokemons
     val pokemonName: String,
-    // URL des Bildes des Pokemons
     val imageUrl: String,
-    // Nummer des Pokemons
     val number: Int,
-    // Gibt an, ob das Pokemon im Besitz ist (Standardwert: false)
     val owned: Boolean = false
 )

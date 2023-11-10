@@ -17,7 +17,6 @@ class TeamViewModel @Inject constructor(
 
     var currentTeam = repository.currentTeam
     var teamubersicht = repository.teamList
-    var addTeam = repository.addTeam
 
 
     fun addTeam(context: Context){
@@ -30,10 +29,6 @@ class TeamViewModel @Inject constructor(
 
     fun deleteAktivTeam(context: Context){
         repository.deleteAktivTeam(context)
-    }
-
-    fun deleteAddTeam(){
-        repository.deleteAddTeam()
     }
 
     fun updateTeam(context: Context){

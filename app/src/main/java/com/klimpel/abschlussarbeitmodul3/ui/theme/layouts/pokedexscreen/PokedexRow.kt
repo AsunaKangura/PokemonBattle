@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.klimpel.abschlussarbeitmodul3.data.models.PokedexListEntry
 import com.klimpel.abschlussarbeitmodul3.ui.components.CardWithAnimatedBorder
-import com.klimpel.abschlussarbeitmodul3.ui.components.swipeableelements.SwipeableCardleft
+import com.klimpel.abschlussarbeitmodul3.ui.components.swipeableelements.SwipeableCardLeft
 import com.klimpel.abschlussarbeitmodul3.util.PokemonEvoloutionBorder
 
 
@@ -40,7 +40,7 @@ fun PokedexRow(
             ),
         ) {
             val route = "PokemonDetailScreen/${entries[rowIndex].pokemonName}"
-            SwipeableCardleft(navController = navController, route = route) {
+            SwipeableCardLeft(navController = navController, route = route) {
                 CardWithAnimatedBorder(
                     borderColors = PokemonEvoloutionBorder(entries[rowIndex].pokemonName),
                 ) {

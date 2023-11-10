@@ -365,7 +365,12 @@ fun PokemonTeamCardAddBearbeiten(
                             modifier = Modifier.fillMaxSize().background(DeepRed)
                         ){
 
-                            Searchbar(hint = stringResource(R.string.searchbarHint))
+                            /*
+                            Searchbar(hint = stringResource(R.string.searchbarHint)){
+                                viewModel.searchPokemonList(it)
+                            }
+
+                             */
 
                             Spacer(modifier = Modifier.height(20.dp))
 
@@ -520,7 +525,6 @@ fun PokemonTeamCardAddErstellen(
                             .padding(horizontal = 20.dp)
                             .constrainAs(listViewPokemon) {
                                 top.linkTo(titel.bottom, 20.dp)
-                                //centerVerticallyTo(parent)
                             }
                     ) {
 
@@ -528,7 +532,12 @@ fun PokemonTeamCardAddErstellen(
                             modifier = Modifier.fillMaxSize().background(DeepRed)
                         ){
 
-                            Searchbar(hint = stringResource(R.string.searchbarHint))
+                            /*
+                            Searchbar(hint = stringResource(R.string.searchbarHint)){
+                                viewModel.searchPokemonList(it)
+                            }
+
+                             */
 
                             Spacer(modifier = Modifier.height(20.dp))
 

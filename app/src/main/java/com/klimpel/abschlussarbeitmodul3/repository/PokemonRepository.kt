@@ -17,7 +17,7 @@ import com.klimpel.abschlussarbeitmodul3.ui.components.messageDialogError
 import com.klimpel.abschlussarbeitmodul3.ui.components.messageDialogSuccess
 import com.klimpel.abschlussarbeitmodul3.util.Resource
 import com.klimpel.abschlussarbeitmodul3.util.Contants.Companion.firestore
-import com.klimpel.abschlussarbeitmodul3.util.STARTER_TEAM
+import com.klimpel.abschlussarbeitmodul3.util.generatePokemonAlias
 import com.klimpel.pokemonbattlefinal.R
 import dagger.hilt.android.scopes.ActivityScoped
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,11 +29,13 @@ import javax.inject.Inject
 class PokemonRepository @Inject constructor(
     private val api: PokeApi
 ) {
+    val firebase = FirebaseRepository()
+
     //LiveData von dem eingeloggten User
     var currentUser by mutableStateOf<User?>(null)
 
     // Erstellen eines Teams
-    var addTeam by mutableStateOf(BattleTeams("", "", "", ""))
+    //var addTeam by mutableStateOf(BattleTeams("", "", "", ""))
 
     // Current Team Flow
     private val _currentTeam = MutableStateFlow(BattleTeams("", "", "", ""))
@@ -49,6 +51,26 @@ class PokemonRepository @Inject constructor(
     private var _ownedPokemonList = MutableStateFlow(PokemonList)
     var ownedPokemonList: StateFlow<List<PokemonGrindEntry>> = _ownedPokemonList.asStateFlow()
 
+    fun registerNewUser(context: Context, id: String){
+        val registerNewUser = hashMapOf(
+            "aktivteam" to "null",
+            "alias" to generatePokemonAlias(),
+            "avatar" to "default",
+            "pokedollar" to "1000".toInt(),
+            "pokemontickets" to "0".toInt(),
+            "teams" to "0".toInt()
+        )
+
+        firestore.collection("user")
+            .document(id)
+            .set(registerNewUser)
+            .addOnSuccessListener {
+                messageDialogSuccess(context, "Registrierung war erfolgreich")
+            }
+            .addOnFailureListener {
+                messageDialogError(context, "Registrierung ist fehlgeschlagen")
+            }
+    }
 
     fun loadTeamList() {
         firestore.collection("user")
@@ -93,10 +115,6 @@ class PokemonRepository @Inject constructor(
                 Log.e("ADD_TEAM", "Error writing document")
             }
 
-    }
-
-    fun deleteAddTeam(){
-        addTeam = BattleTeams("","","","")
     }
 
     fun updateTeam(context: Context){
@@ -205,6 +223,7 @@ class PokemonRepository @Inject constructor(
 
             }
     }
+
 
     suspend fun getPokemonList(limit: Int, offset: Int): Resource<PokemonList> {
         val response = try {

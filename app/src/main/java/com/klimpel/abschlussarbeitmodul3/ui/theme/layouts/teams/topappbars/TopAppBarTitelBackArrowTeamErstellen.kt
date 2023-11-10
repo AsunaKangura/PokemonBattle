@@ -41,7 +41,6 @@ fun TopAppBarTitelBackArrowTeamErstellen(pageTitle: Int, navController: NavContr
         navigationIcon = {
             IconButton(
                 onClick = {
-                    viewModel.deleteAddTeam()
                     navController.navigate(Screen.Teamubersicht.route)
                 }
             ) {

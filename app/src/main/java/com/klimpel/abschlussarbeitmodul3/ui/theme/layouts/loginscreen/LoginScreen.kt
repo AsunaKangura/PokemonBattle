@@ -1,20 +1,16 @@
 import android.util.Log
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,36 +26,23 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.klimpel.abschlussarbeitmodul3.Screen
+import com.klimpel.abschlussarbeitmodul3.ui.components.EditTextField
+import com.klimpel.abschlussarbeitmodul3.ui.components.EditTextFieldPW
 import com.klimpel.abschlussarbeitmodul3.ui.components.GradientButton
+import com.klimpel.abschlussarbeitmodul3.ui.components.TitelCard
 import com.klimpel.abschlussarbeitmodul3.ui.components.messageDialogError
 import com.klimpel.abschlussarbeitmodul3.ui.theme.AbschlussarbeitModul3Theme
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
-import com.klimpel.abschlussarbeitmodul3.ui.theme.pokemonFontFamily
 import com.klimpel.abschlussarbeitmodul3.util.Contants.Companion.auth
 import com.klimpel.abschlussarbeitmodul3.viewmodels.ProfilViewModel
 import com.klimpel.pokemonbattlefinal.R
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-
-
-@Preview
-@Composable
-fun previewLogin() {
-    val context = LocalContext.current
-    LoginScreen(navController = NavController(context))
-}
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -80,7 +63,6 @@ fun LoginScreen(
                     )
             ) {
                 val (logo, contentbox) = createRefs()
-
                 val context = LocalContext.current
 
                 Image(
@@ -113,168 +95,56 @@ fun LoginScreen(
                     ),
                     colors = CardDefaults.cardColors(Color.White.copy(alpha = 0.9f))
                 ) {
-                    Card(
-                        colors = CardDefaults.cardColors(
-                            containerColor = Color.White,
-                        ),
-                        border = BorderStroke(
-                            4.dp, LightBlue
-                        ),
-                        modifier = Modifier
-                            .width(200.dp)
-                            .height(60.dp),
-                        shape = RoundedCornerShape(
-                            topStart = 50.dp,
-                            topEnd = 0.dp,
-                            bottomStart = 0.dp,
-                            bottomEnd = 50.dp
-                        ),
-                        elevation = CardDefaults.cardElevation(
-                            defaultElevation = 10.dp
-                        ),
-                    ) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxSize(),
-                            verticalArrangement = Arrangement.SpaceEvenly,
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.text_Login),
-                                color = LightBlue,
-                                fontSize = 18.sp,
-                                fontWeight = FontWeight.Bold,
-                                fontFamily = pokemonFontFamily,
-                                textAlign = TextAlign.Center,
-                            )
-                        }
-                    }
+                    TitelCard(titel = R.string.text_Login)
 
                     Column(
                         modifier = Modifier
-                            .fillMaxSize()
+                            .fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        ConstraintLayout(
-                            modifier = Modifier
-                                .fillMaxSize()
-                        ) {
+                        var textStateUsername by remember { mutableStateOf("") }
+                        var textStatePassword by remember { mutableStateOf("") }
+                        var coroutinescope = rememberCoroutineScope()
 
-                            var textStateUsername by remember { mutableStateOf(TextFieldValue("")) }
-                            var textStatePassword by remember { mutableStateOf(TextFieldValue("")) }
+                        EditTextField(value = textStateUsername, onValueChange = { values -> textStateUsername = values }, label = "E-Mail Adresse eingeben")
 
-                            val (inputEmail, inputPassword, btnlogin) = createRefs()
+                        Spacer(modifier = Modifier.height(10.dp))
 
-                            var coroutinescope = rememberCoroutineScope()
+                        EditTextFieldPW(value = textStatePassword, onValueChange = { values -> textStatePassword = values }, label = "Passwort eingeben")
 
-                            OutlinedTextField(
-                                value = textStateUsername,
-                                onValueChange = { textStateUsername = it },
-                                label = {
-                                    Text(
-                                        "E-Mail Adresse eingeben",
-                                        fontSize = 14.sp
-                                    )
-                                },
-                                colors = TextFieldDefaults.outlinedTextFieldColors(
-                                    focusedBorderColor = LightBlue,
-                                    unfocusedBorderColor = Color.Black,
-                                    focusedLabelColor = LightBlue,
-                                    unfocusedLabelColor = Color.Black,
-                                    textColor = Color.Black
-                                ),
-                                modifier = Modifier
-                                    .constrainAs(inputEmail) {
-                                        top.linkTo(parent.top, 60.dp)
-                                        centerHorizontallyTo(parent)
-                                    }
-                                    .padding(horizontal = 40.dp)
-                            )
+                        Spacer(modifier = Modifier.height(30.dp))
 
-                            OutlinedTextField(
-                                value = textStatePassword,
-                                onValueChange = { textStatePassword = it },
-                                visualTransformation = PasswordVisualTransformation(),
-                                label = {
-                                    Text(
-                                        "Passwort eingeben",
-                                        fontSize = 14.sp
-                                    )
-                                },
-                                colors = TextFieldDefaults.outlinedTextFieldColors(
-                                    focusedBorderColor = LightBlue,
-                                    unfocusedBorderColor = Color.Black,
-                                    focusedLabelColor = LightBlue,
-                                    unfocusedLabelColor = Color.Black,
-                                    textColor = Color.Black
-                                ),
-                                modifier = Modifier
-                                    .constrainAs(inputPassword) {
-                                        top.linkTo(inputEmail.bottom, 20.dp)
-                                        centerHorizontallyTo(parent)
-                                    }
-                                    .padding(horizontal = 40.dp)
-                            )
-
-                            GradientButton(
-                                onClick = {
-                                    // .text.isNotEmpty // .text.trim ändern
-                                    if (textStateUsername.text.isNotEmpty() && textStatePassword.text.isNotEmpty()) {
-                                        auth.signInWithEmailAndPassword(
-                                            textStateUsername.text.trim(),
-                                            textStatePassword.text.trim()
-                                        )
-                                            .addOnCompleteListener { task ->
-                                                if (task.isSuccessful) {
-                                                    Log.e(
-                                                        "LOGIN_ID",
-                                                        "${auth.currentUser?.uid.toString()}"
-                                                    )
-                                                    viewModel.updateCurrentUser(auth.currentUser?.uid.toString())
-                                                    coroutinescope.launch {
-                                                        delay(500)
-                                                        navController.navigate(Screen.HomeScreen.route)
-                                                    }
-                                                } else {
-                                                    messageDialogError(
-                                                        context,
-                                                        "Logindaten waren nicht korrekt"
-                                                    )
+                        GradientButton(
+                            onClick = {
+                                if (textStateUsername.isNotEmpty() && textStatePassword.isNotEmpty()) {
+                                    auth.signInWithEmailAndPassword(textStateUsername.trim(), textStatePassword.trim())
+                                        .addOnCompleteListener { task ->
+                                            if (task.isSuccessful) {
+                                                viewModel.updateCurrentUser(auth.currentUser?.uid.toString())
+                                                coroutinescope.launch {
+                                                    delay(500)
+                                                    navController.navigate(Screen.HomeScreen.route)
                                                 }
+                                            } else {
+                                                messageDialogError(context, "Logindaten waren nicht korrekt")
                                             }
-                                            .addOnFailureListener {
-                                                Log.e(
-                                                    "LOGIN_FEHLER",
-                                                    "Verbindung nicht vorhanden"
-                                                )
-                                            }
-
-                                    } else {
-                                        messageDialogError(
-                                            context,
-                                            "Du musst alle Felder ausfüllen"
-                                        )
-                                    }
-                                },
-                                text = stringResource(id = R.string.btn_login),
-                                bordercolor = LightBlue,
-                                gradient = Brush.linearGradient(
-                                    listOf(
-                                        Color.White,
-                                        Color.White
-                                    )
-                                ),
-                                textcolor = LightBlue,
-                                modifier = Modifier
-                                    .constrainAs(btnlogin) {
-                                        top.linkTo(inputPassword.bottom, 30.dp)
-                                        centerHorizontallyTo(parent)
-                                    },
-                                paddingx = 80.dp,
-                            )
-                        }
+                                        }
+                                        .addOnFailureListener {
+                                            Log.e("LOGIN_FEHLER", "Verbindung nicht vorhanden")
+                                        }
+                                } else {
+                                    messageDialogError(context, "Du musst alle Felder ausfüllen")
+                                }
+                            },
+                            text = stringResource(id = R.string.btn_login),
+                            bordercolor = LightBlue,
+                            gradient = Brush.linearGradient(listOf(Color.White, Color.White)),
+                            textcolor = LightBlue,
+                            paddingx = 80.dp,
+                        )
                     }
                 }
-
             }
         }
     }
