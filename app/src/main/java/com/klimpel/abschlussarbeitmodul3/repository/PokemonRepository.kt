@@ -147,7 +147,6 @@ class PokemonRepository @Inject constructor(
             2 -> _currentTeam.value.pokemonTwo = pokemonName
             3 -> _currentTeam.value.pokemonThree = pokemonName
         }
-        Log.e("UPDATE_POKEMON_TEAM", "${currentTeam.value}")
         updateTeam(context)
     }
 
@@ -220,7 +219,7 @@ class PokemonRepository @Inject constructor(
                 _ownedPokemonList.value = pokemonList
             }
             .addOnFailureListener {
-
+                Log.e("LOAD_OWNED_POKEMON" , "Lader der eigenen Pokemon fehlgeschlagen")
             }
     }
 

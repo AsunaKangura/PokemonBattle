@@ -1,4 +1,4 @@
-package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams
+package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.teamubersicht
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -39,8 +39,6 @@ import com.klimpel.abschlussarbeitmodul3.util.calcDp
 import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
 import com.klimpel.pokemonbattlefinal.R
 
-
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TeamScreen(
@@ -70,27 +68,18 @@ fun TeamScreen(
 
                     val (dividertopappbar, dividercarouselltop, dividercarousellbottom, teamtitel, teamcarousell, teaminfo) = createRefs()
 
-                    Divider(
-                        thickness = 4.dp,
-                        color = LightBlue,
-                        modifier = Modifier.constrainAs(dividertopappbar) { top.linkTo(parent.top) }
-                    )
+                    Divider(thickness = 4.dp, color = LightBlue, modifier = Modifier.constrainAs(dividertopappbar) { top.linkTo(parent.top) })
 
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier
-                            .constrainAs(teamtitel) {
-                                top.linkTo(dividertopappbar.bottom, 10.dp)
-                            }
+                        modifier = Modifier.constrainAs(teamtitel) { top.linkTo(dividertopappbar.bottom, 10.dp) }
                             .fillMaxWidth()
                             .height(calcDp(percentage = 0.05f, dimension = Dimension.Height))
                     ) {
                         Row(
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier
-                                .fillMaxWidth(0.8f)
-                                .fillMaxHeight()
+                            modifier = Modifier.fillMaxWidth(0.8f).fillMaxHeight()
                         ) {
                             Text(text = "Eigene Teams", color = LightBlue)
                             Text(text = "${viewModelTeam.currentUser?.teams} / 10", color = LightBlue)
@@ -102,10 +91,7 @@ fun TeamScreen(
                     // Übersicht der Teams
                     Column(
                         verticalArrangement = Arrangement.Center,
-                        modifier = Modifier
-                            .constrainAs(teamcarousell) {
-                                top.linkTo(teamtitel.bottom)
-                            }
+                        modifier = Modifier.constrainAs(teamcarousell) { top.linkTo(teamtitel.bottom) }
                             .fillMaxWidth()
                             .fillMaxHeight(0.1f)
                             .background(Color.White)
@@ -126,6 +112,7 @@ fun TeamScreen(
                             item {
                                 Spacer(modifier = Modifier.width(10.dp))
                                 if (viewModelTeam.currentUser?.teams != 10) {
+                                    viewModelTeam.deleteCurrentTeam()
                                     TeamCardAdd({ navController.navigate(Screen.Teamerstellen.route) })
                                 }
                             }
@@ -158,4 +145,3 @@ fun TeamScreen(
         }
     }
 }
-

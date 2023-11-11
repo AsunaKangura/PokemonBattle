@@ -32,7 +32,6 @@ import java.util.Locale
 
 fun parsePokemonNameToGerman(name: String) : String{
     return when(name){
-        "" -> ""
         "bulbasaur" -> "Bisasam"
         "ivysaur" -> "Bisaknosp"
         "venusaur" -> "Bisaflor"

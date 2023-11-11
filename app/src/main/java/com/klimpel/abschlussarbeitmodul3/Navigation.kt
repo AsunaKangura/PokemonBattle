@@ -12,9 +12,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.meinepokemon.MeinePokemon
-import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.TeamBearbeitenScreen
-import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.TeamErstellenScreen
-import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.TeamScreen
+import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.teambearbeiten.TeamBearbeitenScreen
+import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.teamerstellen.TeamErstellenScreen
+import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.teamubersicht.TeamScreen
 import com.klimpel.pokemonbattlefinal.ui.theme.layouts.HomeScreen
 import com.klimpel.pokemonbattlefinal.ui.theme.layouts.RegisterScreen
 import com.klimpel.pokemonbattlefinal.ui.theme.layouts.SplashScreen

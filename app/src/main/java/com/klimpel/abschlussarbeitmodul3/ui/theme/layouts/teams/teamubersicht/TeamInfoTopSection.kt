@@ -1,4 +1,4 @@
-package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams
+package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.teamubersicht
 
 import android.content.Context
 import androidx.compose.foundation.layout.Arrangement

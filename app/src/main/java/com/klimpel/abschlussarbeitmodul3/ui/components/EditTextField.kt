@@ -28,6 +28,20 @@ fun EditTextField(value: String, onValueChange: (String: String) -> Unit, label:
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
+fun EditTextFieldEnabeled(value: String, onValueChange: (String: String) -> Unit, label: String, enabel: Boolean = false){
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        enabled = enabel,
+        label = { Text(label, fontSize = 14.sp) },
+        colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = LightBlue, unfocusedBorderColor = Color.Black, focusedLabelColor = LightBlue, unfocusedLabelColor = Color.Black, textColor = Color.Black),
+        modifier = Modifier
+            .padding(horizontal = 40.dp),
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
 fun EditTextFieldPW(value: String, onValueChange: (String: String) -> Unit, label: String){
     OutlinedTextField(
         value = value,
