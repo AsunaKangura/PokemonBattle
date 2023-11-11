@@ -310,6 +310,7 @@ fun TopAppBar(pageTitle: Int, navController: NavController, viewModel: ProfilVie
                                 GradientButton(onClick = {
                                     viewModel.updateFireStoreUser(context)
                                     openAvatarDialog.value = false
+                                    navController.navigate(Screen.HomeScreen.route)
                                 }, text = "Speichern")
                             }
                         }
