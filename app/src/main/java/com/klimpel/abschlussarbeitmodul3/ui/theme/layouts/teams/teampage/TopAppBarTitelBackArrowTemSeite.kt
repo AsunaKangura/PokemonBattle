@@ -1,4 +1,4 @@
-package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.topappbars
+package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.teampage
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -19,17 +20,19 @@ import com.klimpel.abschlussarbeitmodul3.Screen
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.pokemonFontFamily
 import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBarTitelBackArrowTeamErstellen(pageTitle: Int, navController: NavController, viewModel: TeamViewModel = hiltViewModel()) {
+fun TopAppBarTitelBackArrowTeamSeite(pageTitle: String, navController: NavController, viewModelteam: TeamViewModel = hiltViewModel()) {
 
     val showMenu = remember { mutableStateOf(false) }
 
+    val scope = rememberCoroutineScope()
     CenterAlignedTopAppBar(
         title = {
             Text(
-                stringResource(id = pageTitle),
+                text = pageTitle,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 color = LightBlue,
@@ -42,6 +45,9 @@ fun TopAppBarTitelBackArrowTeamErstellen(pageTitle: Int, navController: NavContr
             IconButton(
                 onClick = {
                     navController.navigate(Screen.ProfilScreen.route)
+                    scope.launch {
+                        viewModelteam.deleteCurrentTeam()
+                    }
                 }
             ) {
                 Icon(

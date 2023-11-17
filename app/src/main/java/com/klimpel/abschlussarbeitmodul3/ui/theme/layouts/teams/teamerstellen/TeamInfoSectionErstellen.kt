@@ -17,7 +17,7 @@ import com.klimpel.abschlussarbeitmodul3.util.PokemonEvoloutionBorder
 @Composable
 fun TeamInfoSectionErstellen(context: Context, navController: NavController, battleTeams: BattleTeams){
 
-    Spacer(modifier = Modifier.height(40.dp))
+    Spacer(modifier = Modifier.height(30.dp))
 
     if (battleTeams.pokemonOne == "") {
         CardWithAnimatedBorder(
@@ -29,10 +29,10 @@ fun TeamInfoSectionErstellen(context: Context, navController: NavController, bat
                 clickeid = 1
             )
         }
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(30.dp))
     } else {
         CardWithAnimatedBorder(
-            borderColors = listOf(Color.White, Color.White),
+            borderColors = PokemonEvoloutionBorder(battleTeams.pokemonOne),
         ) {
             PokemonTeamCard(navController, battleTeams.pokemonOne)
         }
@@ -52,7 +52,7 @@ fun TeamInfoSectionErstellen(context: Context, navController: NavController, bat
         Spacer(modifier = Modifier.height(40.dp))
     } else {
         CardWithAnimatedBorder(
-            borderColors = listOf(Color.White, Color.White),
+            borderColors = PokemonEvoloutionBorder(battleTeams.pokemonTwo),
         ) {
             PokemonTeamCard(navController, battleTeams.pokemonTwo)
         }
@@ -72,7 +72,7 @@ fun TeamInfoSectionErstellen(context: Context, navController: NavController, bat
         Spacer(modifier = Modifier.height(40.dp))
     } else {
         CardWithAnimatedBorder(
-            borderColors = listOf(Color.White, Color.White),
+            borderColors = PokemonEvoloutionBorder(battleTeams.pokemonThree),
         ) {
             PokemonTeamCard(navController, battleTeams.pokemonThree)
         }

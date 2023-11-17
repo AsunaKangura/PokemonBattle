@@ -40,6 +40,7 @@ import com.klimpel.abschlussarbeitmodul3.Screen
 import com.klimpel.abschlussarbeitmodul3.data.models.Avatar
 import com.klimpel.abschlussarbeitmodul3.data.models.PokedexListEntry
 import com.klimpel.abschlussarbeitmodul3.data.models.PokemonGrindEntry
+import com.klimpel.abschlussarbeitmodul3.repository.FirebaseRepository
 import com.klimpel.abschlussarbeitmodul3.ui.theme.AbschlussarbeitModul3Theme
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.pokemondetailscreen.PokemonTypeSection
@@ -58,7 +59,7 @@ fun AvailablePokemonListItem(
     context: Context,
     clickid: Int,
     pokemon: PokemonGrindEntry,
-    viewModel: TeamViewModel = hiltViewModel()
+    viewModelteam: TeamViewModel = hiltViewModel()
 ) {
     Column(
         modifier = Modifier
@@ -76,9 +77,9 @@ fun AvailablePokemonListItem(
             Card(
                 onClick = {
                     when(clickid){
-                        1 -> viewModel.currentTeam.value.pokemonOne = pokemon.name
-                        2 -> viewModel.currentTeam.value.pokemonTwo = pokemon.name
-                        3 -> viewModel.currentTeam.value.pokemonThree = pokemon.name
+                        1 -> viewModelteam.pokemonHinzufugenAddTeam(pokemon.name, clickid)
+                        2 -> viewModelteam.pokemonHinzufugenAddTeam(pokemon.name, clickid)
+                        3 -> viewModelteam.pokemonHinzufugenAddTeam(pokemon.name, clickid)
                     }
                     navController.navigate(Screen.Teamerstellen.route)
                 },
@@ -225,6 +226,7 @@ fun AvailablePokemonListItemEditTeam(
 
             Card(
                 onClick = {
+                    /*
                     when(clickid){
                         1 -> viewModel.updatePokemonTeam(context,clickid,pokemon.name)
                         2 -> viewModel.updatePokemonTeam(context,clickid, pokemon.name)
@@ -233,6 +235,8 @@ fun AvailablePokemonListItemEditTeam(
                     Log.e("POKEMON_CLICK", "${viewModel.currentTeam.value}")
                     Log.e("POKEMON_CLICK", "${clickid}")
                     navController.navigate(Screen.Teambearbeiten.route)
+
+                     */
                 },
                 modifier = Modifier
                     .width(calcDp(percentage = 0.30f, dimension = Dimension.Width))
@@ -350,3 +354,4 @@ fun AvailablePokemonListItemEditTeam(
         }
     }
 }
+

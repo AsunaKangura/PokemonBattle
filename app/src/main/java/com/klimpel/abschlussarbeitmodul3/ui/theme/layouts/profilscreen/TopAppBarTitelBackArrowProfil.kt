@@ -1,4 +1,4 @@
-package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.topappbars
+package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.profilscreen
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -13,16 +13,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.klimpel.abschlussarbeitmodul3.Screen
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.pokemonFontFamily
-import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBarTitelBackArrowTeamErstellen(pageTitle: Int, navController: NavController, viewModel: TeamViewModel = hiltViewModel()) {
+fun TopAppBarTitelBackArrowProfil(pageTitle: Int, navController: NavController) {
 
     val showMenu = remember { mutableStateOf(false) }
 
@@ -41,7 +39,7 @@ fun TopAppBarTitelBackArrowTeamErstellen(pageTitle: Int, navController: NavContr
         navigationIcon = {
             IconButton(
                 onClick = {
-                    navController.navigate(Screen.ProfilScreen.route)
+                    navController.navigate(Screen.HomeScreen.route)
                 }
             ) {
                 Icon(

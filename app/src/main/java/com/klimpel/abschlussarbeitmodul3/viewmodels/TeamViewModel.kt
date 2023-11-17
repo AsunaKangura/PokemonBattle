@@ -1,11 +1,22 @@
 package com.klimpel.abschlussarbeitmodul3.viewmodels
 
 import android.content.Context
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.asunakangura.pokemonbattle.data.remote.responses.Pokemon
+import com.google.android.gms.tasks.Task
+import com.google.android.gms.tasks.TaskCompletionSource
+import com.google.android.play.core.integrity.p
+import com.klimpel.abschlussarbeitmodul3.data.models.BattleTeams
+import com.klimpel.abschlussarbeitmodul3.data.models.PokedexListEntry
+import com.klimpel.abschlussarbeitmodul3.data.models.PokemonGrindEntry
 import com.klimpel.abschlussarbeitmodul3.repository.PokemonRepository
 import com.klimpel.abschlussarbeitmodul3.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -14,49 +25,49 @@ class TeamViewModel @Inject constructor(
 ) : ViewModel() {
 
     val currentUser = repository.currentUser
+    var addTeam = repository.addTeam
+    val currentTeam = repository.currentTeam
 
-    var currentTeam = repository.currentTeam
-    var teamubersicht = repository.teamList
+    var pokemonUbersicht = repository.ownedPokemonList
 
-
-    fun addTeam(context: Context){
-        repository.addTeam(context)
+    init {
+        loadOwnedPokemon()
     }
 
-    fun loadAktivTeam(){
-        repository.loadAktivTeam()
+    fun loadOwnedPokemon(){
+        repository.firebase.loadOwnedPokemon()
     }
 
-    fun deleteAktivTeam(context: Context){
-        repository.deleteAktivTeam(context)
+    fun loadTeam(name: String) {
+        repository.firebase.loadTeam(name)
     }
 
-    fun updateTeam(context: Context){
-        repository.updateTeam(context)
+    fun loadTeam2(name: String){
+       repository.firebase.loadTeam(name)
     }
 
-    fun updatePokemonTeam(context: Context, id: Int, pokemonName: String){
-        repository.updatePokemonTeam(context, id, pokemonName )
+    fun pokemonHinzufugenAddTeam(name: String, id: Int) {
+        repository.firebase.pokemonHinzufugenAddTeam(name, id)
     }
 
-    fun deleteTeam(context: Context, teamId: String){
-        repository.deleteTeam(context, teamId)
+    fun teamnamehinzufugenAddTeam(name: String) {
+        repository.firebase.teamnamehinzufugenAddTeam(name)
+    }
+
+    fun teamhinzufugen(context: Context) {
+        repository.firebase.teamhinzufugen(context)
+    }
+
+    fun deleteTeam(context: Context, battleTeams: BattleTeams) {
+        repository.firebase.deleteTeam(context, battleTeams)
     }
 
     fun deleteCurrentTeam(){
-        repository.deleteCurrentTeam()
+        repository.firebase.deleteCurrentTeam()
     }
 
-    fun deldeletePokemoninTeam(context: Context, pokeID: Int, teamID: String){
-        repository.deletePokemoninTeam(context, pokeID, teamID)
-    }
-
-    fun getTeamInfo(id: String){
-        repository.getTeam(id)
-    }
-
-    fun loadTeamubersicht(){
-        repository.loadTeamList()
+    suspend fun getPokemonInfo(pokemonName: String): Resource<Pokemon> {
+        return repository.getPokemonInfo(pokemonName)
     }
 
 }

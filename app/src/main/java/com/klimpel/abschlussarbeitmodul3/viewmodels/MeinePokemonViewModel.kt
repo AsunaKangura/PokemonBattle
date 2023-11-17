@@ -31,7 +31,8 @@ class MeinePokemonViewModel @Inject constructor(
     }
 
     fun loadOwnedPokemon(){
-        repository.loadOwnedPokemon()
+        repository.firebase.loadOwnedPokemon()
+        //repository.loadOwnedPokemon()
     }
 
     fun searchPokemonList(query: String) {

@@ -1,4 +1,4 @@
-package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.profil
+package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.profilscreen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

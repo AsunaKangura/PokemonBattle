@@ -1,6 +1,6 @@
 package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.teamerstellen
 
-import android.util.Log
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -41,26 +41,32 @@ fun TeamErstellenScreen(
     viewModelTeam: TeamViewModel = hiltViewModel(),
     viewModel: MeinePokemonViewModel = hiltViewModel(),
 ) {
-    // Dieser RememberState wird verwendet um zu Checken wann das Textfeld für den Teamnamen aktiviert wird
-    val enabelTeamName = remember { mutableStateOf(false) }
-
-    // Hier wird das derzeitge erstellt Team gespeichert ( Name, alle Pokemone) Die sind Livedata über das Repository
-    val currentteam by remember { mutableStateOf(viewModelTeam.currentTeam.value) }
-
-    // Diese Abfrage aktiviert das Textfeld und ändert wenn die Bedingung erfüllt ist die Variable
-    if (currentteam.pokemonOne.isNotEmpty() && currentteam.pokemonTwo.isNotEmpty() && currentteam.pokemonThree.isNotEmpty()) {
-        enabelTeamName.value = true
-    }
+    //viewModelTeam.deleteCurrentTeam()
 
     // hier wird der dezeitige Context gespeichert damit man die Toast ausführen kann.
     val context = LocalContext.current
+
+    // Hier wird das derzeitge erstellt Team gespeichert ( Name, alle Pokemone) Die sind Livedata über das Repository
+    val addteam by remember { mutableStateOf(viewModelTeam.addTeam.value) }// Dieser RememberState wird verwendet um zu Checken wann das Textfeld für den Teamnamen aktiviert wird
+
+    // Dieser RememberState wird verwendet um zu Checken wann das Textfeld für den Teamnamen aktiviert wird
+    val enabelTeamName = remember { mutableStateOf(false) }
+    // Diese Abfrage aktiviert das Textfeld und ändert wenn die Bedingung erfüllt ist die Variable
+    if (addteam.pokemonOne.isNotEmpty() && addteam.pokemonTwo.isNotEmpty() && addteam.pokemonThree.isNotEmpty()) {
+        enabelTeamName.value = true
+    }
 
     // hier wird die Eingabe des User gespeichert.
     var textStateTeamName by remember { mutableStateOf("") }
 
     AbschlussarbeitModul3Theme {
         Scaffold(
-            topBar = { TopAppBarTitelBackArrowTeamErstellen(pageTitle = R.string.titelTeamErstellenScreen, navController = navController) },
+            topBar = {
+                TopAppBarTitelBackArrowTeamErstellen(
+                    pageTitle = R.string.titelTeamErstellenScreen,
+                    navController = navController
+                )
+            },
             containerColor = LightBlueBackground,
         ) { innerpadding ->
             Column(
@@ -73,7 +79,10 @@ fun TeamErstellenScreen(
                 ) {
                     val (dividertopappbar, teamname, teaminfo) = createRefs()
 
-                    Divider(thickness = 4.dp, color = LightBlue, modifier = Modifier.constrainAs(dividertopappbar) { top.linkTo(parent.top) })
+                    Divider(
+                        thickness = 4.dp,
+                        color = LightBlue,
+                        modifier = Modifier.constrainAs(dividertopappbar) { top.linkTo(parent.top) })
 
                     Column(
                         modifier = Modifier
@@ -85,8 +94,11 @@ fun TeamErstellenScreen(
                             }
 
                     ) {
-                        Log.e("TEAM_ERSTELLEN" , "$currentteam")
-                       TeamErstellenTopSection(value = textStateTeamName, onValueChange = { values -> textStateTeamName= values}, enabelTeamName = enabelTeamName.value)
+                        TeamErstellenTopSection(
+                            value = textStateTeamName,
+                            onValueChange = { values -> textStateTeamName = values },
+                            enabelTeamName = enabelTeamName.value
+                        )
                     }
 
                     // Teaminfobereich
@@ -101,24 +113,20 @@ fun TeamErstellenScreen(
                             }
                     ) {
 
-                        TeamInfoSectionErstellen(context = context, navController = navController, battleTeams = currentteam)
+                        TeamInfoSectionErstellen(
+                            context = context,
+                            navController = navController,
+                            battleTeams = addteam
+                        )
 
                         GradientButton(
                             onClick = {
-                                currentteam.teamName = textStateTeamName
-                                if (currentteam.teamName.isNotEmpty()
-                                    && currentteam.pokemonOne.isNotEmpty()
-                                    && currentteam.pokemonTwo.isNotEmpty()
-                                    && currentteam.pokemonThree.isNotEmpty()
-                                ) {
-                                    viewModelTeam.addTeam(context)
-                                    viewModelTeam.deleteCurrentTeam()
-                                    navController.navigate(Screen.Teamubersicht.route)
-                                } else {
-                                    messageDialogError(
-                                        context,
-                                        "Es müssen alle Pokemon ausgefüllt sein"
-                                    )
+                                viewModelTeam.teamnamehinzufugenAddTeam(textStateTeamName)
+                                if (addteam.teamName.isNotEmpty() && addteam.pokemonOne.isNotEmpty() && addteam.pokemonTwo.isNotEmpty() && addteam.pokemonThree.isNotEmpty()){
+                                    viewModelTeam.teamhinzufugen(context)
+                                    navController.navigate(Screen.ProfilScreen.route)
+                                }else {
+                                    messageDialogError(context, "Es müssem ein Teamname vergeben werden")
                                 }
                             },
                             text = stringResource(id = R.string.btnsave),

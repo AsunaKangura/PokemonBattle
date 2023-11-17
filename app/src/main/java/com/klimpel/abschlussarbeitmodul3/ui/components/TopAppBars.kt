@@ -5,7 +5,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -22,9 +21,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.outlined.Edit
-import androidx.compose.material.icons.outlined.Groups
 import androidx.compose.material.icons.outlined.Logout
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -59,24 +57,26 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.klimpel.abschlussarbeitmodul3.Screen
-import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
-import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.profil.AvatarRow
+import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.profilscreen.AvatarRow
 import com.klimpel.abschlussarbeitmodul3.ui.theme.pokemonFontFamily
 import com.klimpel.abschlussarbeitmodul3.util.Contants.Companion.auth
 import com.klimpel.abschlussarbeitmodul3.util.Dimension
 import com.klimpel.abschlussarbeitmodul3.util.calcDp
 import com.klimpel.abschlussarbeitmodul3.viewmodels.ProfilViewModel
-import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
 import com.klimpel.pokemonbattlefinal.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBar(pageTitle: Int, navController: NavController, viewModel: ProfilViewModel = hiltViewModel()) {
+fun TopAppBar(
+    pageTitle: Int,
+    navController: NavController,
+    viewModel: ProfilViewModel = hiltViewModel()
+) {
     val context = LocalContext.current
 
-    val setAvatar = remember { mutableIntStateOf(viewModel.findAvatar2()) }
-    val showMenu = remember { mutableStateOf(false) }
+    val setAvatar = remember { mutableIntStateOf(viewModel.findAvatarInt(viewModel.currentUser?.avatar.toString())) }
+    var showMenu = remember { mutableStateOf(false) }
     val openAliasDialog = remember { mutableStateOf(false) }
     val openAvatarDialog = remember { mutableStateOf(false) }
     val aliasText = remember { mutableStateOf(viewModel.currentUser?.alias) }
@@ -93,9 +93,12 @@ fun TopAppBar(pageTitle: Int, navController: NavController, viewModel: ProfilVie
                 fontFamily = pokemonFontFamily,
             )
         },
+
         actions = {
             IconButton(
-                onClick = { showMenu.value = true },
+                onClick = {
+                    showMenu.value = true
+                },
                 modifier = Modifier
                     .padding(end = 10.dp)
                     .border(2.dp, MaterialTheme.colorScheme.primary, CircleShape)
@@ -289,7 +292,7 @@ fun TopAppBar(pageTitle: Int, navController: NavController, viewModel: ProfilVie
                                 ) {
 
                                     val itemCount = viewModel.loadListOfAvatar().size
-                                    items(itemCount) {index ->
+                                    items(itemCount) { index ->
                                         AvatarRow(
                                             rowIndex = index,
                                             entries = avatarList,
@@ -324,100 +327,19 @@ fun TopAppBar(pageTitle: Int, navController: NavController, viewModel: ProfilVie
                 onDismissRequest = { showMenu.value = false },
                 modifier = Modifier
                     .width(calcDp(percentage = 0.6f, dimension = Dimension.Width))
-                    .height(calcDp(percentage = 0.6f, dimension = Dimension.Height))
+                    .height(calcDp(percentage = 0.35f, dimension = Dimension.Height))
                     .background(LightBlue)
             ) {
-
-                // Profil Details
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(calcDp(percentage = 0.10f, dimension = Dimension.Height))
-                        .background(Color.White)
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxSize()
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxHeight()
-                                .width(calcDp(percentage = 0.2f, dimension = Dimension.Width)),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Image(
-                                painterResource(id = setAvatar.intValue),
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(10.dp)
-                            )
-                        }
-                        Box(
-                            modifier = Modifier
-                                .fillMaxHeight()
-                                .fillMaxWidth()
-                        ) {
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxSize(),
-                            ) {
-                                viewModel.currentUser?.let {
-                                    Text(
-                                        text = it.alias, modifier = Modifier.padding(top = 8.dp)
-                                    )
-                                }
-
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                ) {
-                                    Column(
-                                        verticalArrangement = Arrangement.Center,
-                                        modifier = Modifier
-                                            .padding(5.dp)
-                                            .fillMaxHeight()
-                                            .fillMaxWidth(0.5f),
-                                    ) {
-                                        Text(text = "PokeDollar:", fontSize = 12.sp)
-                                        Text(text = "Tickets:", fontSize = 12.sp)
-                                    }
-                                    Column(
-                                        verticalArrangement = Arrangement.Center,
-                                        modifier = Modifier
-                                            .padding(5.dp)
-                                            .fillMaxHeight()
-                                            .fillMaxWidth(),
-                                    ) {
-                                        Text(
-                                            text = viewModel.currentUser?.pokedollar.toString() + " $",
-                                            fontSize = 12.sp,
-                                            color = DeepRed,
-                                            fontWeight = FontWeight.Bold
-                                        )
-                                        Text(
-                                            text = viewModel.currentUser?.pokemontickets.toString()+" Stk.",
-                                            fontSize = 12.sp,
-                                            color = DeepRed,
-                                            fontWeight = FontWeight.Bold
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
                 Divider(thickness = 3.dp, color = LightBlue)
                 DropdownMenuItem(
-                    text = { Text(text = stringResource(id = R.string.alaischange)) },
-                    onClick = { openAliasDialog.value = true },
+                    text = { Text(text = stringResource(id = R.string.dropmenuitemprofil)) },
+                    onClick = { navController.navigate(Screen.ProfilScreen.route) },
                     modifier = Modifier
                         .height(calcDp(percentage = 0.08f, dimension = Dimension.Height))
                         .background(Color.White),
                     leadingIcon = {
                         Icon(
-                            imageVector = Icons.Outlined.Edit,
+                            imageVector = Icons.Outlined.Person,
                             contentDescription = null,
                             tint = Color.Black
                         )
@@ -425,24 +347,8 @@ fun TopAppBar(pageTitle: Int, navController: NavController, viewModel: ProfilVie
                 )
                 Divider(color = LightBlue)
                 DropdownMenuItem(
-                    text = { Text(text = "Avatar ändern") },
-                    onClick = { openAvatarDialog.value = true },
-                    modifier = Modifier
-                        .height(calcDp(percentage = 0.08f, dimension = Dimension.Height))
-                        .background(Color.White),
-                    leadingIcon = {
-                        Image(
-                            painterResource(id = setAvatar.intValue),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(25.dp)
-                        )
-                    }
-                )
-                Divider(color = LightBlue)
-                DropdownMenuItem(
-                    text = { Text(text = "Rucksack") },
-                    onClick = {  },
+                    text = { Text(stringResource(id = R.string.dropmenuitemrucksack)) },
+                    onClick = { },
                     modifier = Modifier
                         .height(calcDp(percentage = 0.08f, dimension = Dimension.Height))
                         .background(Color.White),
@@ -457,22 +363,7 @@ fun TopAppBar(pageTitle: Int, navController: NavController, viewModel: ProfilVie
                 )
                 Divider(color = LightBlue)
                 DropdownMenuItem(
-                    text = { Text(text = "Team Übersicht") },
-                    onClick = { navController.navigate(Screen.Teamubersicht.route)},
-                    modifier = Modifier
-                        .height(calcDp(percentage = 0.08f, dimension = Dimension.Height))
-                        .background(Color.White),
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Groups,
-                            contentDescription = null,
-                            tint = Color.Black
-                        )
-                    }
-                )
-                Divider(color = LightBlue)
-                DropdownMenuItem(
-                    text = { Text(text = "Meine Pokemon") },
+                    text = { Text(stringResource(id = R.string.dropmenuitemmeinepokemon)) },
                     onClick = { navController.navigate(Screen.MeinePokemon.route) },
                     modifier = Modifier
                         .height(calcDp(percentage = 0.08f, dimension = Dimension.Height))
@@ -486,7 +377,7 @@ fun TopAppBar(pageTitle: Int, navController: NavController, viewModel: ProfilVie
                 )
                 Divider(color = LightBlue)
                 DropdownMenuItem(
-                    text = { Text(text = "Ausloggen") },
+                    text = { Text(stringResource(id = R.string.dropmenuitemlogout)) },
                     onClick = {
                         auth.signOut()
                         navController.navigate(Screen.WelcomeScreen.route)
@@ -504,6 +395,8 @@ fun TopAppBar(pageTitle: Int, navController: NavController, viewModel: ProfilVie
                 )
             }
         },
+
+
 
         )
 }

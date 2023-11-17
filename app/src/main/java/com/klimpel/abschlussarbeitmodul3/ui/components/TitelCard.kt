@@ -5,6 +5,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -59,6 +60,87 @@ fun TitelCard(titel: Int){
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = pokemonFontFamily,
+                textAlign = TextAlign.Center,
+            )
+        }
+    }
+}
+
+@Composable
+fun TitelCardKlein(titel: Int){
+
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White,
+        ),
+        border = BorderStroke(
+            2.dp, LightBlue
+        ),
+        modifier = Modifier
+            .fillMaxWidth(0.6f)
+            .height(25.dp),
+        shape = RoundedCornerShape(
+            topStart = 25.dp,
+            topEnd = 10.dp,
+            bottomStart = 10.dp,
+            bottomEnd = 25.dp
+        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 10.dp
+        ),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.SpaceEvenly,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = stringResource(id = titel),
+                color = LightBlue,
+                fontSize = 10.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = pokemonFontFamily,
+                textAlign = TextAlign.Center,
+            )
+        }
+    }
+}
+
+@Composable
+fun TitelCardString(titel: String){
+
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = LightBlue,
+        ),
+        border = BorderStroke(
+            4.dp, LightBlue
+        ),
+        modifier = Modifier
+            .fillMaxWidth(0.6f)
+            .height(50.dp),
+        shape = RoundedCornerShape(
+            topStart = 50.dp,
+            topEnd = 0.dp,
+            bottomStart = 0.dp,
+            bottomEnd = 50.dp
+        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 10.dp
+        ),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.SpaceEvenly,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = titel,
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
             )
         }

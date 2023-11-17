@@ -5,8 +5,10 @@ import androidx.compose.ui.graphics.Color
 val DeepRed = Color(0xFF7E0000)
 //val DeepRed = Color(0xFF3166AE)
 val LightBlue = Color(0xFF3166AE)
+val Green = Color(0xFF006D13)
 val White = Color(0xFFFFFFFF)
 val LightBlueBackground = Color(0xFF9CD4FF)
+val Grey = Color(0xFFE6E6E6)
 
 // RainBow Colors
 val LegendaryColor = listOf(Color(0xFFFF595A), Color(0xFFFFC766), Color(0xFF35A07F), Color(0xFF35A07F), Color(0xFFFFC766), Color(0xFFFF595A))

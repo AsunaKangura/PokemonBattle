@@ -382,6 +382,30 @@ fun parseStatToColor(stat: Stat): Color {
     }
 }
 
+fun parseStatToColor2(stat: String): Color {
+    return when(stat.lowercase(Locale.ROOT)) {
+        "hp" -> HPColor
+        "attack" -> AtkColor
+        "defense" -> DefColor
+        "special-attack" -> SpAtkColor
+        "special-defense" -> SpDefColor
+        "speed" -> SpdColor
+        else -> Color.White
+    }
+}
+
+fun parseStatToAbbr2(stat: String): String {
+    return when(stat.lowercase(Locale.ROOT)) {
+        "hp" -> "HP"
+        "attack" -> "Atk"
+        "defense" -> "Def"
+        "special-attack" -> "SpAtk"
+        "special-defense" -> "SpDef"
+        "speed" -> "Spd"
+        else -> ""
+    }
+}
+
 fun parseStatToAbbr(stat: Stat): String {
     return when(stat.stat.name.lowercase(Locale.ROOT)) {
         "hp" -> "HP"

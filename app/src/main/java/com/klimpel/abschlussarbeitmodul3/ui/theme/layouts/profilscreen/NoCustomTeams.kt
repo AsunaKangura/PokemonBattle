@@ -1,4 +1,4 @@
-package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.teamubersicht
+package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.profilscreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

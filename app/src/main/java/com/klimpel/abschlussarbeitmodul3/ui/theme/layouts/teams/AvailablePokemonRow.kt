@@ -10,9 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.klimpel.abschlussarbeitmodul3.data.models.PokedexListEntry
 import com.klimpel.abschlussarbeitmodul3.data.models.PokemonGrindEntry
-import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.profil.ListItemAvatar
 
 @Composable
 fun AvailablePokemonRow(

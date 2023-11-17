@@ -12,5 +12,13 @@ data class BattleTeams(
     var teamName: String,
     var pokemonOne: String,
     var pokemonTwo: String,
-    var pokemonThree: String
+    var pokemonThree: String,
+    val games: Int = 0,
+    val wins: Int = 0,
+    var hp: Int = 0,
+    var atk: Int = 0,
+    var def: Int = 0,
+    var spatk: Int =0,
+    var spdef: Int = 0,
+    var spd: Int = 0
 )

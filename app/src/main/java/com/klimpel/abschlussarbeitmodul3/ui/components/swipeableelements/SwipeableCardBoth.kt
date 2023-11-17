@@ -58,7 +58,7 @@ fun SwipeableCardBoth(
                 navController.navigate(route)
             }
             if (clickInfo.second == "btnDeleteLeft"){
-                viewModelTeam.deldeletePokemoninTeam(context, id, team.teamName)
+               // viewModelTeam.deldeletePokemoninTeam(context, id, team.teamName)
             }
         },
         leftViewWidth = calcDp(percentage = 0.3f, dimension = Dimension.Width),

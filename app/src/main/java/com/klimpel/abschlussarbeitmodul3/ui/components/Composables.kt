@@ -51,9 +51,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -137,7 +139,7 @@ fun GradientButton(
     }
 
 }
-
+/*
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TeamCard2(
@@ -180,6 +182,9 @@ fun TeamCard2(
     }
 }
 
+ */
+
+/*
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TeamCard(
@@ -229,6 +234,8 @@ fun TeamCard(
     }
 }
 
+ */
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -236,6 +243,7 @@ fun TeamCardAdd(
     onClick: () -> Unit,
     viewModelteam: TeamViewModel = hiltViewModel()
 ) {
+    //viewModelteam.deleteCurrentTeam()
     Card(
         onClick = {
             onClick()
@@ -362,7 +370,9 @@ fun PokemonTeamCardAddBearbeiten(
                     ) {
 
                         Column (
-                            modifier = Modifier.fillMaxSize().background(DeepRed)
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(DeepRed)
                         ){
 
                             /*
@@ -456,55 +466,30 @@ fun PokemonTeamCardAddErstellen(
             Card(
                 modifier = Modifier
                     .fillMaxWidth(0.9f)
-                    .height(
-                        calcDp(
-                            percentage = 0.8f,
-                            dimension = Dimension.Height
-                        )
-                    ),
+                    .height(calcDp(percentage = 0.8f, dimension = Dimension.Height)),
                 colors = CardDefaults.cardColors(Color.White),
-                shape = RoundedCornerShape(
-                    topStart = 50.dp,
-                    topEnd = 20.dp,
-                    bottomStart = 20.dp,
-                    bottomEnd = 50.dp
-                ),
-                elevation = CardDefaults.elevatedCardElevation(
-                    defaultElevation = 10.dp
-                ),
+                shape = RoundedCornerShape(topStart = 50.dp, topEnd = 20.dp, bottomStart = 20.dp, bottomEnd = 50.dp),
+                elevation = CardDefaults.elevatedCardElevation(defaultElevation = 10.dp),
             ) {
                 ConstraintLayout(
                     modifier = Modifier.fillMaxSize()
                 ) {
                     val (titel, listViewPokemon, btnsave) = createRefs()
                     // Profil Titel
+
                     Card(
-                        colors = CardDefaults.cardColors(
-                            containerColor = Color.White,
-                        ),
-                        border = BorderStroke(
-                            4.dp, LightBlue
-                        ),
-                        modifier = Modifier
-                            .width(180.dp)
-                            .height(50.dp)
+                        colors = CardDefaults.cardColors(containerColor = Color.White,),
+                        border = BorderStroke(4.dp, LightBlue),
+                        modifier = Modifier.width(180.dp).height(50.dp)
                             .constrainAs(titel) {
                                 top.linkTo(parent.top)
                                 start.linkTo(parent.start)
                             },
-                        shape = RoundedCornerShape(
-                            topStart = 50.dp,
-                            topEnd = 0.dp,
-                            bottomStart = 0.dp,
-                            bottomEnd = 50.dp
-                        ),
-                        elevation = CardDefaults.cardElevation(
-                            defaultElevation = 10.dp
-                        ),
+                        shape = RoundedCornerShape(topStart = 50.dp, topEnd = 0.dp, bottomStart = 0.dp, bottomEnd = 50.dp),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
                     ) {
                         Column(
-                            modifier = Modifier
-                                .fillMaxSize(),
+                            modifier = Modifier.fillMaxSize(),
                             verticalArrangement = Arrangement.SpaceEvenly,
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
@@ -518,6 +503,8 @@ fun PokemonTeamCardAddErstellen(
                         }
                     }
 
+                    //TitelCard(titel = R.string.titelpokemonchoice)
+
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -529,7 +516,9 @@ fun PokemonTeamCardAddErstellen(
                     ) {
 
                         Column (
-                            modifier = Modifier.fillMaxSize().background(DeepRed)
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(DeepRed)
                         ){
 
                             /*
@@ -609,7 +598,6 @@ fun PokemonTeamCard(
     navController: NavController,
     pokemonName: String,
     viewModel: PokemonDetailViewModel = hiltViewModel(),
-    viewModelDetail: PokemonDetailViewModel = hiltViewModel()
 ) {
     val pokemonInfo = produceState<Resource<Pokemon>>(initialValue = Resource.Loading())
     {
@@ -749,6 +737,52 @@ fun CardWithAnimatedBorder(
     }
 }
 
+@Composable
+fun CardWithAnimatedBorderTeam(
+    modifier: Modifier = Modifier,
+    onCardClick: () -> Unit = {},
+    borderColors: List<Color> = emptyList(),
+    content: @Composable () -> Unit
+) {
+    val infiniteTransition = rememberInfiniteTransition(label = "")
+    val angle by
+    infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 360f,
+        animationSpec =
+        infiniteRepeatable(
+            animation = tween(1500, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
+        ), label = ""
+    )
+
+    val brush =
+        if (borderColors.isNotEmpty()) Brush.sweepGradient(borderColors)
+        else Brush.sweepGradient(listOf(Color.Gray, Color.White))
+
+    Surface(modifier = modifier.clickable { onCardClick() }.shadow(10.dp, shape = RectangleShape), shape = RoundedCornerShape(10.dp)) {
+        Surface(
+            modifier = Modifier
+                .clipToBounds()
+                .fillMaxWidth()
+                .padding(2.dp)
+                .drawWithContent {
+                    rotate(angle) {
+                        drawCircle(
+                            brush = brush,
+                            radius = size.width,
+                            blendMode = BlendMode.SrcIn,
+                        )
+                    }
+                    drawContent()
+                },
+            color = Color.Transparent,
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally,modifier = Modifier.padding(2.dp)) { content() }
+        }
+    }
+}
+
 
 @Composable
 fun CardWithAnimatedBorderOwnedPokemon(
@@ -773,7 +807,7 @@ fun CardWithAnimatedBorderOwnedPokemon(
         if (borderColors.isNotEmpty()) Brush.sweepGradient(borderColors)
         else Brush.sweepGradient(listOf(Color.Gray, Color.White))
 
-    Surface(modifier = modifier.clickable { onCardClick() }, shape = RoundedCornerShape(20.dp)) {
+    Surface(modifier = modifier.clickable { onCardClick() }.shadow(10.dp, shape = RectangleShape), shape = RoundedCornerShape(20.dp)) {
         Surface(
             modifier =
             Modifier

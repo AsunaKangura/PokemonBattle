@@ -9,6 +9,8 @@
     <string name="text_over_register">Neu Hier?. Hier gehts zur Registrierung...</string>
     <string name="btn_next">Weiter</string>
 
+    <string name="titelProfil">Profil</string>
+
     <!-- TODO: BattleStartScreen -->
     <string name="titelbattelstartscreen">Pokemon Battle</string>
 
@@ -35,6 +37,10 @@
     <string name="pokedexcard">PokeDex</string>
     <string name="pokestorecard">Pokemon Store</string>
     <string name="pokemonbattlecard">Pokemon Battle</string>
+    <string name="dropmenuitemprofil">Profil Ansehen</string>
+    <string name="dropmenuitemrucksack">Rucksack</string>
+    <string name="dropmenuitemmeinepokemon">Meine Pokemon</string>
+    <string name="dropmenuitemlogout">Ausloggen</string>
 
     <!-- TODO: POKEDEX -->
     <string name="searchbarHint">Nache einem Pokemon suchen</string>

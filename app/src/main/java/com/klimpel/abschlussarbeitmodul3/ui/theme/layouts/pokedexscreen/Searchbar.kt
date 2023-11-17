@@ -17,15 +17,16 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 
 @Composable
 fun Searchbar(
     modifier: Modifier = Modifier,
     hint: String = "",
+    paddinghorizontal: Dp = 30.dp,
     onSearch: (String) -> Unit = {}
 ) {
     var text by remember {
@@ -37,7 +38,7 @@ fun Searchbar(
 
     Box(
         modifier = Modifier
-            .padding(horizontal = 30.dp)
+            .padding(horizontal = paddinghorizontal)
     ) {
         BasicTextField(
             value = text,

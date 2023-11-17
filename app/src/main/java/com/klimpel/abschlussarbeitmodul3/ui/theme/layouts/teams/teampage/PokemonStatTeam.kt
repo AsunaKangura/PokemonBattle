@@ -1,4 +1,4 @@
-package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.pokemondetailscreen
+package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.teampage
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -7,6 +7,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -29,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun PokemonStat(
+fun PokemonStatTeam(
     statName: String,
     statValue: Int,
     statMaxValue: Int,
@@ -78,15 +79,77 @@ fun PokemonStat(
         ) {
             Text(
                 text = statName,
-                fontWeight = FontWeight.Bold,
-                fontSize = 12.sp
+                fontWeight = FontWeight.Bold
             )
             Text(
                 text = (curPercent.value * statMaxValue).toInt().toString(),
-                fontWeight = FontWeight.Bold,
-                fontSize = 12.sp
+                fontWeight = FontWeight.Bold
             )
 
+        }
+    }
+}
+
+@Composable
+fun PokemonStatTeamOhneText(
+    //statName: String,
+    statValue: Int,
+    statMaxValue: Int,
+    statColor: Color,
+    height: Dp = 8.dp,
+    animDuration: Int = 1000,
+    animDelay: Int = 0
+) {
+    var animationPlayed by remember {
+        mutableStateOf(false)
+    }
+    val curPercent = animateFloatAsState(
+        targetValue = if(animationPlayed) {
+            statValue / statMaxValue.toFloat()
+        } else 0f,
+        animationSpec = tween(
+            animDuration,
+            animDelay
+        ), label = ""
+    )
+    LaunchedEffect(key1 = true) {
+        animationPlayed = true
+    }
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(height)
+            .clip(CircleShape)
+            .background(
+                if (isSystemInDarkTheme()) {
+                    Color(0xFF505050)
+                } else {
+                    Color.LightGray
+                }
+            )
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxHeight()
+                .fillMaxWidth(curPercent.value)
+                .clip(CircleShape)
+                .background(statColor)
+                .padding(horizontal = 8.dp)
+        ) {
+            /*
+            Text(
+                text = statName,
+                fontSize = 10.sp,
+
+                )
+            Text(
+                text = (curPercent.value * statMaxValue).toInt().toString(),
+                fontSize = 10.sp,
+            )
+
+             */
         }
     }
 }

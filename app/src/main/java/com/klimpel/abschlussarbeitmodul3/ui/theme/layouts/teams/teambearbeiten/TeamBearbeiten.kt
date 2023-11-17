@@ -43,7 +43,7 @@ fun TeamBearbeitenScreen(
     var clickedID = 0
     val context = LocalContext.current
 
-    val currentTeam by viewModelTeam.currentTeam.collectAsStateWithLifecycle()
+    //val currentTeam by viewModelTeam.currentTeam.collectAsStateWithLifecycle()
 
     AbschlussarbeitModul3Theme {
         Scaffold(
@@ -87,17 +87,11 @@ fun TeamBearbeitenScreen(
                             }
                     ) {
 
-                        TeamInfoSectionBearbeiten(context = context, navController = navController, currentTeam = currentTeam)
+                        //TeamInfoSectionBearbeiten(context = context, navController = navController, currentTeam =)
 
                         GradientButton(
                             onClick = {
-                                if (viewModelTeam.currentTeam.value.teamName.isNotEmpty() && viewModelTeam.currentTeam.value.pokemonOne.isNotEmpty() && viewModelTeam.currentTeam.value.pokemonTwo.isNotEmpty() && viewModelTeam.currentTeam.value.pokemonThree.isNotEmpty()
-                                ) {
-                                    viewModelTeam.updateTeam(context)
-                                    navController.navigate(Screen.Teamubersicht.route)
-                                } else {
-                                    messageDialogError(context, "Es müssen alle Pokemon ausgefüllt sein")
-                                }
+
                             },
                             text = stringResource(id = R.string.btnsave),
                             paddingx = 80.dp,
