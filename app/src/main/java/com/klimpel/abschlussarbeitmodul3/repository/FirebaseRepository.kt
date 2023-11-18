@@ -7,7 +7,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.klimpel.abschlussarbeitmodul3.data.models.BattleTeams
 import com.klimpel.abschlussarbeitmodul3.data.models.PokemonGrindEntry
-import com.klimpel.abschlussarbeitmodul3.data.models.Team
 import com.klimpel.abschlussarbeitmodul3.data.models.User
 import com.klimpel.abschlussarbeitmodul3.ui.components.messageDialogError
 import com.klimpel.abschlussarbeitmodul3.ui.components.messageDialogSuccess
@@ -17,6 +16,7 @@ import com.klimpel.abschlussarbeitmodul3.util.generatePokemonAlias
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+
 
 class FirebaseRepository {
 
@@ -30,8 +30,8 @@ class FirebaseRepository {
     private val _addTeam = MutableStateFlow(BattleTeams("", "", "", ""))
     var addteam: StateFlow<BattleTeams> = _addTeam.asStateFlow()
 
-    private var PokemonList by mutableStateOf<MutableList<PokemonGrindEntry>>(mutableListOf())
-    private var _ownedPokemonList = MutableStateFlow(PokemonList)
+    private var pokemonList by mutableStateOf<MutableList<PokemonGrindEntry>>(mutableListOf())
+    private var _ownedPokemonList = MutableStateFlow(pokemonList)
     var ownedPokemonList: StateFlow<List<PokemonGrindEntry>> = _ownedPokemonList.asStateFlow()
 
     private var currentTeamList by mutableStateOf<MutableList<BattleTeams>>(mutableListOf())
@@ -94,13 +94,13 @@ class FirebaseRepository {
             }
     }
 
-    fun loadTeam(name: String) : BattleTeams{
+    fun loadTeam(name: String): BattleTeams {
         firestore.collection("user")
             .document(currentUser?.id.toString())
             .collection("teams")
             .document(name)
             .get()
-            .addOnSuccessListener {result ->
+            .addOnSuccessListener { result ->
                 _currentTeam.value = BattleTeams(
                     result.data?.get("teamname").toString(),
                     result.data?.get("pokemon1").toString(),
@@ -121,24 +121,32 @@ class FirebaseRepository {
         updateFireStoreUser(context)
     }
 
-    fun updateAvatar(avatarname: String, context: Context){
+    fun updateAvatar(avatarname: String, context: Context) {
         currentUser?.avatar = avatarname
         updateFireStoreUser(context)
     }
 
-    fun pokemonHinzufugenAddTeam(name: String, id: Int){
-        when(id){
-            1 -> { _addTeam.value.pokemonOne = name }
-            2 -> { _addTeam.value.pokemonTwo = name }
-            3 -> { _addTeam.value.pokemonThree = name }
+    fun pokemonHinzufugenAddTeam(name: String, id: Int) {
+        when (id) {
+            1 -> {
+                _addTeam.value.pokemonOne = name
+            }
+
+            2 -> {
+                _addTeam.value.pokemonTwo = name
+            }
+
+            3 -> {
+                _addTeam.value.pokemonThree = name
+            }
         }
     }
 
-    fun teamnamehinzufugenAddTeam(name: String){
+    fun teamnamehinzufugenAddTeam(name: String) {
         _addTeam.value.teamName = name
     }
 
-    fun teamhinzufugen(context: Context){
+    fun teamhinzufugen(context: Context) {
         val newteam = hashMapOf(
             "teamname" to _addTeam.value.teamName,
             "pokemon1" to _addTeam.value.pokemonOne,
@@ -165,7 +173,7 @@ class FirebaseRepository {
             }
     }
 
-    fun deleteTeam(context: Context,battleTeams: BattleTeams){
+    fun deleteTeam(context: Context, battleTeams: BattleTeams) {
 
         currentUser?.teams = currentUser?.teams?.minus(1)!!
 
@@ -176,7 +184,10 @@ class FirebaseRepository {
             .delete()
             .addOnSuccessListener {
                 updateFireStoreUser(context)
-                messageDialogSuccess(context, "Das Löschen des \"${battleTeams.teamName}\" Team war erfolgreich")
+                messageDialogSuccess(
+                    context,
+                    "Das Löschen des \"${battleTeams.teamName}\" Team war erfolgreich"
+                )
             }
             .addOnFailureListener {
                 messageDialogError(context, "Das Löchen des Teams ist fehlgeschlagen")
@@ -190,16 +201,33 @@ class FirebaseRepository {
             .get()
             .addOnSuccessListener { result ->
                 val pokemonList = mutableListOf<PokemonGrindEntry>()
+
                 for (document in result) {
-                    pokemonList.add(
-                        PokemonGrindEntry(
-                            document.data["name"].toString(),
-                            document.data["anzahl"].toString().toInt(),
-                            document.data["collectedexp"].toString().toInt(),
-                            document.data["level"].toString().toInt(),
-                            document.data["id"].toString().toInt()
+                    val typeMap = (document.data["type"] as Map<String, *>).toList()
+                    if (typeMap.size > 1) {
+                        pokemonList.add(
+                            PokemonGrindEntry(
+                                document.data["name"].toString(),
+                                document.data["anzahl"].toString().toInt(),
+                                document.data["collectedexp"].toString().toInt(),
+                                document.data["level"].toString().toInt(),
+                                document.data["id"].toString().toInt(),
+                                type1 = typeMap[0].toString(),
+                                type2 = typeMap[1].toString()
+                            )
                         )
-                    )
+                    } else {
+                        pokemonList.add(
+                            PokemonGrindEntry(
+                                document.data["name"].toString(),
+                                document.data["anzahl"].toString().toInt(),
+                                document.data["collectedexp"].toString().toInt(),
+                                document.data["level"].toString().toInt(),
+                                document.data["id"].toString().toInt(),
+                                type1 = typeMap[0].toString()
+                            )
+                        )
+                    }
                 }
                 _ownedPokemonList.value = pokemonList
             }
@@ -213,10 +241,8 @@ class FirebaseRepository {
     }
 
     fun deleteCurrentTeam() {
-        _currentTeam.value = BattleTeams("", "", "", "",0,0,0,0,0,0,0,0)
+        _currentTeam.value = BattleTeams("", "", "", "", 0, 0, 0, 0, 0, 0, 0, 0)
     }
-
-
 
 
 

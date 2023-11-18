@@ -1,42 +1,38 @@
 package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.profilscreen
 
+
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.asunakangura.pokemonbattle.data.remote.responses.Pokemon
-import com.klimpel.abschlussarbeitmodul3.Screen
 import com.klimpel.abschlussarbeitmodul3.data.models.BattleTeams
 import com.klimpel.abschlussarbeitmodul3.ui.components.CardWithAnimatedBorderTeam
-import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
 import com.klimpel.abschlussarbeitmodul3.util.PokemonEvoloutionBorder
 import com.klimpel.abschlussarbeitmodul3.util.Resource
-import com.klimpel.abschlussarbeitmodul3.util.parsePokemonNameToGerman
+import com.klimpel.abschlussarbeitmodul3.util.backgroundBrush
 import com.klimpel.abschlussarbeitmodul3.viewmodels.PokemonDetailViewModel
 import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
 import kotlinx.coroutines.delay
@@ -90,7 +86,7 @@ fun PokemonCardTeamUbersichtPokemonOne(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .fillMaxHeight()
-                                .background(LightBlueBackground)
+                                .background(Brush.horizontalGradient(backgroundBrush(pokemonInfo.data.types)))
                                 .constrainAs(image) {
                                     top.linkTo(parent.top)
                                 }
@@ -106,26 +102,6 @@ fun PokemonCardTeamUbersichtPokemonOne(
                                 }
                             }
                         }
-                        /*
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight()
-                                .background(LightBlue)
-                                .constrainAs(name) {
-                                    top.linkTo(image.bottom)
-                                }
-                        ) {
-                            Spacer(modifier = Modifier.height(5.dp))
-                            Text(
-                                text = parsePokemonNameToGerman(pokemonInfo.data.name),
-                                fontSize = 10.sp,
-                                color = Color.White
-                            )
-                        }
-
-                         */
                     }
                 }
             }
@@ -133,7 +109,6 @@ fun PokemonCardTeamUbersichtPokemonOne(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PokemonCardTeamUbersichtOhneBattleTeam(
     navController: NavController,
@@ -145,6 +120,9 @@ fun PokemonCardTeamUbersichtOhneBattleTeam(
     {
         value = viewModel.getPokemonInfo(pokemonname)
     }.value
+
+    var test = pokemonInfo.data?.types?.let { backgroundBrush(it) }
+    Log.e("BackgroundBrush", "$test")
 
     pokemonInfo.data?.name?.let { PokemonEvoloutionBorder(it) }?.let {
         CardWithAnimatedBorderTeam(
@@ -172,7 +150,7 @@ fun PokemonCardTeamUbersichtOhneBattleTeam(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .fillMaxHeight()
-                                .background(LightBlueBackground)
+                                .background(Brush.horizontalGradient(backgroundBrush(pokemonInfo.data.types)))
                                 .constrainAs(image) {
                                     top.linkTo(parent.top)
                                 }
@@ -194,4 +172,5 @@ fun PokemonCardTeamUbersichtOhneBattleTeam(
         }
     }
 }
+
 

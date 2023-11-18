@@ -1,5 +1,7 @@
 package com.klimpel.abschlussarbeitmodul3.data.models
 
+import java.lang.reflect.Type
+
 /**
  * Stellt einen Eintrag in der Pokedex-Liste dar.
  *
@@ -12,5 +14,6 @@ data class PokedexListEntry(
     val pokemonName: String,
     val imageUrl: String,
     val number: Int,
-    val owned: Boolean = false
+    val owned: Boolean = false,
+    //val types: List<Type>
 )
