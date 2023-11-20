@@ -19,19 +19,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.klimpel.abschlussarbeitmodul3.Screen
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
+import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
 
 @Composable
-fun TeamErstellenButton(navController: NavController){
-    Row (
+fun TeamErstellenButton(
+    navController: NavController,
+    teamViewModel: TeamViewModel = hiltViewModel()
+) {
+    Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth().fillMaxHeight(0.1f)
-    ){
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(0.1f)
+    ) {
         Button(
-            onClick = { navController.navigate(Screen.Teamerstellen.route) },
+            onClick = {
+                teamViewModel.deleteCurrentTeam()
+                navController.navigate(Screen.Teamerstellen.route)
+            },
             colors = ButtonDefaults.buttonColors(containerColor = LightBlue),
             modifier = Modifier
                 .fillMaxWidth(0.7f)
@@ -46,12 +56,14 @@ fun TeamErstellenButton(navController: NavController){
 }
 
 @Composable
-fun TeamErstellenButtonDisabeled(){
-    Row (
+fun TeamErstellenButtonDisabeled() {
+    Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth().fillMaxHeight(0.1f)
-    ){
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(0.1f)
+    ) {
         Button(
             onClick = { /*TODO*/ },
             colors = ButtonDefaults.buttonColors(containerColor = LightBlue),

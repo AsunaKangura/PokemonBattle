@@ -14,6 +14,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.rememberCoroutineScope
@@ -21,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -29,6 +31,7 @@ import coil.compose.AsyncImage
 import com.asunakangura.pokemonbattle.data.remote.responses.Pokemon
 import com.klimpel.abschlussarbeitmodul3.data.models.BattleTeams
 import com.klimpel.abschlussarbeitmodul3.ui.components.CardWithAnimatedBorderTeam
+import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
 import com.klimpel.abschlussarbeitmodul3.util.PokemonEvoloutionBorder
 import com.klimpel.abschlussarbeitmodul3.util.Resource
@@ -122,7 +125,6 @@ fun PokemonCardTeamUbersichtOhneBattleTeam(
     }.value
 
     var test = pokemonInfo.data?.types?.let { backgroundBrush(it) }
-    Log.e("BackgroundBrush", "$test")
 
     pokemonInfo.data?.name?.let { PokemonEvoloutionBorder(it) }?.let {
         CardWithAnimatedBorderTeam(
@@ -130,7 +132,7 @@ fun PokemonCardTeamUbersichtOhneBattleTeam(
         ) {
             Card(
                 modifier = Modifier
-                    .size(90.dp),
+                   .size(90.dp),
                 shape = RoundedCornerShape(10.dp),
                 elevation = CardDefaults.elevatedCardElevation(
                     defaultElevation = 10.dp
@@ -166,6 +168,52 @@ fun PokemonCardTeamUbersichtOhneBattleTeam(
                                 }
                             }
                         }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun PokemonCardTeamErstellen(
+    navController: NavController,
+    viewModel: PokemonDetailViewModel = hiltViewModel()
+) {
+
+    val test = listOf(LightBlue, LightBlue)
+
+    CardWithAnimatedBorderTeam(
+        borderColors = test
+    ) {
+        Card(
+            modifier = Modifier
+                .size(90.dp),
+            shape = RoundedCornerShape(10.dp),
+            elevation = CardDefaults.elevatedCardElevation(
+                defaultElevation = 10.dp
+            ),
+        ) {
+            Column(
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier.fillMaxSize()
+            ) {
+                ConstraintLayout(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    val (image, name) = createRefs()
+
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight()
+                            .background(LightBlueBackground)
+                            .constrainAs(image) {
+                                top.linkTo(parent.top)
+                            }
+                    ) {
+                        Text(text = "Leer")
                     }
                 }
             }

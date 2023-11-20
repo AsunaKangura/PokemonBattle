@@ -19,10 +19,11 @@ fun PokemonBaseStatsTeam(
     teams: BattleTeams,
     animDelayPerItem: Int = 100
 ) {
-
+    var maxBaseStat = 5
     val testliste = listOf(teams.hp, teams.atk, teams.def, teams.spatk, teams.spdef,teams.spd)
-
-    val maxBaseStat = testliste.max()
+    if (testliste.max() != 0){
+        maxBaseStat = testliste.max()
+    }
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {

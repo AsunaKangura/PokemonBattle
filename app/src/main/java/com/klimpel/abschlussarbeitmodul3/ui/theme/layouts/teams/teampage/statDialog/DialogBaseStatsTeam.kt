@@ -24,10 +24,11 @@ fun DialogBaseStatsTeam(
     animDelayPerItem: Int = 100
 ) {
 
-    val statsliste = listOf(teams.hp, teams.atk, teams.def, teams.spatk, teams.spdef,teams.spd)
-
-    val maxBaseStat = statsliste.max()
-
+    var maxBaseStat = 5
+    val testliste = listOf(teams.hp, teams.atk, teams.def, teams.spatk, teams.spdef,teams.spd)
+    if (testliste.max() != 0){
+        maxBaseStat = testliste.max()
+    }
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {

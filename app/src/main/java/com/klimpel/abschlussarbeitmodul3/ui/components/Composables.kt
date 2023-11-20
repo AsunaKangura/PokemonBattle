@@ -764,7 +764,7 @@ fun CardWithAnimatedBorderTeam(
         Surface(
             modifier = Modifier
                 .clipToBounds()
-                .fillMaxWidth()
+                //.fillMaxWidth()
                 .padding(2.dp)
                 .drawWithContent {
                     rotate(angle) {

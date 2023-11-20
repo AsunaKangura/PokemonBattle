@@ -9,7 +9,7 @@ import com.klimpel.abschlussarbeitmodul3.ui.theme.White
 
 fun PokemonEvoloutionBorder(name: String) : List<Color> {
     return when (name) {
-        "" -> listOf(Color.White, Color.White)
+        "" -> listOf(LightBlue, LightBlue)
         "venusaur" -> EvoloutionColor
         "charizard" -> EvoloutionColor
         "blastoise" -> EvoloutionColor

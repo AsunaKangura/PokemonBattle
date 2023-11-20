@@ -398,6 +398,24 @@ fun teamstats(
     return Resource.Success(response)
 }
 
+fun teamstatserstellen(): Resource<BattleTeams?> {
+    val response = BattleTeams(
+        teamName = "",
+        pokemonOne = "",
+        pokemonTwo = "",
+        pokemonThree = "",
+        games = 0,
+        wins = 0,
+        hp = 0,
+        atk = 0,
+        def = 0,
+        spatk = 0,
+        spdef = 0,
+        spd = 0,
+    )
+    return Resource.Success(response)
+}
+
 fun createPokemon(resource: Resource<Pokemon>): Pokemon? {
     val pokemonOne = resource.data?.let {
         Pokemon(

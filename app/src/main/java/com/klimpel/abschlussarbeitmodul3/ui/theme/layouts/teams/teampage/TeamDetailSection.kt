@@ -54,10 +54,13 @@ fun TeamDetailSection(
 ) {
     val scrollState = rememberScrollState()
 
+    /*
     val pokemonInfodialo = produceState<Resource<Pokemon>>(initialValue = Resource.Loading())
     {
         value = viewModelteam.getPokemonInfo("gengar")
     }.value
+
+     */
 
 
     val openStatDialog = remember { mutableStateOf(false) }

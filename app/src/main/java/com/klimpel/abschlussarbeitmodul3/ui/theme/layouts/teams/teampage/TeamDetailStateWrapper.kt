@@ -15,7 +15,6 @@ import com.klimpel.abschlussarbeitmodul3.util.Resource
 @Composable
 fun TeamDetailStateWrapper(
     teamStats: Resource<BattleTeams?>?,
-    //pokemonInfo: Resource<Pokemon>,
     modifier: Modifier = Modifier,
     loadingModifier: Modifier = Modifier
 ) {

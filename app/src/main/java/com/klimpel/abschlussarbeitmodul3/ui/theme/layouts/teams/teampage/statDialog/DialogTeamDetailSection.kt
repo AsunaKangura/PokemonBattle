@@ -18,7 +18,6 @@ import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
 @Composable
 fun DialogTeamDetailSection(
     teams: BattleTeams,
-    //pokemonInfo: Pokemon,
     modifier: Modifier = Modifier,
     viewModelteam: TeamViewModel = hiltViewModel(),
 ) {

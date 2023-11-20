@@ -24,6 +24,7 @@ import androidx.navigation.NavController
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
 import com.klimpel.abschlussarbeitmodul3.viewmodels.ProfilViewModel
+import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
 import com.klimpel.pokemonbattlefinal.R
 
 
@@ -31,7 +32,7 @@ import com.klimpel.pokemonbattlefinal.R
 @Composable
 fun ProfilScreen(
     navController: NavController,
-    viewModelprofil: ProfilViewModel = hiltViewModel(),
+    viewModelprofil: ProfilViewModel = hiltViewModel()
 ) {
 
     Scaffold(
