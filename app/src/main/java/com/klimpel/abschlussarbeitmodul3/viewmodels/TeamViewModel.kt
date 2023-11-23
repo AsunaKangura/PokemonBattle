@@ -34,7 +34,7 @@ class TeamViewModel @Inject constructor(
         loadOwnedPokemon()
     }
 
-    fun loadOwnedPokemon(){
+    private fun loadOwnedPokemon(){
         repository.firebase.loadOwnedPokemon()
     }
 

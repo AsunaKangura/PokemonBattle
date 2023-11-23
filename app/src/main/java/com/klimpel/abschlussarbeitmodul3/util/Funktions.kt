@@ -34,3 +34,19 @@ fun backgroundBrush(typelist: List<Type>): List<Color> {
         listOf(LightBlue, LightBlue)
     }
 }
+
+fun backgroundBrushListString(typelist: List<String>): List<Color> {
+    val colorList: MutableList<Color> = mutableListOf()
+    return if (typelist.isNotEmpty()) {
+        if (typelist.size > 1) {
+            colorList.add(parseTypeToColor2(typelist.first()))
+            colorList.add(parseTypeToColor2(typelist.last()))
+        } else {
+            colorList.add(parseTypeToColor2(typelist.first()))
+            colorList.add(parseTypeToColor2(typelist.first()))
+        }
+        colorList
+    } else {
+        listOf(LightBlue, LightBlue)
+    }
+}

@@ -30,6 +30,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -44,12 +45,16 @@ import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfilTeamCard(battleTeams: BattleTeams, navController: NavController, viewModelteam: TeamViewModel= hiltViewModel()) {
+fun ProfilTeamCard(
+    battleTeams: BattleTeams,
+    navController: NavController,
+    viewModelteam: TeamViewModel = hiltViewModel()
+) {
 
     val context = LocalContext.current
-    val openDeleteDialog  = remember { mutableStateOf(false) }
+    val openDeleteDialog = remember { mutableStateOf(false) }
 
-    if (openDeleteDialog.value){
+    if (openDeleteDialog.value) {
         AlertDialog(
             onDismissRequest = {
                 openDeleteDialog.value = false
@@ -88,7 +93,16 @@ fun ProfilTeamCard(battleTeams: BattleTeams, navController: NavController, viewM
                 bottomEnd = 50.dp
             ),
             modifier = Modifier
-                .border(4.dp, DeepRed, shape = RoundedCornerShape(topStart = 50.dp, topEnd = 20.dp, bottomStart = 20.dp, bottomEnd = 50.dp))
+                .border(
+                    4.dp,
+                    DeepRed,
+                    shape = RoundedCornerShape(
+                        topStart = 50.dp,
+                        topEnd = 20.dp,
+                        bottomStart = 20.dp,
+                        bottomEnd = 50.dp
+                    )
+                )
         )
     }
 
@@ -106,7 +120,10 @@ fun ProfilTeamCard(battleTeams: BattleTeams, navController: NavController, viewM
         elevation = CardDefaults.cardElevation(
             defaultElevation = 10.dp
         ),
-        border = BorderStroke(2.dp, LightBlue)
+        border = BorderStroke(2.dp, LightBlue),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White
+        ),
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -114,9 +131,14 @@ fun ProfilTeamCard(battleTeams: BattleTeams, navController: NavController, viewM
         ) {
             TitelCardString(titel = battleTeams.teamName)
             IconButton(onClick = { openDeleteDialog.value = true }) {
-                Icon(imageVector = Icons.Outlined.Delete, contentDescription = "Delete Team", tint = DeepRed, modifier = Modifier
-                    .padding(end = 10.dp)
-                    .size(35.dp))
+                Icon(
+                    imageVector = Icons.Outlined.Delete,
+                    contentDescription = "Delete Team",
+                    tint = DeepRed,
+                    modifier = Modifier
+                        .padding(end = 10.dp)
+                        .size(35.dp)
+                )
             }
         }
         TeamCardPokemon(battleTeams, navController)

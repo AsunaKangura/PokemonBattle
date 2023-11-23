@@ -42,7 +42,7 @@ fun HomeScreen(navController: NavController) {
                 // Pokemon Battle
                 CategoryCard(onClick = { }, text = R.string.pokemonbattlecard, image = R.drawable.pokemon_battle_pikachu_mewtwo_large)
                 // Pokemon Store
-                CategoryCard(onClick = { }, text = R.string.pokestorecard, image = R.drawable.pokemon_centre_launch_edited_large)
+                CategoryCard(onClick = { navController.navigate(Screen.Store.route) }, text = R.string.pokestorecard, image = R.drawable.pokemon_centre_launch_edited_large)
                 // PokeDex Card
                 CategoryCard(onClick = { navController.navigate(Screen.Pokedex.route) }, text = R.string.pokedexcard, image = R.drawable.pokemondex)
             }

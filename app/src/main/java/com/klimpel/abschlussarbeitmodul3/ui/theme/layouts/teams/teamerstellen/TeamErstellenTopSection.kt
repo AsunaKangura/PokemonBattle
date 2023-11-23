@@ -44,7 +44,7 @@ import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
 @Composable
 fun TeamErstellenTopSection(
     value: String,
-    onValueChange: (String: String) -> Unit,
+    onValueChange: (string: String) -> Unit,
     enabelTeamName: Boolean,
     viewModelTeam: TeamViewModel = hiltViewModel()
 ) {

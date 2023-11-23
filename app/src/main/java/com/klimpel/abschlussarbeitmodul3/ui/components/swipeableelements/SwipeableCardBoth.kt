@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,6 +21,7 @@ import com.klimpel.abschlussarbeitmodul3.ui.components.CardWithAnimatedBorder
 import com.klimpel.abschlussarbeitmodul3.ui.components.PokemonTeamCard
 import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
+import com.klimpel.abschlussarbeitmodul3.ui.theme.TypeFire
 import com.klimpel.abschlussarbeitmodul3.util.Dimension
 import com.klimpel.abschlussarbeitmodul3.util.PokemonEvoloutionBorder
 import com.klimpel.abschlussarbeitmodul3.util.calcDp
@@ -70,6 +72,39 @@ fun SwipeableCardBoth(
         leftSpace = (-30).dp,
         rightSpace = (-30).dp,
         fractionalThreshold = 0f
+    ) {
+        content()
+    }
+}
+
+@Composable
+fun SwipeableCardBothStore(
+    navController: NavController,
+    content: @Composable () -> Unit
+) {
+    SwipeAbleItemView(
+        leftViewIcons = arrayListOf(Triple(rememberVectorPainter(image = Icons.Filled.ShoppingCart), Color.White, "btnDeleteLeft")),
+        rightViewIcons = arrayListOf(Triple((rememberVectorPainter(image = Icons.Filled.Search)), Color.White, "btnDetailRight")),
+        position = 0,
+        swipeDirection = SwipeDirection.BOTH,
+        onClick = { clickInfo ->
+            val route = "PokemonDetailScreen/"
+            if (clickInfo.second == "btnDetailRight") {
+                navController.navigate(route)
+            }
+            if (clickInfo.second == "btnDeleteLeft"){
+
+            }
+        },
+        leftViewWidth = 10.dp,
+        rightViewWidth = 10.dp,
+        height = 30.dp,
+        leftViewBackgroundColor = TypeFire,
+        rightViewBackgroundColor = LightBlue,
+        cornerRadius = 20.dp,
+        leftSpace = 0.dp,
+        rightSpace = 0.dp,
+        fractionalThreshold = 1f
     ) {
         content()
     }

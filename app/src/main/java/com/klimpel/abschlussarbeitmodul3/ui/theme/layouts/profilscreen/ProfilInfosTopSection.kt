@@ -31,6 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -103,12 +104,17 @@ fun ProfilInfosTopSection(
                         modifier = Modifier
                             .fillMaxWidth()
                     ) {
-                        GradientButton(onClick = {
-                            if (aliasText.value != "") {
-                                viewModelprofil.updateAlias(aliasText.value.toString(), context)
-                                openAliasDialog.value = false
-                            }
-                        }, text = "Speichern")
+                        GradientButton(
+                            onClick = {
+                                if (aliasText.value != "") {
+                                    viewModelprofil.updateAlias(aliasText.value.toString(), context)
+                                    openAliasDialog.value = false
+                                }
+                            },
+                            text = "Speichern",
+                            gradient = Brush.linearGradient(listOf(LightBlue, LightBlue)),
+                            textcolor = Color.White
+                        )
                         Spacer(modifier = Modifier.height(10.dp))
                     }
                 }
@@ -158,7 +164,12 @@ fun ProfilInfosTopSection(
                             }
                         }
                     )
-                    GradientButton(onClick = { openAvatarDialog.value = false }, text = "Schließen")
+                    GradientButton(
+                        onClick = { openAvatarDialog.value = false },
+                        text = "Schließen",
+                        gradient = Brush.linearGradient(listOf(LightBlue, LightBlue)),
+                        textcolor = Color.White, paddingx = 40.dp
+                    )
                 }
             }
         }
@@ -257,10 +268,10 @@ fun ProfilInfosTopSection(
                     Text(
                         text = "PokeDollar:",
                         fontSize = 16.sp,
-                        color = Color.Black
+                        color = LightBlue
                     )
                     Spacer(modifier = Modifier.height(5.dp))
-                    Text(text = "Tickets:", fontSize = 16.sp, color = Color.Black)
+                    Text(text = "Tickets:", fontSize = 16.sp, color = LightBlue)
                 }
                 Column(
                     horizontalAlignment = Alignment.End,

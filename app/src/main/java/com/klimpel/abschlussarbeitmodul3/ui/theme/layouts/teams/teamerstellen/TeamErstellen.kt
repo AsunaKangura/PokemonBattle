@@ -1,6 +1,7 @@
 package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.teamerstellen
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -97,7 +98,7 @@ import com.klimpel.pokemonbattlefinal.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TeamErstellenScreen(
+fun TeamErstellenScreen2(
     navController: NavController,
     viewModelteam: TeamViewModel = hiltViewModel(),
     viewModelSearch: SearchingViewModel = hiltViewModel(),
@@ -343,9 +344,10 @@ fun TeamErstellenScreen(
                             .fillMaxHeight()
                     ) {
                         Spacer(modifier = Modifier.height(20.dp))
+
                         AnimatedVisibility(
                             viewModeldraganddrop.isCurrentlyDragging,
-                            enter = slideInVertically(initialOffsetY = { it })
+                            enter = slideInHorizontally(initialOffsetX = { it })
                         ) {
                             Row(
                                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -535,6 +537,8 @@ fun TeamErstellenScreen(
                                 }
                             }
                         }
+
+
                         Column(
                             verticalArrangement = Arrangement.Center,
                             horizontalAlignment = Alignment.CenterHorizontally,

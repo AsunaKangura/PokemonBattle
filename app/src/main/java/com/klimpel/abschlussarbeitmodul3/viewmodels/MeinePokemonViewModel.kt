@@ -26,10 +26,6 @@ class MeinePokemonViewModel @Inject constructor(
 
     var pokemonList = mutableStateOf<List<PokemonGrindEntry>>(listOf())
 
-    init {
-        loadOwnedPokemon()
-    }
-
     fun loadOwnedPokemon(){
         repository.firebase.loadOwnedPokemon()
         //repository.loadOwnedPokemon()

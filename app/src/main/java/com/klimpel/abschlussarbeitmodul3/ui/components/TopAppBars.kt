@@ -110,6 +110,7 @@ fun TopAppBar(
                 )
             }
 
+            /*
             if (openAliasDialog.value) {
                 showMenu.value = false
                 Dialog(onDismissRequest = { openAliasDialog.value = false }) {
@@ -321,6 +322,8 @@ fun TopAppBar(
                 }
             }
 
+             */
+
             // DropDown Menü
             DropdownMenu(
                 expanded = showMenu.value,
@@ -348,7 +351,7 @@ fun TopAppBar(
                 Divider(color = LightBlue)
                 DropdownMenuItem(
                     text = { Text(stringResource(id = R.string.dropmenuitemrucksack)) },
-                    onClick = { },
+                    onClick = {navController.navigate(Screen.Rucksack.route) },
                     modifier = Modifier
                         .height(calcDp(percentage = 0.08f, dimension = Dimension.Height))
                         .background(Color.White),

@@ -6,12 +6,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.klimpel.abschlussarbeitmodul3.viewmodels.MeinePokemonViewModel
+import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MeinePokemon(navController: NavController, viewModelMeinPokemon: MeinePokemonViewModel = hiltViewModel()
+fun MeinePokemon(navController: NavController, viewModelTeam: TeamViewModel = hiltViewModel()
 ){
-    val ownedPokemonList = viewModelMeinPokemon.pokemonUbersicht.collectAsState()
+    val ownedPokemonList = viewModelTeam.pokemonUbersicht.collectAsState()
 
     if (ownedPokemonList.value.isNotEmpty()){
         OwnedPokemonContent(navController = navController, pokemonlist = ownedPokemonList.value)

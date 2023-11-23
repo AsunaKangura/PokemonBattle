@@ -6,10 +6,14 @@
     <string name="btn_login">Login</string>
     <string name="text_over_login">Hier gehts zur Anmeldung</string>
     <string name="btn_register">Registrieren</string>
-    <string name="text_over_register">Neu Hier?. Hier gehts zur Registrierung...</string>
+    <string name="text_over_register">Neu Hier?. Hier gehts zur Registrierung…</string>
     <string name="btn_next">Weiter</string>
 
+    <!-- TODO: ProfilScreen -->
     <string name="titelProfil">Profil</string>
+
+    <!-- TODO: Rucksack -->
+    <string name="titelRucksack">Rucksack</string>
 
     <!-- TODO: BattleStartScreen -->
     <string name="titelbattelstartscreen">Pokemon Battle</string>

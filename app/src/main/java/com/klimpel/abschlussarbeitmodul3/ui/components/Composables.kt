@@ -2,7 +2,6 @@ package com.klimpel.abschlussarbeitmodul3.ui.components
 
 
 import android.content.Context
-import android.util.Log
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -28,12 +27,15 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -45,6 +47,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
@@ -52,15 +55,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -72,12 +76,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.asunakangura.pokemonbattle.data.remote.responses.Pokemon
-import com.klimpel.abschlussarbeitmodul3.data.models.PokemonTeamCard
 import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
-import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.pokedexscreen.Searchbar
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.pokemondetailscreen.PokemonTypeSection
+import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.profilscreen.PokemonCardTeamUbersichtOhneBattleTeam
+import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.AvailablePokemonListItem
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.AvailablePokemonRow
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.AvailablePokemonRowEditTeam
 import com.klimpel.abschlussarbeitmodul3.util.Dimension
@@ -86,6 +90,7 @@ import com.klimpel.abschlussarbeitmodul3.util.calcDp
 import com.klimpel.abschlussarbeitmodul3.util.parsePokemonNameToGerman
 import com.klimpel.abschlussarbeitmodul3.viewmodels.MeinePokemonViewModel
 import com.klimpel.abschlussarbeitmodul3.viewmodels.PokemonDetailViewModel
+import com.klimpel.abschlussarbeitmodul3.viewmodels.SearchingViewModel
 import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
 import com.klimpel.pokemonbattlefinal.R
 
@@ -128,8 +133,7 @@ fun GradientButton(
                         brush = gradient,
                         shape = roundedCornerShape
                     )
-                    .padding(horizontal = paddingx, vertical = paddingy)
-                    .clip(roundedCornerShape),
+                    .padding(horizontal = paddingx, vertical = paddingy),
                 contentAlignment = Alignment.Center
 
             ) {
@@ -139,102 +143,6 @@ fun GradientButton(
     }
 
 }
-/*
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TeamCard2(
-    teamId: String,
-    teamname: String,
-    viewModelteam: TeamViewModel = hiltViewModel()
-) {
-
-    Card(
-        onClick = {
-            viewModelteam.deleteCurrentTeam()
-            viewModelteam.getTeamInfo(teamId)
-        },
-        modifier = Modifier
-            .width(calcDp(percentage = 0.3f, dimension = Dimension.Width))
-            .height(calcDp(percentage = 0.05f, dimension = Dimension.Height)),
-        shape = RoundedCornerShape(
-            topStart = 25.dp,
-            topEnd = 10.dp,
-            bottomStart = 10.dp,
-            bottomEnd = 25.dp
-        ),
-        elevation = CardDefaults.elevatedCardElevation(
-            defaultElevation = 10.dp
-        ),
-        border = BorderStroke(1.dp, LightBlue)
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Text(
-                text = teamname,
-                fontSize = 12.sp,
-                color = LightBlue,
-                fontWeight = FontWeight.Bold
-            )
-        }
-    }
-}
-
- */
-
-/*
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TeamCard(
-    pokemonTeamCard: PokemonTeamCard,
-    viewModelteam: TeamViewModel = hiltViewModel()
-) {
-
-   var bordercolor = if (pokemonTeamCard.isClicked){
-        Color.Green
-    }else{
-        LightBlue
-    }
-    Log.e("POKEMON_TEAM_CARD_BEFOR_CLICK", "${pokemonTeamCard.isClicked} / ${pokemonTeamCard.teamName}")
-    Card(
-        onClick = {
-            viewModelteam.deleteCurrentTeam()
-            viewModelteam.getTeamInfo(pokemonTeamCard.teamId)
-            pokemonTeamCard.isClicked = true
-            Log.e("POKEMON_TEAM_CARD_AFTER_CLICK", "${pokemonTeamCard.isClicked}")
-        },
-        modifier = Modifier
-            .width(calcDp(percentage = 0.3f, dimension = Dimension.Width))
-            .height(calcDp(percentage = 0.05f, dimension = Dimension.Height)),
-        shape = RoundedCornerShape(
-            topStart = 25.dp,
-            topEnd = 10.dp,
-            bottomStart = 10.dp,
-            bottomEnd = 25.dp
-        ),
-        elevation = CardDefaults.elevatedCardElevation(
-            defaultElevation = 10.dp
-        ),
-        border = BorderStroke(1.dp, bordercolor)
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Text(
-                text = pokemonTeamCard.teamName,
-                fontSize = 12.sp,
-                color = LightBlue,
-                fontWeight = FontWeight.Bold
-            )
-        }
-    }
-}
-
- */
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -369,11 +277,11 @@ fun PokemonTeamCardAddBearbeiten(
                             }
                     ) {
 
-                        Column (
+                        Column(
                             modifier = Modifier
                                 .fillMaxSize()
                                 .background(DeepRed)
-                        ){
+                        ) {
 
                             /*
                             Searchbar(hint = stringResource(R.string.searchbarHint)){
@@ -452,11 +360,10 @@ fun PokemonTeamCardAddErstellen(
     navController: NavController,
     context: Context,
     clickeid: Int,
-    viewModel: MeinePokemonViewModel = hiltViewModel(),
+    viewModelSearch: SearchingViewModel = hiltViewModel(),
     viewModelteam: TeamViewModel = hiltViewModel()
 ) {
     var clickedID = clickeid
-    val pokemonList = viewModel.pokemonUbersicht.collectAsState()
     val openPokemonAddDialog = remember { mutableStateOf(false) }
     if (openPokemonAddDialog.value) {
         Dialog(
@@ -468,7 +375,12 @@ fun PokemonTeamCardAddErstellen(
                     .fillMaxWidth(0.9f)
                     .height(calcDp(percentage = 0.8f, dimension = Dimension.Height)),
                 colors = CardDefaults.cardColors(Color.White),
-                shape = RoundedCornerShape(topStart = 50.dp, topEnd = 20.dp, bottomStart = 20.dp, bottomEnd = 50.dp),
+                shape = RoundedCornerShape(
+                    topStart = 50.dp,
+                    topEnd = 20.dp,
+                    bottomStart = 20.dp,
+                    bottomEnd = 50.dp
+                ),
                 elevation = CardDefaults.elevatedCardElevation(defaultElevation = 10.dp),
             ) {
                 ConstraintLayout(
@@ -478,14 +390,21 @@ fun PokemonTeamCardAddErstellen(
                     // Profil Titel
 
                     Card(
-                        colors = CardDefaults.cardColors(containerColor = Color.White,),
+                        colors = CardDefaults.cardColors(containerColor = Color.White),
                         border = BorderStroke(4.dp, LightBlue),
-                        modifier = Modifier.width(180.dp).height(50.dp)
+                        modifier = Modifier
+                            .width(180.dp)
+                            .height(50.dp)
                             .constrainAs(titel) {
                                 top.linkTo(parent.top)
                                 start.linkTo(parent.start)
                             },
-                        shape = RoundedCornerShape(topStart = 50.dp, topEnd = 0.dp, bottomStart = 0.dp, bottomEnd = 50.dp),
+                        shape = RoundedCornerShape(
+                            topStart = 50.dp,
+                            topEnd = 0.dp,
+                            bottomStart = 0.dp,
+                            bottomEnd = 50.dp
+                        ),
                         elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
                     ) {
                         Column(
@@ -505,45 +424,101 @@ fun PokemonTeamCardAddErstellen(
 
                     //TitelCard(titel = R.string.titelpokemonchoice)
 
-                    Row(
+
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .fillMaxHeight(0.8f)
-                            .padding(horizontal = 20.dp)
+                            .fillMaxHeight()
                             .constrainAs(listViewPokemon) {
-                                top.linkTo(titel.bottom, 20.dp)
+                                top.linkTo(titel.bottom, 10.dp)
                             }
                     ) {
-
-                        Column (
+                        Column(
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally,
                             modifier = Modifier
-                                .fillMaxSize()
-                                .background(DeepRed)
-                        ){
-
-                            /*
-                            Searchbar(hint = stringResource(R.string.searchbarHint)){
-                                viewModel.searchPokemonList(it)
+                                .fillMaxWidth(0.9f)
+                                .fillMaxHeight()
+                        ) {
+                            val searchText by viewModelSearch.searchText.collectAsState()
+                            val ownedPokemon by viewModelSearch.ownedPokemon.collectAsState()
+                            val isSearching by viewModelSearch.isSearching.collectAsState()
+                            var isHintDisplayed by remember {
+                                mutableStateOf(false)
                             }
 
-                             */
+                            Box(
+                                modifier = Modifier
+                                    .padding(horizontal = 0.dp)
+                            ) {
+                                BasicTextField(
+                                    value = searchText,
+                                    onValueChange = viewModelSearch::onSearchTextChange,
+                                    maxLines = 1,
+                                    singleLine = true,
+                                    textStyle = TextStyle(Color.Black),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .shadow(
+                                            5.dp,
+                                            RoundedCornerShape(20.dp)
+                                        )
+                                        .background(Color.White)
+                                        .padding(horizontal = 20.dp, vertical = 12.dp)
+                                        .onFocusChanged {
+                                            isHintDisplayed = !isHintDisplayed
+                                        }
+                                )
+                                if (isHintDisplayed) {
+                                    Text(
+                                        text = "Nach Name, ID, Type suchen",
+                                        color = LightBlue,
+                                        modifier = Modifier.padding(
+                                            horizontal = 20.dp,
+                                            vertical = 12.dp
+                                        ),
+                                        fontSize = 12.sp
+                                    )
+                                }
+                            }
+                            Spacer(modifier = Modifier.height(10.dp))
+
+                            Text(
+                                text = stringResource(id = R.string.dropmenuitemmeinepokemon),
+                                color = LightBlue,
+                                fontWeight = FontWeight.Bold,
+                            )
+
+                            Divider(thickness = 1.dp, color = LightBlue)
 
                             Spacer(modifier = Modifier.height(20.dp))
 
-                            LazyVerticalGrid(
-                                columns = GridCells.Adaptive(130.dp),
-                            ) {
-                                viewModel.loadOwnedPokemon()
-                                val itemCount = pokemonList.value.size
-                                items(itemCount) {
-                                    AvailablePokemonRow(
-                                        navController = navController,
-                                        context = context,
-                                        clickedID = clickedID,
-                                        rowIndex = it,
-                                        entries = pokemonList.value
+                            if (isSearching) {
+                                Box(modifier = Modifier.fillMaxSize()) {
+                                    CircularProgressIndicator(
+                                        modifier = Modifier.align(Alignment.Center)
                                     )
-                                    Spacer(modifier = Modifier.height(10.dp))
+                                }
+                            } else {
+                                LazyVerticalGrid(
+                                    columns = GridCells.Adaptive(120.dp),
+                                    modifier = Modifier
+                                        .fillMaxWidth(0.9f)
+                                        .fillMaxHeight(0.9f),
+                                    verticalArrangement = Arrangement.spacedBy(10.dp),
+                                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                                ) {
+                                    val itemcount = ownedPokemon.size
+
+                                    items(itemcount) {
+                                        AvailablePokemonListItem(
+                                            navController = navController,
+                                            context = context,
+                                            clickid = clickeid,
+                                            pokemon = ownedPokemon[it]
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -760,7 +735,9 @@ fun CardWithAnimatedBorderTeam(
         if (borderColors.isNotEmpty()) Brush.sweepGradient(borderColors)
         else Brush.sweepGradient(listOf(Color.Gray, Color.White))
 
-    Surface(modifier = modifier.clickable { onCardClick() }.shadow(10.dp, shape = RectangleShape), shape = RoundedCornerShape(10.dp)) {
+    Surface(modifier = modifier
+        .clickable { onCardClick() }
+        .shadow(10.dp, shape = RectangleShape), shape = RoundedCornerShape(10.dp)) {
         Surface(
             modifier = Modifier
                 .clipToBounds()
@@ -778,7 +755,10 @@ fun CardWithAnimatedBorderTeam(
                 },
             color = Color.Transparent,
         ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally,modifier = Modifier.padding(2.dp)) { content() }
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.padding(2.dp)
+            ) { content() }
         }
     }
 }
@@ -807,7 +787,9 @@ fun CardWithAnimatedBorderOwnedPokemon(
         if (borderColors.isNotEmpty()) Brush.sweepGradient(borderColors)
         else Brush.sweepGradient(listOf(Color.Gray, Color.White))
 
-    Surface(modifier = modifier.clickable { onCardClick() }.shadow(10.dp, shape = RectangleShape), shape = RoundedCornerShape(20.dp)) {
+    Surface(modifier = modifier
+        .clickable { onCardClick() }
+        .shadow(10.dp, shape = RectangleShape), shape = RoundedCornerShape(20.dp)) {
         Surface(
             modifier =
             Modifier

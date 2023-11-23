@@ -203,31 +203,19 @@ class FirebaseRepository {
                 val pokemonList = mutableListOf<PokemonGrindEntry>()
 
                 for (document in result) {
-                    val typeMap = (document.data["type"] as Map<String, *>).toList()
-                    if (typeMap.size > 1) {
-                        pokemonList.add(
-                            PokemonGrindEntry(
-                                document.data["name"].toString(),
-                                document.data["anzahl"].toString().toInt(),
-                                document.data["collectedexp"].toString().toInt(),
-                                document.data["level"].toString().toInt(),
-                                document.data["id"].toString().toInt(),
-                                type1 = typeMap[0].toString(),
-                                type2 = typeMap[1].toString()
-                            )
+                    //val typeMap = (document.data["type"] as Map<String, *>).toList()
+
+                    pokemonList.add(
+                        PokemonGrindEntry(
+                            document.data["name"].toString(),
+                            document.data["anzahl"].toString().toInt(),
+                            document.data["collectedexp"].toString().toInt(),
+                            document.data["level"].toString().toInt(),
+                            document.data["id"].toString().toInt(),
+                            document.data["type1"].toString(),
+                            document.data["type2"].toString()
                         )
-                    } else {
-                        pokemonList.add(
-                            PokemonGrindEntry(
-                                document.data["name"].toString(),
-                                document.data["anzahl"].toString().toInt(),
-                                document.data["collectedexp"].toString().toInt(),
-                                document.data["level"].toString().toInt(),
-                                document.data["id"].toString().toInt(),
-                                type1 = typeMap[0].toString()
-                            )
-                        )
-                    }
+                    )
                 }
                 _ownedPokemonList.value = pokemonList
             }
@@ -244,13 +232,20 @@ class FirebaseRepository {
         _currentTeam.value = BattleTeams("", "", "", "", 0, 0, 0, 0, 0, 0, 0, 0)
     }
 
+    fun inventarAuslesen(categoryID: String, samlung: String) {
+        firestore.collection("user")
+            .document(currentUser?.id.toString())
+            .collection("inventar")
+            .document(categoryID)
+            .collection(samlung)
+            .get()
+            .addOnSuccessListener {
 
+            }
+            .addOnFailureListener {
 
-
-
-
-
-
+            }
+    }
 
 
     fun addTeam(context: Context, teams: BattleTeams) {

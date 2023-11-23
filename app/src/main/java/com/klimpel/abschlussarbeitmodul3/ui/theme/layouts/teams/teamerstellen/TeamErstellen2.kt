@@ -16,6 +16,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -36,7 +38,7 @@ import com.klimpel.pokemonbattlefinal.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TeamErstellenScreen2(
+fun TeamErstellenScreen(
     navController: NavController,
     viewModelTeam: TeamViewModel = hiltViewModel(),
     viewModel: MeinePokemonViewModel = hiltViewModel(),
@@ -130,6 +132,8 @@ fun TeamErstellenScreen2(
                                 }
                             },
                             text = stringResource(id = R.string.btnsave),
+                            textcolor = Color.White,
+                            gradient = Brush.linearGradient(listOf(LightBlue, LightBlue)),
                             paddingx = 80.dp,
                             fontSize = 20.sp
                         )

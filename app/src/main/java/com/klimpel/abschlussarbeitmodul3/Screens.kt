@@ -13,6 +13,7 @@ sealed class Screen(val route: String) {
     object Teamerstellen: Screen("Teamerstellen")
     object Teambearbeiten: Screen("Teambearbeiten")
     object ProfilScreen: Screen("Profil")
-
     object TeamSeite : Screen("TeamSeite/{teamName}")
+    object Rucksack : Screen("Rucksack")
+    object Store : Screen("Store")
 }
