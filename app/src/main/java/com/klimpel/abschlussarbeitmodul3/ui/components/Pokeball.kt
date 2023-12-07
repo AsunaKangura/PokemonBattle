@@ -24,7 +24,7 @@ import com.klimpel.abschlussarbeitmodul3.ui.theme.TypeGhost
 @Preview
 @Composable
 fun Pokeball() {
-    val sizedp = 50.dp
+    val sizedp = 40.dp
     val sizepx = with(LocalDensity.current) { sizedp.toPx() }
     Box(
         modifier = Modifier

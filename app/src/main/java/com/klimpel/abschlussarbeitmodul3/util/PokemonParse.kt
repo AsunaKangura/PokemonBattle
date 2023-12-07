@@ -3,7 +3,6 @@ package com.klimpel.abschlussarbeitmodul3.util
 import androidx.compose.ui.graphics.Color
 import com.asunakangura.pokemonbattle.data.remote.responses.Stat
 import com.asunakangura.pokemonbattle.data.remote.responses.Type
-import com.google.android.play.integrity.internal.w
 import com.klimpel.abschlussarbeitmodul3.ui.theme.AtkColor
 import com.klimpel.abschlussarbeitmodul3.ui.theme.DefColor
 import com.klimpel.abschlussarbeitmodul3.ui.theme.HPColor
@@ -30,6 +29,12 @@ import com.klimpel.abschlussarbeitmodul3.ui.theme.TypeSteel
 import com.klimpel.abschlussarbeitmodul3.ui.theme.TypeWater
 import java.util.Locale
 
+/**
+ * Parses the English Pokemon name to German.
+ *
+ * @param name The English Pokemon name.
+ * @return The German Pokemon name.
+ */
 fun parsePokemonNameToGerman(name: String) : String{
     return when(name){
         "bulbasaur" -> "Bisasam"
@@ -188,7 +193,12 @@ fun parsePokemonNameToGerman(name: String) : String{
     }
 }
 
-
+/**
+ * Parses the English Pokemon name to English.
+ *
+ * @param name The English Pokemon name.
+ * @return The English Pokemon name.
+ */
 fun parsePokemonNameToEnglish(name: String) : String{
     return when(name){
         "feuer" -> "fire"
@@ -364,6 +374,12 @@ fun parsePokemonNameToEnglish(name: String) : String{
     }
 }
 
+/**
+ * Parses the Pokemon type to a corresponding color.
+ *
+ * @param type The Pokemon type.
+ * @return The color corresponding to the type.
+ */
 fun parseTypeToColor(type: Type): Color {
     return when(type.type.name.lowercase(Locale.ROOT)) {
         "normal" -> TypeNormal
@@ -387,7 +403,14 @@ fun parseTypeToColor(type: Type): Color {
         else -> Color.Black
     }
 }
-fun parseTypeToColor2(type: String): Color {
+
+/**
+ * Parses the Pokemon type (as string) to a corresponding color.
+ *
+ * @param type The Pokemon type as string.
+ * @return The color corresponding to the type.
+ */
+fun parseTypeToColorString(type: String): Color {
     return when(type) {
         "normal" -> TypeNormal
         "fire" -> TypeFire
@@ -411,6 +434,12 @@ fun parseTypeToColor2(type: String): Color {
     }
 }
 
+/**
+ * Parses the Pokemon stat to a corresponding color.
+ *
+ * @param stat The Pokemon stat.
+ * @return The color corresponding to the stat.
+ */
 fun parseStatToColor(stat: Stat): Color {
     return when(stat.stat.name.lowercase(Locale.ROOT)) {
         "hp" -> HPColor
@@ -423,7 +452,13 @@ fun parseStatToColor(stat: Stat): Color {
     }
 }
 
-fun parseStatToColor2(stat: String): Color {
+/**
+ * Parses the Pokemon stat (as string) to a corresponding color.
+ *
+ * @param stat The Pokemon stat as string.
+ * @return The color corresponding to the stat.
+ */
+fun parseStatToColorString(stat: String): Color {
     return when(stat.lowercase(Locale.ROOT)) {
         "hp" -> HPColor
         "attack" -> AtkColor
@@ -435,7 +470,13 @@ fun parseStatToColor2(stat: String): Color {
     }
 }
 
-fun parseStatToAbbr2(stat: String): String {
+/**
+ * Parses the Pokemon stat (as string) to its abbreviation.
+ *
+ * @param stat The Pokemon stat as string.
+ * @return The abbreviation of the stat.
+ */
+fun parseStatToAbbrString(stat: String): String {
     return when(stat.lowercase(Locale.ROOT)) {
         "hp" -> "HP"
         "attack" -> "Atk"
@@ -447,6 +488,12 @@ fun parseStatToAbbr2(stat: String): String {
     }
 }
 
+/**
+ * Parses the Pokemon stat to its abbreviation.
+ *
+ * @param stat The Pokemon stat.
+ * @return The abbreviation of the stat.
+ */
 fun parseStatToAbbr(stat: Stat): String {
     return when(stat.stat.name.lowercase(Locale.ROOT)) {
         "hp" -> "HP"

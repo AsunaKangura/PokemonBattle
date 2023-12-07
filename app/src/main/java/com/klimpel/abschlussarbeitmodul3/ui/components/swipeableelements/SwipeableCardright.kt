@@ -2,6 +2,7 @@ package com.klimpel.abschlussarbeitmodul3.ui.components.swipeableelements
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Search
@@ -19,6 +20,7 @@ import com.klimpel.abschlussarbeitmodul3.util.Dimension
 import com.klimpel.abschlussarbeitmodul3.util.calcDp
 import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SwipeableCardright(
     navController: NavController,

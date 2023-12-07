@@ -1,20 +1,15 @@
 package com.klimpel.abschlussarbeitmodul3.viewmodels
 
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
+
 import android.nfc.tech.MifareUltralight
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.palette.graphics.Palette
 import com.klimpel.abschlussarbeitmodul3.data.models.PokedexListEntry
 import com.klimpel.abschlussarbeitmodul3.repository.PokemonRepository
 import com.klimpel.abschlussarbeitmodul3.util.Contants.Companion.LIMITS
 import com.klimpel.abschlussarbeitmodul3.util.Contants.Companion.OFFSET
 import com.klimpel.abschlussarbeitmodul3.util.Resource
-import com.klimpel.abschlussarbeitmodul3.util.parsePokemonNameToGerman
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,20 +21,43 @@ class PokemonListViewModel @Inject constructor(
 ) : ViewModel() {
 
     private var curPage = 0
-
-    var pokemonList = mutableStateOf<List<PokedexListEntry>>(listOf())
-    var loadError = mutableStateOf("")
-    var isLoading = mutableStateOf(false)
-    var endReached = mutableStateOf(false)
-
     private var chachedPokemonList = listOf<PokedexListEntry>()
     private var isSearchStarting = true
+
+    /**
+     * The list of Pokemon in the current page.
+     */
+    var pokemonList = mutableStateOf<List<PokedexListEntry>>(listOf())
+
+    /**
+     * The error message when loading the Pokemon list.
+     */
+    var loadError = mutableStateOf("")
+
+    /**
+     * Flag indicating if the Pokemon list is currently being loaded.
+     */
+    var isLoading = mutableStateOf(false)
+
+    /**
+     * Flag indicating if the end of the Pokemon list has been reached.
+     */
+    var endReached = mutableStateOf(false)
+
+    /**
+     * Flag indicating if a search operation is currently in progress.
+     */
     var isSearching = mutableStateOf(false)
 
     init {
         loadPokemonPaginated()
     }
 
+    /**
+     * Searches the Pokemon list based on the given query.
+     *
+     * @param query The search query.
+     */
     fun searchPokemonList(query: String) {
         val listToSearch = if(isSearchStarting) {
             pokemonList.value
@@ -66,7 +84,9 @@ class PokemonListViewModel @Inject constructor(
         }
     }
 
-
+    /**
+     * Loads the next page of the Pokemon list.
+     */
     fun loadPokemonPaginated() {
         viewModelScope.launch {
             isLoading.value = true
@@ -98,13 +118,4 @@ class PokemonListViewModel @Inject constructor(
         }
     }
 
-    fun calcDominantColor(drawable: Drawable, onFinish: (Color) -> Unit) {
-        val bmp = (drawable as BitmapDrawable).bitmap.copy(Bitmap.Config.ARGB_8888, true)
-
-        Palette.from(bmp).generate { palette ->
-            palette?.dominantSwatch?.rgb?.let { colorValue ->
-                onFinish(Color(colorValue))
-            }
-        }
-    }
 }

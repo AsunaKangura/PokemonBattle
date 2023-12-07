@@ -21,7 +21,7 @@ fun WelcomeScreen(navController: NavController, viewModel: ProfilViewModel = hil
     } else {
         Contants.auth.uid?.let { viewModel.updateCurrentUser(it) }
         LaunchedEffect(key1 = "key") {
-            delay(1000)
+            delay(1500)
             navController.navigate(Screen.HomeScreen.route)
         }
     }

@@ -15,6 +15,9 @@
     <!-- TODO: Rucksack -->
     <string name="titelRucksack">Rucksack</string>
 
+    <!-- TODO: Warenkorb-->
+    <string name="titelwarenkorb">Warenkorb</string>
+
     <!-- TODO: BattleStartScreen -->
     <string name="titelbattelstartscreen">Pokemon Battle</string>
 

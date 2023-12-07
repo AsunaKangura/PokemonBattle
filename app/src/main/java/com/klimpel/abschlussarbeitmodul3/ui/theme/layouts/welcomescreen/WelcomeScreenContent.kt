@@ -125,14 +125,12 @@ fun WelcomeScreenContent(navController: NavController){
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-
-
                         GradientButton(
                             onClick = { navController.navigate(Screen.LoginScreen.route) },
                             text = stringResource(id = R.string.btn_login),
                             bordercolor = LightBlue,
-                            gradient = Brush.linearGradient(listOf(Color.White, Color.White)),
-                            textcolor = LightBlue,
+                            gradient = Brush.linearGradient(listOf(LightBlue, LightBlue)),
+                            textcolor = Color.White,
                             paddingx = 80.dp
                         )
                         Spacer(modifier = Modifier.height(20.dp))
@@ -140,17 +138,13 @@ fun WelcomeScreenContent(navController: NavController){
                             onClick = { navController.navigate(Screen.Register.route) },
                             text = stringResource(id = R.string.btn_register),
                             bordercolor = LightBlue,
-                            gradient = Brush.linearGradient(listOf(Color.White, Color.White)),
-                            textcolor = LightBlue,
+                            gradient = Brush.linearGradient(listOf(LightBlue, LightBlue)),
+                            textcolor = Color.White,
                             paddingx = 60.dp
                         )
                     }
-
-
                 }
             }
         }
-
-
     }
 }

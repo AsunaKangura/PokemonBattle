@@ -438,6 +438,108 @@ fun TopAppBarTitelBackArrow(pageTitle: Int, navController: NavController) {
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TopAppBarTitelBackArrowWarenkorb(pageTitle: Int, navController: NavController) {
+
+    val showMenu = remember { mutableStateOf(false) }
+
+    CenterAlignedTopAppBar(
+        title = {
+            Text(
+                stringResource(id = pageTitle),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                color = LightBlue,
+                fontWeight = FontWeight.Bold,
+                fontFamily = pokemonFontFamily,
+            )
+        },
+
+        navigationIcon = {
+            IconButton(
+                onClick = {
+                    navController.navigate(Screen.Store.route)
+                }
+            ){
+                Icon(
+                    imageVector = Icons.Filled.ArrowBack,
+                    contentDescription = "Back Arrow",
+                    tint = LightBlue
+                )
+            }
+        },
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TopAppBarTitelBackArrowStore(pageTitle: Int, navController: NavController) {
+
+    val showMenu = remember { mutableStateOf(false) }
+
+    CenterAlignedTopAppBar(
+        title = {
+            Text(
+                stringResource(id = pageTitle),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                color = LightBlue,
+                fontWeight = FontWeight.Bold,
+                fontFamily = pokemonFontFamily,
+            )
+        },
+
+        navigationIcon = {
+            IconButton(
+                onClick = {
+                    navController.navigate(Screen.HomeScreen.route)
+                }
+            ){
+                Icon(
+                    imageVector = Icons.Filled.ArrowBack,
+                    contentDescription = "Back Arrow",
+                    tint = LightBlue
+                )
+            }
+        },
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TopAppBarTitelBackArrowProduktScreen(pageTitle: String, navController: NavController) {
+
+    val showMenu = remember { mutableStateOf(false) }
+
+    CenterAlignedTopAppBar(
+        title = {
+            Text(
+                text = pageTitle,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                color = LightBlue,
+                fontWeight = FontWeight.Bold,
+                fontFamily = pokemonFontFamily,
+            )
+        },
+
+        navigationIcon = {
+            IconButton(
+                onClick = {
+                    navController.navigate(Screen.Store.route)
+                }
+            ){
+                Icon(
+                    imageVector = Icons.Filled.ArrowBack,
+                    contentDescription = "Back Arrow",
+                    tint = LightBlue
+                )
+            }
+        },
+    )
+}
+
 
 
 

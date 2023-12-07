@@ -1,22 +1,33 @@
 package com.klimpel.abschlussarbeitmodul3.util
 
 /**
- * Diese Zeile definiert eine abstrakte Klasse namens "Resource" mit einem generischen Typen "T". Die Klasse hat zwei Eigenschaften: "data", die den generischen Typen T oder null enthält, und "message", die einen String oder null enthält.
+ * A sealed class representing a resource that can be in one of three states: Success, Error, or Loading.
+ *
+ * @param T The type of data associated with the resource.
+ * @property data The data associated with the resource.
+ * @property message The error message associated with the resource.
  */
 sealed class Resource<T>(val data: T? = null, val message: String? = null){
 
     /**
-     * Diese Zeile definiert eine Unterklasse namens "Success", die von der abstrakten Klasse "Resource" erbt. Sie akzeptiert ein Objekt vom generischen Typen "T" und setzt es als "data" in der übergeordneten Klasse.
+     * Represents a successful resource state.
+     *
+     * @param data The data associated with the resource.
      */
     class Success<T>(data: T) : Resource<T>(data)
 
     /**
-     * Diese Zeile definiert eine weitere Unterklasse namens "Error", die von der abstrakten Klasse "Resource" erbt. Sie akzeptiert eine Fehlermeldung als String und optional ein Objekt vom generischen Typen "T" als Daten. Diese Werte werden an die übergeordnete Klasse übergeben.
+     * Represents an error resource state.
+     *
+     * @param message The error message associated with the resource.
+     * @param data The data associated with the resource.
      */
     class Error<T>(message: String, data: T? = null ) : Resource<T>(data, message)
 
     /**
-     * Diese Zeile definiert eine weitere Unterklasse namens "Loading", die von der abstrakten Klasse "Resource" erbt. Sie akzeptiert ebenfalls ein Objekt vom generischen Typen "T" als Daten und setzt es in der übergeordneten Klasse
+     * Represents a loading resource state.
+     *
+     * @param data The data associated with the resource.
      */
     class Loading<T>(data: T? = null) : Resource<T>(data)
 }

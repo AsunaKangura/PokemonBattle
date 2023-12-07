@@ -14,8 +14,8 @@ import androidx.compose.ui.unit.sp
 import com.klimpel.abschlussarbeitmodul3.data.models.BattleTeams
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.teampage.PokemonStatTeam
-import com.klimpel.abschlussarbeitmodul3.util.parseStatToAbbr2
-import com.klimpel.abschlussarbeitmodul3.util.parseStatToColor2
+import com.klimpel.abschlussarbeitmodul3.util.parseStatToAbbrString
+import com.klimpel.abschlussarbeitmodul3.util.parseStatToColorString
 
 @Composable
 fun DialogBaseStatsTeam(
@@ -44,51 +44,51 @@ fun DialogBaseStatsTeam(
             modifier = Modifier.fillMaxWidth()
         ) {
             PokemonStatTeam(
-                statName = parseStatToAbbr2("hp"),
+                statName = parseStatToAbbrString("hp"),
                 statValue = teams.hp,
                 statMaxValue = maxBaseStat,
-                statColor = parseStatToColor2("hp"),
+                statColor = parseStatToColorString("hp"),
                 animDelay = 1 * animDelayPerItem
             )
             Spacer(modifier = Modifier.height(8.dp))
 
             PokemonStatTeam(
-                statName = parseStatToAbbr2("attack"),
+                statName = parseStatToAbbrString("attack"),
                 statValue = teams.atk,
                 statMaxValue = maxBaseStat,
-                statColor = parseStatToColor2("attack"),
+                statColor = parseStatToColorString("attack"),
                 animDelay = 2 * animDelayPerItem
             )
             Spacer(modifier = Modifier.height(8.dp))
             PokemonStatTeam(
-                statName = parseStatToAbbr2("defense"),
+                statName = parseStatToAbbrString("defense"),
                 statValue = teams.def,
                 statMaxValue = maxBaseStat,
-                statColor = parseStatToColor2("defense"),
+                statColor = parseStatToColorString("defense"),
                 animDelay = 3 * animDelayPerItem
             )
             Spacer(modifier = Modifier.height(8.dp))
             PokemonStatTeam(
-                statName = parseStatToAbbr2("special-attack"),
+                statName = parseStatToAbbrString("special-attack"),
                 statValue = teams.spatk,
                 statMaxValue = maxBaseStat,
-                statColor = parseStatToColor2("special-attack"),
+                statColor = parseStatToColorString("special-attack"),
                 animDelay = 4 * animDelayPerItem
             )
             Spacer(modifier = Modifier.height(8.dp))
             PokemonStatTeam(
-                statName = parseStatToAbbr2("special-defense"),
+                statName = parseStatToAbbrString("special-defense"),
                 statValue = teams.spdef,
                 statMaxValue = maxBaseStat,
-                statColor = parseStatToColor2("special-defense"),
+                statColor = parseStatToColorString("special-defense"),
                 animDelay = 5 * animDelayPerItem
             )
             Spacer(modifier = Modifier.height(8.dp))
             PokemonStatTeam(
-                statName = parseStatToAbbr2("speed"),
+                statName = parseStatToAbbrString("speed"),
                 statValue = teams.spd,
                 statMaxValue = maxBaseStat,
-                statColor = parseStatToColor2("speed"),
+                statColor = parseStatToColorString("speed"),
                 animDelay = 6 * animDelayPerItem
             )
             Spacer(modifier = Modifier.height(8.dp))

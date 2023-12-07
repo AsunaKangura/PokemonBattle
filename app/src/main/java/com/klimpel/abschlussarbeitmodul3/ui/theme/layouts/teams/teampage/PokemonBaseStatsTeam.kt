@@ -5,14 +5,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.asunakangura.pokemonbattle.data.remote.responses.Pokemon
 import com.klimpel.abschlussarbeitmodul3.data.models.BattleTeams
-import com.klimpel.abschlussarbeitmodul3.util.parseStatToAbbr
-import com.klimpel.abschlussarbeitmodul3.util.parseStatToColor
-import com.klimpel.abschlussarbeitmodul3.util.parseStatToColor2
+import com.klimpel.abschlussarbeitmodul3.util.parseStatToColorString
 
 @Composable
 fun PokemonBaseStatsTeam(
@@ -30,7 +26,7 @@ fun PokemonBaseStatsTeam(
         PokemonStatTeamOhneText(
             statValue = teams.hp,
             statMaxValue = maxBaseStat,
-            statColor = parseStatToColor2("hp"),
+            statColor = parseStatToColorString("hp"),
             animDelay = 1 * animDelayPerItem
         )
         Spacer(modifier = Modifier.height(8.dp))
@@ -38,35 +34,35 @@ fun PokemonBaseStatsTeam(
         PokemonStatTeamOhneText(
             statValue = teams.atk,
             statMaxValue = maxBaseStat,
-            statColor = parseStatToColor2("attack"),
+            statColor = parseStatToColorString("attack"),
             animDelay = 2 * animDelayPerItem
         )
         Spacer(modifier = Modifier.height(8.dp))
         PokemonStatTeamOhneText(
             statValue = teams.def,
             statMaxValue = maxBaseStat,
-            statColor = parseStatToColor2("defense"),
+            statColor = parseStatToColorString("defense"),
             animDelay = 3 * animDelayPerItem
         )
         Spacer(modifier = Modifier.height(8.dp))
         PokemonStatTeamOhneText(
             statValue = teams.spatk,
             statMaxValue = maxBaseStat,
-            statColor = parseStatToColor2("special-attack"),
+            statColor = parseStatToColorString("special-attack"),
             animDelay = 4 * animDelayPerItem
         )
         Spacer(modifier = Modifier.height(8.dp))
         PokemonStatTeamOhneText(
             statValue = teams.spdef,
             statMaxValue = maxBaseStat,
-            statColor = parseStatToColor2("special-defense"),
+            statColor = parseStatToColorString("special-defense"),
             animDelay = 5 * animDelayPerItem
         )
         Spacer(modifier = Modifier.height(8.dp))
         PokemonStatTeamOhneText(
             statValue = teams.spd,
             statMaxValue = maxBaseStat,
-            statColor = parseStatToColor2("speed"),
+            statColor = parseStatToColorString("speed"),
             animDelay = 6 * animDelayPerItem
         )
         Spacer(modifier = Modifier.height(8.dp))

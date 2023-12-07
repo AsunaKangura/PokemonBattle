@@ -123,7 +123,7 @@ fun ProfilInfosTopSection(
     }
 
     if (openAvatarDialog.value) {
-        viewModelprofil.loadListOfAvatar()
+        viewModelprofil.loadListOfAvatars()
         Dialog(onDismissRequest = { openAvatarDialog.value = false }) {
             Card(
                 modifier = Modifier

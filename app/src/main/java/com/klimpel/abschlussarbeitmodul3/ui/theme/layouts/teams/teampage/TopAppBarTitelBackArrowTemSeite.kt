@@ -20,11 +20,16 @@ import com.klimpel.abschlussarbeitmodul3.Screen
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.pokemonFontFamily
 import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBarTitelBackArrowTeamSeite(pageTitle: String, navController: NavController, viewModelteam: TeamViewModel = hiltViewModel()) {
+fun TopAppBarTitelBackArrowTeamSeite(
+    pageTitle: String,
+    navController: NavController,
+    viewModelteam: TeamViewModel = hiltViewModel()
+) {
 
     val showMenu = remember { mutableStateOf(false) }
 
@@ -44,9 +49,10 @@ fun TopAppBarTitelBackArrowTeamSeite(pageTitle: String, navController: NavContro
         navigationIcon = {
             IconButton(
                 onClick = {
-                    navController.navigate(Screen.ProfilScreen.route)
+                    //viewModelteam.deleteCurrentTeam()
                     scope.launch {
-                        viewModelteam.deleteCurrentTeam()
+                        delay(1000)
+                        navController.navigate(Screen.ProfilScreen.route)
                     }
                 }
             ) {

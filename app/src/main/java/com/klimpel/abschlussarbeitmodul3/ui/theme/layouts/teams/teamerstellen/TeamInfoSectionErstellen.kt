@@ -5,14 +5,13 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.klimpel.abschlussarbeitmodul3.data.models.BattleTeams
 import com.klimpel.abschlussarbeitmodul3.ui.components.CardWithAnimatedBorder
 import com.klimpel.abschlussarbeitmodul3.ui.components.PokemonTeamCard
 import com.klimpel.abschlussarbeitmodul3.ui.components.PokemonTeamCardAddErstellen
-import com.klimpel.abschlussarbeitmodul3.util.PokemonEvoloutionBorder
+import com.klimpel.abschlussarbeitmodul3.util.pokemonEvoloutionBorder
 
 @Composable
 fun TeamInfoSectionErstellen(context: Context, navController: NavController, battleTeams: BattleTeams){
@@ -21,7 +20,7 @@ fun TeamInfoSectionErstellen(context: Context, navController: NavController, bat
 
     if (battleTeams.pokemonOne == "") {
         CardWithAnimatedBorder(
-            borderColors = PokemonEvoloutionBorder(battleTeams.pokemonOne),
+            borderColors = pokemonEvoloutionBorder(battleTeams.pokemonOne),
         ) {
             PokemonTeamCardAddErstellen(
                 navController = navController,
@@ -32,7 +31,7 @@ fun TeamInfoSectionErstellen(context: Context, navController: NavController, bat
         Spacer(modifier = Modifier.height(30.dp))
     } else {
         CardWithAnimatedBorder(
-            borderColors = PokemonEvoloutionBorder(battleTeams.pokemonOne),
+            borderColors = pokemonEvoloutionBorder(battleTeams.pokemonOne),
         ) {
             PokemonTeamCard(navController, battleTeams.pokemonOne)
         }
@@ -41,7 +40,7 @@ fun TeamInfoSectionErstellen(context: Context, navController: NavController, bat
 
     if (battleTeams.pokemonTwo == "") {
         CardWithAnimatedBorder(
-            borderColors = PokemonEvoloutionBorder(battleTeams.pokemonTwo),
+            borderColors = pokemonEvoloutionBorder(battleTeams.pokemonTwo),
         ) {
             PokemonTeamCardAddErstellen(
                 navController = navController,
@@ -52,7 +51,7 @@ fun TeamInfoSectionErstellen(context: Context, navController: NavController, bat
         Spacer(modifier = Modifier.height(40.dp))
     } else {
         CardWithAnimatedBorder(
-            borderColors = PokemonEvoloutionBorder(battleTeams.pokemonTwo),
+            borderColors = pokemonEvoloutionBorder(battleTeams.pokemonTwo),
         ) {
             PokemonTeamCard(navController, battleTeams.pokemonTwo)
         }
@@ -61,7 +60,7 @@ fun TeamInfoSectionErstellen(context: Context, navController: NavController, bat
 
     if (battleTeams.pokemonThree == "") {
         CardWithAnimatedBorder(
-            borderColors = PokemonEvoloutionBorder(battleTeams.pokemonThree),
+            borderColors = pokemonEvoloutionBorder(battleTeams.pokemonThree),
         ) {
             PokemonTeamCardAddErstellen(
                 navController = navController,
@@ -72,7 +71,7 @@ fun TeamInfoSectionErstellen(context: Context, navController: NavController, bat
         Spacer(modifier = Modifier.height(40.dp))
     } else {
         CardWithAnimatedBorder(
-            borderColors = PokemonEvoloutionBorder(battleTeams.pokemonThree),
+            borderColors = pokemonEvoloutionBorder(battleTeams.pokemonThree),
         ) {
             PokemonTeamCard(navController, battleTeams.pokemonThree)
         }

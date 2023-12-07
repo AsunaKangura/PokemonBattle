@@ -1,14 +1,12 @@
 package com.klimpel.abschlussarbeitmodul3.ui.components.swipeableelements
 
 import android.content.Context
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.dp
@@ -17,13 +15,10 @@ import androidx.navigation.NavController
 import com.example.ssjetpackcomposeswipeableview.SwipeAbleItemView
 import com.example.ssjetpackcomposeswipeableview.SwipeDirection
 import com.klimpel.abschlussarbeitmodul3.data.models.BattleTeams
-import com.klimpel.abschlussarbeitmodul3.ui.components.CardWithAnimatedBorder
-import com.klimpel.abschlussarbeitmodul3.ui.components.PokemonTeamCard
 import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.TypeFire
 import com.klimpel.abschlussarbeitmodul3.util.Dimension
-import com.klimpel.abschlussarbeitmodul3.util.PokemonEvoloutionBorder
 import com.klimpel.abschlussarbeitmodul3.util.calcDp
 import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
 
@@ -39,6 +34,7 @@ import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
  * @param pokemon Der Name des Pokemon.
  * @param content Der Inhalt der Karte.
  */
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SwipeableCardBoth(
     context: Context,
@@ -77,6 +73,7 @@ fun SwipeableCardBoth(
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SwipeableCardBothStore(
     navController: NavController,

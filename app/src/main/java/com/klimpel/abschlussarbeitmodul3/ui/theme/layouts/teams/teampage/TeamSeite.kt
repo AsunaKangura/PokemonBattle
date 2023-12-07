@@ -1,9 +1,11 @@
 package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.teampage
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -13,13 +15,22 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,6 +46,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -53,7 +65,10 @@ import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
 import com.klimpel.abschlussarbeitmodul3.ui.theme.White
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.profilscreen.PokemonCardTeamUbersichtOhneBattleTeam
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.profilscreen.TeamCardPokemon
+import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.teamerstellen.PokemonTypeItem
+import com.klimpel.abschlussarbeitmodul3.util.Dimension
 import com.klimpel.abschlussarbeitmodul3.util.Resource
+import com.klimpel.abschlussarbeitmodul3.util.calcDp
 import com.klimpel.abschlussarbeitmodul3.util.winratecolor
 import com.klimpel.abschlussarbeitmodul3.viewmodels.SearchingViewModel
 import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
@@ -100,272 +115,254 @@ fun TeamPage(
         teamStats = teamstats(pokemonOne, pokemonTwo, pokemonThree, currentAktivteam.value)
     }
 
-    AbschlussarbeitModul3Theme {
-        Scaffold(
-            topBar = {
-                TopAppBarTitelBackArrowTeamSeite(
-                    pageTitle = teamName,
-                    navController = navController
-                )
-            },
-            containerColor = LightBlueBackground,
-        ) { padding ->
-            Column(
+    Scaffold(
+        topBar = {
+            TopAppBarTitelBackArrowTeamSeite(
+                pageTitle = teamName,
+                navController = navController
+            )
+        },
+        containerColor = LightBlueBackground,
+    ) { padding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+        ) {
+            Divider(thickness = 4.dp, color = LightBlue)
+            Spacer(modifier = Modifier.height(30.dp))
+
+            // Team Statistiken
+            Row(
+                horizontalArrangement = Arrangement.Center,
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding)
+                    .padding(top = 10.dp)
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.22f)
             ) {
-                Divider(thickness = 4.dp, color = LightBlue)
-                Spacer(modifier = Modifier.height(5.dp))
-
-                // Team Statistiken
                 Row(
-                    horizontalArrangement = Arrangement.Center,
                     modifier = Modifier
-                        .padding(top = 10.dp)
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.20f)
+                        .fillMaxWidth(0.9f)
+                        .fillMaxHeight()
                 ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth(0.9f)
-                            .fillMaxHeight()
-                    ) {
 
-                        // Team Stats
-                        Column(
-                            modifier = Modifier
-                                .fillMaxHeight()
-                                .fillMaxWidth(0.60f)
-                        ) {
-                            Text(
-                                text = "Team Stats",
-                                color = LightBlue,
-                                fontWeight = FontWeight.Bold
-                            )
-                            TeamDetailStateWrapper(
-                                teamStats = teamStats,
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(
-                                        top = 4.dp,
-                                        start = 0.dp,
-                                        end = 4.dp,
-                                        bottom = 0.dp
-                                    )
-                                    .shadow(10.dp, RoundedCornerShape(10.dp))
-                                    .clip(RoundedCornerShape(10.dp))
-                                    .background(Color.White)
-                                    .padding(16.dp),
-                                loadingModifier = Modifier
-                                    .size(100.dp)
-                                    .padding(
-                                        top = 8.dp,
-                                        start = 16.dp,
-                                        end = 16.dp,
-                                        bottom = 0.dp
-                                    )
-                            )
-                        }
-                        Spacer(modifier = Modifier.width(10.dp))
-                        // BattleStatistik
-                        Column(
-                            modifier = Modifier
-                                .fillMaxHeight()
-                                .fillMaxWidth()
-                        ) {
-                            Text(
-                                text = "Battlestatistik",
-                                fontWeight = FontWeight.Bold,
-                                color = LightBlue,
-                            )
-                            Box(
-                                modifier = Modifier
-                                    .padding(top = 8.dp)
-                                    .fillMaxWidth()
-                                    .fillMaxHeight()
-                            ) {
-                                Column(
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .padding(horizontal = 0.dp)
-                                ) {
-                                    Row(
-                                        horizontalArrangement = Arrangement.Start,
-                                        modifier = Modifier
-                                            .fillMaxHeight()
-                                            .fillMaxWidth()
-                                    ) {
-                                        Column(
-                                            modifier = Modifier.fillMaxWidth(0.5f)
-                                        ) {
-                                            Text(text = "Games:")
-                                            Spacer(modifier = Modifier.height(5.dp))
-                                            Text(text = "Wins:")
-                                            Spacer(modifier = Modifier.height(5.dp))
-                                            Text(text = "Loses:")
-                                            Spacer(modifier = Modifier.height(5.dp))
-                                            Text(text = "WinRate:")
-                                        }
-                                        Column(
-                                            horizontalAlignment = Alignment.End,
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .fillMaxHeight()
-                                        ) {
-                                            Text(
-                                                text = currentAktivteam.value.games.toString(),
-                                                fontWeight = FontWeight.Bold
-                                            )
-                                            Spacer(modifier = Modifier.height(5.dp))
-                                            Text(
-                                                text = currentAktivteam.value.wins.toString(),
-                                                color = Green,
-                                                fontWeight = FontWeight.Bold
-                                            )
-                                            Spacer(modifier = Modifier.height(5.dp))
-                                            Text(
-                                                text = loses.toString(),
-                                                color = DeepRed,
-                                                fontWeight = FontWeight.Bold
-                                            )
-                                            Spacer(modifier = Modifier.height(5.dp))
-                                            Text(
-                                                text = "$winrate %",
-                                                fontWeight = FontWeight.Bold,
-                                                color = winratecolor(winrate)
-                                            )
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                Spacer(modifier = Modifier.height(20.dp))
-
-                // Team Auftellung
-                Divider(thickness = 1.dp, color = LightBlue)
-                Row(
-                    horizontalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.25f)
-                        .background(White)
-                ) {
+                    // Team Stats
                     Column(
                         modifier = Modifier
-                            .fillMaxWidth(0.9f)
                             .fillMaxHeight()
-                            .padding(10.dp)
+                            .fillMaxWidth(0.60f)
                     ) {
                         Text(
-                            text = "Team Aufstellung:",
+                            text = "Team Stats",
                             color = LightBlue,
                             fontWeight = FontWeight.Bold
                         )
-                        TeamCardPokemon(
-                            battleTeams = currentAktivteam.value,
-                            navController = navController
+                        TeamDetailStateWrapper(
+                            teamStats = teamStats,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(
+                                    top = 4.dp,
+                                    start = 0.dp,
+                                    end = 4.dp,
+                                    bottom = 0.dp
+                                )
+                                .shadow(10.dp, RoundedCornerShape(10.dp))
+                                .clip(RoundedCornerShape(10.dp))
+                                .background(Color.White)
+                                .padding(14.dp),
+                            loadingModifier = Modifier
+                                .size(100.dp)
+                                .padding(
+                                    top = 8.dp,
+                                    start = 16.dp,
+                                    end = 16.dp,
+                                    bottom = 0.dp
+                                )
                         )
                     }
-                }
-                Divider(thickness = 1.dp, color = LightBlue)
-                Spacer(modifier = Modifier.height(20.dp))
-
-                // Verfügbare PokemonSection
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight()
-                ) {
+                    Spacer(modifier = Modifier.width(10.dp))
+                    // BattleStatistik
                     Column(
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = Modifier
-                            .fillMaxWidth(0.9f)
                             .fillMaxHeight()
+                            .fillMaxWidth()
                     ) {
-                        val searchText by viewModelSearch.searchText.collectAsState()
-                        val ownedPokemon by viewModelSearch.ownedPokemon.collectAsState()
-                        val isSearching by viewModelSearch.isSearching.collectAsState()
-                        var isHintDisplayed by remember {
-                            mutableStateOf(false)
-                        }
-
+                        Text(
+                            text = "Battlestatistik",
+                            fontWeight = FontWeight.Bold,
+                            color = LightBlue,
+                        )
                         Box(
                             modifier = Modifier
-                                .padding(horizontal = 0.dp)
+                                .padding(top = 8.dp)
+                                .fillMaxWidth()
+                                .fillMaxHeight()
                         ) {
-                            BasicTextField(
-                                value = searchText,
-                                onValueChange = viewModelSearch::onSearchTextChange,
-                                maxLines = 1,
-                                singleLine = true,
-                                textStyle = TextStyle(Color.Black),
+                            Column(
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .shadow(
-                                        5.dp,
-                                        RoundedCornerShape(20.dp)
-                                    )
-                                    .background(Color.White)
-                                    .padding(horizontal = 20.dp, vertical = 12.dp)
-                                    .onFocusChanged {
-                                        isHintDisplayed = !isHintDisplayed
-                                    }
-                            )
-                            if (isHintDisplayed) {
-                                Text(
-                                    text = "Nach Pokemonname,PokemonID, PokemonType suchen",
-                                    color = LightBlue,
-                                    modifier = Modifier.padding(horizontal = 20.dp, vertical = 12.dp),
-                                    fontSize = 12.sp
-                                )
-                            }
-                        }
-                        Spacer(modifier = Modifier.height(20.dp))
-
-                        Text(
-                            text = stringResource(id = R.string.dropmenuitemmeinepokemon),
-                            color = LightBlue,
-                            fontWeight = FontWeight.Bold,
-                        )
-
-                        Divider(thickness = 1.dp, color = LightBlue)
-
-                        Spacer(modifier = Modifier.height(20.dp))
-
-                        if(isSearching) {
-                            Box(modifier = Modifier.fillMaxSize()) {
-                                CircularProgressIndicator(
-                                    modifier = Modifier.align(Alignment.Center)
-                                )
-                            }
-                        } else {
-                            LazyVerticalGrid(
-                                columns = GridCells.Adaptive(80.dp),
-                                modifier = Modifier
-                                    .fillMaxWidth(0.9f)
-                                    .fillMaxHeight(0.9f),
-                                verticalArrangement = Arrangement.spacedBy(20.dp),
-                                horizontalArrangement = Arrangement.spacedBy(20.dp)
+                                    .fillMaxSize()
+                                    .padding(horizontal = 0.dp)
                             ) {
-                                val itemcount = ownedPokemon.size
-
-                                items(itemcount){
-                                    PokemonCardTeamUbersichtOhneBattleTeam(
-                                        navController = navController,
-                                        pokemonname = ownedPokemon[it].name
-                                    )
+                                Row(
+                                    horizontalArrangement = Arrangement.Start,
+                                    modifier = Modifier
+                                        .fillMaxHeight()
+                                        .fillMaxWidth()
+                                ) {
+                                    Column(
+                                        modifier = Modifier.fillMaxWidth(0.5f)
+                                    ) {
+                                        Text(text = "Games:")
+                                        Spacer(modifier = Modifier.height(5.dp))
+                                        Text(text = "Wins:")
+                                        Spacer(modifier = Modifier.height(5.dp))
+                                        Text(text = "Loses:")
+                                        Spacer(modifier = Modifier.height(5.dp))
+                                        Text(text = "WinRate:")
+                                    }
+                                    Column(
+                                        horizontalAlignment = Alignment.End,
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .fillMaxHeight()
+                                    ) {
+                                        Text(
+                                            text = currentAktivteam.value.games.toString(),
+                                            fontWeight = FontWeight.Bold
+                                        )
+                                        Spacer(modifier = Modifier.height(5.dp))
+                                        Text(
+                                            text = currentAktivteam.value.wins.toString(),
+                                            color = Green,
+                                            fontWeight = FontWeight.Bold
+                                        )
+                                        Spacer(modifier = Modifier.height(5.dp))
+                                        Text(
+                                            text = loses.toString(),
+                                            color = DeepRed,
+                                            fontWeight = FontWeight.Bold
+                                        )
+                                        Spacer(modifier = Modifier.height(5.dp))
+                                        Text(
+                                            text = "$winrate %",
+                                            fontWeight = FontWeight.Bold,
+                                            color = winratecolor(winrate)
+                                        )
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
+            Spacer(modifier = Modifier.height(30.dp))
+
+            // Button Section
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(calcDp(percentage = 0.05f, dimension = Dimension.Height))
+            ) {
+                Row(
+                    modifier = Modifier
+                        .width(calcDp(percentage = 0.8f, dimension = Dimension.Width))
+                        .fillMaxHeight()
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .fillMaxWidth()
+                    ) {
+                        Box(
+                            contentAlignment = Alignment.Center,
+                            modifier = Modifier
+                                .width(calcDp(percentage = 0.35f, dimension = Dimension.Width))
+                                .fillMaxHeight()
+                                .shadow(10.dp, shape = CircleShape)
+                        ) {
+                            Button(
+                                onClick = { /*TODO*/ },
+                                colors = ButtonDefaults.buttonColors(containerColor = LightBlue),
+
+                                ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Edit,
+                                    contentDescription = "",
+                                    tint = Color.White,
+                                    modifier = Modifier.size(18.dp)
+                                )
+                                Spacer(modifier = Modifier.width(10.dp))
+                                Text(text = "bearbeiten", color = Color.White, fontSize = 12.sp)
+                            }
+                        }
+                        Box(
+                            modifier = Modifier
+                                .width(calcDp(percentage = 0.10f, dimension = Dimension.Width))
+                                .fillMaxHeight()
+                        )
+                        Box(
+                            contentAlignment = Alignment.Center,
+                            modifier = Modifier
+                                .width(calcDp(percentage = 0.35f, dimension = Dimension.Width))
+                                .fillMaxHeight()
+                                .shadow(10.dp, shape = CircleShape)
+                        ) {
+                            Button(
+                                onClick = { /*TODO*/ },
+                                colors = ButtonDefaults.buttonColors(containerColor = DeepRed),
+
+                                ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Delete,
+                                    contentDescription = "",
+                                    tint = Color.White,
+                                    modifier = Modifier.size(18.dp)
+                                )
+                                Spacer(modifier = Modifier.width(10.dp))
+                                Text(text = "löschen", color = Color.White, fontSize = 12.sp)
+                            }
+                        }
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.height(30.dp))
+
+            // Typen Section
+            Spacer(modifier = Modifier.height(20.dp))
+            // Team Auftellung
+            Divider(thickness = 1.dp, color = LightBlue)
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(calcDp(percentage = 0.3f, dimension = Dimension.Height))
+                    .background(White)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth(0.9f)
+                        .fillMaxHeight()
+                        .padding(10.dp)
+                ) {
+                    Text(
+                        text = "Team Übersicht:",
+                        color = LightBlue,
+                        fontWeight = FontWeight.Bold
+                    )
+                    TeamCardPokemon(
+                        battleTeams = currentAktivteam.value,
+                        navController = navController
+                    )
+                }
+            }
+            Divider(thickness = 1.dp, color = LightBlue)
+            Spacer(modifier = Modifier.height(20.dp))
         }
+
+
     }
 }
 

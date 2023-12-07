@@ -54,14 +54,6 @@ fun TeamDetailSection(
 ) {
     val scrollState = rememberScrollState()
 
-    /*
-    val pokemonInfodialo = produceState<Resource<Pokemon>>(initialValue = Resource.Loading())
-    {
-        value = viewModelteam.getPokemonInfo("gengar")
-    }.value
-
-     */
-
 
     val openStatDialog = remember { mutableStateOf(false) }
     if (openStatDialog.value) {
@@ -72,7 +64,7 @@ fun TeamDetailSection(
                 teamStats = teamStats,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.35f)
+                    .fillMaxHeight(0.36f)
                     .padding(
                         top = 4.dp,
                         start = 0.dp,
@@ -82,7 +74,7 @@ fun TeamDetailSection(
                     .shadow(10.dp, RoundedCornerShape(10.dp))
                     .clip(RoundedCornerShape(10.dp))
                     .background(Color.White)
-                    .padding(16.dp),
+                    .padding(14.dp),
                 loadingModifier = Modifier
                     .size(100.dp)
                     .padding(

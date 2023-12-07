@@ -15,6 +15,8 @@ import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.meinepokemon.MeinePoke
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.profilscreen.ProfilScreen
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.profilscreen.rucksack.RucksackScreen
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.store.StoreScreen
+import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.store.produktdetail.ProduktScreen
+import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.store.warenkorb.WarenkorbScreen
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.teambearbeiten.TeamBearbeitenScreen
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.teamerstellen.TeamErstellenScreen
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.teampage.TeamPage
@@ -39,6 +41,8 @@ fun NavigationAppStart(navController: NavHostController){
         composable(Screen.ProfilScreen.route) { ProfilScreen(navController) }
         composable(Screen.Rucksack.route) { RucksackScreen(navController) }
         composable(Screen.Store.route) { StoreScreen(navController) }
+        composable(Screen.Warenkorb.route) { WarenkorbScreen(navController) }
+        composable(Screen.ProduktScreen.route) { ProduktScreen(navController) }
         composable(
             Screen.TeamSeite.route,
             arguments = listOf(

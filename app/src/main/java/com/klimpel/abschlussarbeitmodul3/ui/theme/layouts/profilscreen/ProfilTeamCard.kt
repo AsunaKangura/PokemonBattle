@@ -141,6 +141,6 @@ fun ProfilTeamCard(
                 )
             }
         }
-        TeamCardPokemon(battleTeams, navController)
+        TeamCardPokemonProfil(battleTeams, navController)
     }
 }

@@ -105,7 +105,7 @@ fun LoginScreen(
                     ) {
                         var textStateUsername by remember { mutableStateOf("") }
                         var textStatePassword by remember { mutableStateOf("") }
-                        var coroutinescope = rememberCoroutineScope()
+                        val coroutinescope = rememberCoroutineScope()
 
                         EditTextField(value = textStateUsername, onValueChange = { values -> textStateUsername = values }, label = "E-Mail Adresse eingeben")
 
@@ -139,8 +139,8 @@ fun LoginScreen(
                             },
                             text = stringResource(id = R.string.btn_login),
                             bordercolor = LightBlue,
-                            gradient = Brush.linearGradient(listOf(Color.White, Color.White)),
-                            textcolor = LightBlue,
+                            gradient = Brush.linearGradient(listOf(LightBlue, LightBlue)),
+                            textcolor = Color.White,
                             paddingx = 80.dp,
                         )
                     }

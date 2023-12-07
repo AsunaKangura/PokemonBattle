@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,7 +26,6 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.klimpel.abschlussarbeitmodul3.Screen
 import com.klimpel.abschlussarbeitmodul3.ui.components.GradientButton
 import com.klimpel.abschlussarbeitmodul3.ui.components.messageDialogError
 import com.klimpel.abschlussarbeitmodul3.ui.theme.AbschlussarbeitModul3Theme
@@ -35,6 +35,8 @@ import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.topappbars.TopAp
 import com.klimpel.abschlussarbeitmodul3.viewmodels.MeinePokemonViewModel
 import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
 import com.klimpel.pokemonbattlefinal.R
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,6 +59,8 @@ fun TeamErstellenScreen(
     if (addteam.pokemonOne.isNotEmpty() && addteam.pokemonTwo.isNotEmpty() && addteam.pokemonThree.isNotEmpty()) {
         enabelTeamName.value = true
     }
+
+    val scope = rememberCoroutineScope()
 
     // hier wird die Eingabe des User gespeichert.
     var textStateTeamName by remember { mutableStateOf("") }
@@ -123,18 +127,24 @@ fun TeamErstellenScreen(
 
                         GradientButton(
                             onClick = {
-                                viewModelTeam.teamnamehinzufugenAddTeam(textStateTeamName)
-                                if (addteam.teamName.isNotEmpty() && addteam.pokemonOne.isNotEmpty() && addteam.pokemonTwo.isNotEmpty() && addteam.pokemonThree.isNotEmpty()){
-                                    viewModelTeam.teamhinzufugen(context)
-                                    navController.navigate(Screen.ProfilScreen.route)
-                                }else {
-                                    messageDialogError(context, "Es müssem ein Teamname vergeben werden")
+                                viewModelTeam.addTeamName(textStateTeamName)
+                                if (addteam.teamName.isNotEmpty() && addteam.pokemonOne.isNotEmpty() && addteam.pokemonTwo.isNotEmpty() && addteam.pokemonThree.isNotEmpty()) {
+                                    viewModelTeam.addTeam(context, navController)
+                                    scope.launch {
+                                        delay(2000)
+                                        //navController.navigate(Screen.ProfilScreen.route)
+                                    }
+                                } else {
+                                    messageDialogError(
+                                        context,
+                                        "Es musstest ein Teamname vergeben werden"
+                                    )
                                 }
                             },
                             text = stringResource(id = R.string.btnsave),
                             textcolor = Color.White,
                             gradient = Brush.linearGradient(listOf(LightBlue, LightBlue)),
-                            paddingx = 80.dp,
+                            paddingx = 60.dp,
                             fontSize = 20.sp
                         )
                     }

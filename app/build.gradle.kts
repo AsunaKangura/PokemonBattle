@@ -61,7 +61,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:1.7.2")
-    implementation(platform("androidx.compose:compose-bom:2023.03.00"))
+    implementation(platform("androidx.compose:compose-bom:2023.06.01"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
@@ -73,8 +73,10 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx:22.2.0")
     implementation("com.google.firebase:firebase-database-ktx:20.3.0")
     implementation("com.google.firebase:firebase-firestore-ktx:24.9.1")
-    implementation("com.google.firebase:firebase-auth:22.2.0")
+    implementation("com.google.firebase:firebase-auth:22.3.0")
     implementation("com.google.firebase:firebase-firestore:24.9.1")
+
+    implementation("com.seanproctor:datatable:0.2.1")
 
 
     testImplementation("junit:junit:4.13.2")
@@ -89,6 +91,7 @@ dependencies {
     implementation ("com.github.SimformSolutionsPvtLtd:SSJetpackComposeSwipeableView:1.0.1")
 
     implementation ("io.github.vanpra.compose-material-dialogs:core:0.9.0")
+    implementation ("com.github.esatgozcu:Compose-Rolling-Number:1.0.5")
 
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.17.0")
 

@@ -1,7 +1,6 @@
 package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.profilscreen
 
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,8 +20,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -33,7 +30,7 @@ import com.klimpel.abschlussarbeitmodul3.data.models.BattleTeams
 import com.klimpel.abschlussarbeitmodul3.ui.components.CardWithAnimatedBorderTeam
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
-import com.klimpel.abschlussarbeitmodul3.util.PokemonEvoloutionBorder
+import com.klimpel.abschlussarbeitmodul3.util.pokemonEvoloutionBorder
 import com.klimpel.abschlussarbeitmodul3.util.Resource
 import com.klimpel.abschlussarbeitmodul3.util.backgroundBrush
 import com.klimpel.abschlussarbeitmodul3.viewmodels.PokemonDetailViewModel
@@ -58,14 +55,14 @@ fun PokemonCardTeamUbersichtPokemonOne(
 
     val scope = rememberCoroutineScope()
 
-    pokemonInfo.data?.name?.let { PokemonEvoloutionBorder(it) }?.let {
+    pokemonInfo.data?.name?.let { pokemonEvoloutionBorder(it) }?.let {
         CardWithAnimatedBorderTeam(
             borderColors = it
         ) {
             Card(
                 onClick = {
                     viewModelteam.deleteCurrentTeam()
-                    viewModelteam.loadTeam2(battleTeams.teamName)
+                    viewModelteam.loadTeam(battleTeams.teamName)
                     scope.launch {
                         delay(500)
                         navController.navigate("TeamSeite/${battleTeams.teamName}")
@@ -76,13 +73,12 @@ fun PokemonCardTeamUbersichtPokemonOne(
                 shape = RoundedCornerShape(10.dp)
             ) {
                 Column(
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.fillMaxWidth().fillMaxHeight()
                 ) {
                     ConstraintLayout(
                         modifier = Modifier.fillMaxSize()
                     ) {
-                        val (image, name) = createRefs()
+                        val (image, name, type) = createRefs()
 
                         Box(
                             contentAlignment = Alignment.Center,
@@ -108,6 +104,7 @@ fun PokemonCardTeamUbersichtPokemonOne(
                     }
                 }
             }
+
         }
     }
 }
@@ -126,7 +123,7 @@ fun PokemonCardTeamUbersichtOhneBattleTeam(
 
     var test = pokemonInfo.data?.types?.let { backgroundBrush(it) }
 
-    pokemonInfo.data?.name?.let { PokemonEvoloutionBorder(it) }?.let {
+    pokemonInfo.data?.name?.let { pokemonEvoloutionBorder(it) }?.let {
         CardWithAnimatedBorderTeam(
             borderColors = it
         ) {

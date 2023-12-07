@@ -17,7 +17,6 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -39,15 +38,11 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.klimpel.abschlussarbeitmodul3.data.models.PokemonGrindEntry
-import com.klimpel.abschlussarbeitmodul3.ui.components.CardWithAnimatedBorderOwnedPokemon
 import com.klimpel.abschlussarbeitmodul3.ui.components.TopAppBarTitelBackArrow
 import com.klimpel.abschlussarbeitmodul3.ui.theme.AbschlussarbeitModul3Theme
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
-import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.AvailablePokemonListItem
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.AvailablePokemonListItemMyPokemonm
-import com.klimpel.abschlussarbeitmodul3.util.PokemonEvoloutionBorder
-import com.klimpel.abschlussarbeitmodul3.viewmodels.MeinePokemonViewModel
 import com.klimpel.abschlussarbeitmodul3.viewmodels.SearchingViewModel
 import com.klimpel.pokemonbattlefinal.R
 

@@ -128,8 +128,8 @@ fun RegisterScreen(navController: NavController, viewModel: AllgemeinesViewModel
                             },
                             text = stringResource(id = R.string.btn_register),
                             bordercolor = LightBlue,
-                            gradient = Brush.linearGradient(listOf(Color.White, Color.White)),
-                            textcolor = LightBlue,
+                            gradient = Brush.linearGradient(listOf(LightBlue, LightBlue)),
+                            textcolor = Color.White,
                             paddingx = 60.dp
                         )
                     }

@@ -89,14 +89,17 @@ fun ProfilScreen(
             }
             Spacer(modifier = Modifier.height(15.dp))
 
+
             // Team Übersicht LazyColumn
             if (viewModelprofil.currentUser?.teams != 0) {
                 // TeamÜbersicht
-                ProfilTeamUbersicht(navController)
+               ProfilTeamUbersicht(navController)
             } else {
                 Spacer(modifier = Modifier.height(160.dp))
                 NoCustomTeams()
             }
+
+
         }
     }
 }

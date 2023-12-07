@@ -13,7 +13,7 @@ import com.klimpel.abschlussarbeitmodul3.ui.components.CardWithAnimatedBorder
 import com.klimpel.abschlussarbeitmodul3.ui.components.PokemonTeamCard
 import com.klimpel.abschlussarbeitmodul3.ui.components.PokemonTeamCardAddBearbeiten
 import com.klimpel.abschlussarbeitmodul3.ui.components.swipeableelements.SwipeableCardBoth
-import com.klimpel.abschlussarbeitmodul3.util.PokemonEvoloutionBorder
+import com.klimpel.abschlussarbeitmodul3.util.pokemonEvoloutionBorder
 
 @Composable
 fun TeamInfoSectionBearbeiten(context: Context, navController: NavController, currentTeam: BattleTeams){
@@ -22,7 +22,7 @@ fun TeamInfoSectionBearbeiten(context: Context, navController: NavController, cu
     // Pokemon One
     if (currentTeam.pokemonOne == "") {
         CardWithAnimatedBorder(
-            borderColors = PokemonEvoloutionBorder(currentTeam.pokemonOne),
+            borderColors = pokemonEvoloutionBorder(currentTeam.pokemonOne),
         ) {
             PokemonTeamCardAddBearbeiten(navController = navController, context = context, clickeid = 1)
         }
@@ -49,7 +49,7 @@ fun TeamInfoSectionBearbeiten(context: Context, navController: NavController, cu
     } else {
         SwipeableCardBoth(context = context, id = 2, navController = navController, team = currentTeam, pokemon = currentTeam.pokemonTwo) {
             CardWithAnimatedBorder(
-                borderColors = PokemonEvoloutionBorder(currentTeam.pokemonTwo),
+                borderColors = pokemonEvoloutionBorder(currentTeam.pokemonTwo),
             ) {
                 PokemonTeamCard(navController, currentTeam.pokemonTwo)
             }
@@ -68,7 +68,7 @@ fun TeamInfoSectionBearbeiten(context: Context, navController: NavController, cu
     } else {
         SwipeableCardBoth(context = context, id = 3, navController =navController, team = currentTeam, pokemon = currentTeam.pokemonThree) {
             CardWithAnimatedBorder(
-                borderColors = PokemonEvoloutionBorder(currentTeam.pokemonThree),
+                borderColors = pokemonEvoloutionBorder(currentTeam.pokemonThree),
             ) {
                 PokemonTeamCard(navController, currentTeam.pokemonThree)
             }

@@ -5,8 +5,12 @@ import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.navigation.NavController
+import com.klimpel.abschlussarbeitmodul3.Screen
 import com.klimpel.abschlussarbeitmodul3.data.models.BattleTeams
 import com.klimpel.abschlussarbeitmodul3.data.models.PokemonGrindEntry
+import com.klimpel.abschlussarbeitmodul3.data.models.StoreItem
+import com.klimpel.abschlussarbeitmodul3.data.models.StroreCategoryItem
 import com.klimpel.abschlussarbeitmodul3.data.models.User
 import com.klimpel.abschlussarbeitmodul3.ui.components.messageDialogError
 import com.klimpel.abschlussarbeitmodul3.ui.components.messageDialogSuccess
@@ -16,7 +20,6 @@ import com.klimpel.abschlussarbeitmodul3.util.generatePokemonAlias
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-
 
 class FirebaseRepository {
 
@@ -37,6 +40,12 @@ class FirebaseRepository {
     private var currentTeamList by mutableStateOf<MutableList<BattleTeams>>(mutableListOf())
     private var _teamList = MutableStateFlow(currentTeamList)
     var teamList: StateFlow<List<BattleTeams>> = _teamList.asStateFlow()
+
+    private var storeCategoryList by mutableStateOf<MutableList<StroreCategoryItem>>(mutableListOf())
+    private var _loadStoreCategory = MutableStateFlow(storeCategoryList)
+    var loadStoreCategory: StateFlow<MutableList<StroreCategoryItem>> =
+        _loadStoreCategory.asStateFlow()
+
 
     fun register(context: Context, email: String, password: String) {
         if (email.isNotEmpty() && password.isNotEmpty()) {
@@ -142,11 +151,11 @@ class FirebaseRepository {
         }
     }
 
-    fun teamnamehinzufugenAddTeam(name: String) {
+    fun teamNameHinzufugenAddTeam(name: String) {
         _addTeam.value.teamName = name
     }
 
-    fun teamhinzufugen(context: Context) {
+    fun teamHinzufugen(context: Context, navController: NavController) {
         val newteam = hashMapOf(
             "teamname" to _addTeam.value.teamName,
             "pokemon1" to _addTeam.value.pokemonOne,
@@ -166,6 +175,7 @@ class FirebaseRepository {
             .addOnSuccessListener {
                 updateFireStoreUser(context)
                 deleteAddTeam()
+                navController.navigate(Screen.ProfilScreen.route)
                 messageDialogSuccess(context, "Team gespeichert")
             }
             .addOnFailureListener {
@@ -204,7 +214,6 @@ class FirebaseRepository {
 
                 for (document in result) {
                     //val typeMap = (document.data["type"] as Map<String, *>).toList()
-
                     pokemonList.add(
                         PokemonGrindEntry(
                             document.data["name"].toString(),
@@ -232,48 +241,55 @@ class FirebaseRepository {
         _currentTeam.value = BattleTeams("", "", "", "", 0, 0, 0, 0, 0, 0, 0, 0)
     }
 
-    fun inventarAuslesen(categoryID: String, samlung: String) {
-        firestore.collection("user")
-            .document(currentUser?.id.toString())
-            .collection("inventar")
-            .document(categoryID)
-            .collection(samlung)
+    fun loadStoreCategory() {
+        firestore.collection("store")
             .get()
-            .addOnSuccessListener {
-
+            .addOnSuccessListener { result ->
+                var sublist = mutableListOf<StroreCategoryItem>()
+                for (document in result) {
+                    sublist.add(
+                        StroreCategoryItem(
+                            id = document.id,
+                            name = document.data["name"].toString()
+                        )
+                    )
+                    //loadStoreItem(document.id)
+                }
+                _loadStoreCategory.value = sublist
             }
             .addOnFailureListener {
-
+                Log.e("LOAD_STORE_CATEGORY", "Beim Laden der Kategorien ist ein Fehler aufgetreten")
             }
     }
 
-
-    fun addTeam(context: Context, teams: BattleTeams) {
-        val teamerstellen = hashMapOf(
-            "pokemon1" to teams.pokemonOne,
-            "pokemon2" to teams.pokemonTwo,
-            "pokemon3" to teams.pokemonThree,
-            "teamname" to teams.teamName,
-        )
-
-        currentUser?.teams = currentUser?.teams?.plus(1)!!
-
-        firestore.collection("user")
-            .document(currentUser?.id.toString())
-            .collection("teams")
-            .document(teams.teamName)
-            .set(teamerstellen)
-            .addOnSuccessListener {
-                updateFireStoreUser(context)
-                getTeam(teamerstellen["teamname"].toString())
-                deleteAddTeam()
-                Log.e("ADD_TEAM", "$currentUser")
-                messageDialogSuccess(context = context, messageText = "Team gespeichert")
+    fun loadStoreItem(category: String){
+        firestore.collection("store")
+            .document(category)
+            .collection(category)
+            .get()
+            .addOnSuccessListener { result ->
+                Log.e("RESULT", "${result.documents}")
+                Log.e("RESULT_Cat", "${category}")
+                val subMap = mutableMapOf<String, MutableList<StoreItem>>()
+                for (document in result) {
+                    subMap.set(
+                        key = document.id,
+                        value = mutableListOf(
+                            StoreItem(
+                                name = document.data["name"].toString(),
+                                beschreibung = document.data["Beschreibung"].toString(),
+                                price1 = document.data["price1"].toString().toInt(),
+                                price2 = document.data["price2"].toString().toInt(),
+                                price3 = document.data["price3"].toString().toInt(),
+                                price4 = document.data["price4"].toString().toInt(),
+                            )
+                        )
+                    )
+                }
             }
             .addOnFailureListener {
-                Log.e("ADD_TEAM", "Error writing document")
+                Log.e("RESULT_FEHLER", "$it")
             }
-
     }
 
     fun updateFireStoreUser(context: Context) {
@@ -293,29 +309,7 @@ class FirebaseRepository {
             .addOnFailureListener { Log.w("USER_UPDATE", "Update des User fehlgeschlagen") }
     }
 
-    fun getTeam(id: String): BattleTeams {
-        firestore.collection("user")
-            .document(currentUser?.id.toString())
-            .collection("teams")
-            .document(id)
-            .get()
-            .addOnSuccessListener { result ->
-                _currentTeam.value = BattleTeams(
-                    result.data?.get("teamname").toString(),
-                    result.data?.get("pokemon1").toString(),
-                    result.data?.get("pokemon2").toString(),
-                    result.data?.get("pokemon3").toString()
-                )
-                Log.e("REPOSITORY", "${_currentTeam.value}")
-            }
-            .addOnFailureListener { exception ->
-                Log.d("REPOSITORY", "Fehler beim laden des Teams: ", exception)
-            }
-        return _currentTeam.value ?: BattleTeams("", "", "", "")
-    }
-
     fun updateCurrentUser(id: String) {
-        Log.e("GIVEN_ID", "$id")
         // Firestore-Dokument mit der angegebenen ID abrufen
         firestore.collection("user").document(id)
             .get()
@@ -332,7 +326,6 @@ class FirebaseRepository {
                     result.data?.get("aktivteam").toString()
                 )
                 loadAktivTeam()
-                Log.e("CUREENT_USER", "$currentUser")
             }
             .addOnFailureListener {
                 // Fehlerbehandlung bei Fehlschlag des Abrufs
@@ -340,14 +333,7 @@ class FirebaseRepository {
             }
     }
 
-    fun deleteAktivTeam(context: Context) {
-        currentUser?.aktivteam = "null"
-        deleteCurrentTeam()
-        Log.e("DELETE_AKTIV_TEAM", "${currentTeam.value}")
-        updateFireStoreUser(context = context)
-    }
-
-    fun loadAktivTeam(): BattleTeams {
+    private fun loadAktivTeam(): BattleTeams {
         firestore.collection("user")
             .document(currentUser?.id.toString())
             .collection("teams")
@@ -360,7 +346,6 @@ class FirebaseRepository {
                     result.data?.get("pokemon2").toString(),
                     result.data?.get("pokemon3").toString()
                 )
-                Log.e("REPOSITORY", "${_currentTeam.value}")
             }
             .addOnFailureListener { exception ->
                 Log.d("REPOSITORY", "Fehler beim laden des Teams: ", exception)
@@ -368,86 +353,5 @@ class FirebaseRepository {
         return _currentTeam.value ?: BattleTeams("", "", "", "")
     }
 
-    fun deletePokemoninTeam(context: Context, pokeID: Int, teamId: String) {
-        when (pokeID) {
-            1 -> _currentTeam.value.pokemonOne = ""
-            2 -> _currentTeam.value.pokemonTwo = ""
-            3 -> _currentTeam.value.pokemonThree = ""
-        }
-        val teamupdate = hashMapOf(
-            "pokemon1" to _currentTeam.value.pokemonOne,
-            "pokemon2" to _currentTeam.value.pokemonTwo,
-            "pokemon3" to _currentTeam.value.pokemonThree,
-            "teamname" to _currentTeam.value.teamName,
-        )
-
-        firestore.collection("user")
-            .document(currentUser?.id.toString())
-            .collection("teams")
-            .document(_currentTeam.value.teamName)
-            .set(teamupdate)
-            .addOnSuccessListener {
-                Log.e("UPDATE_TEAM_BEARBEITEN", "${currentTeam.value}")
-            }
-            .addOnFailureListener {
-                Log.e("ADD_TEAM", "Error writing document")
-            }
-        deleteCurrentTeam()
-        getTeam(teamId)
-    }
-
-
-    fun updateTeam(context: Context) {
-        val teamupdate = hashMapOf(
-            "pokemon1" to _currentTeam.value.pokemonOne,
-            "pokemon2" to _currentTeam.value.pokemonTwo,
-            "pokemon3" to _currentTeam.value.pokemonThree,
-            "teamname" to _currentTeam.value.teamName,
-        )
-
-        firestore.collection("user")
-            .document(currentUser?.id.toString())
-            .collection("teams")
-            .document(_currentTeam.value.teamName)
-            .set(teamupdate)
-            .addOnSuccessListener {
-                Log.e("UPDATE_TEAM", "${currentTeam.value}")
-            }
-            .addOnFailureListener {
-                Log.e("UPDATE_TEAM_FEHLER", "$teamupdate Fehlgeschlagen")
-            }
-        //deleteCurrentTeam()
-        Log.e("TEAM_AFTER_RESET", "${currentTeam.value}")
-        getTeam(_currentTeam.value.teamName)
-    }
-
-    fun updatePokemonTeam(context: Context, id: Int, pokemonName: String) {
-        when (id) {
-            1 -> _currentTeam.value.pokemonOne = pokemonName
-            2 -> _currentTeam.value.pokemonTwo = pokemonName
-            3 -> _currentTeam.value.pokemonThree = pokemonName
-        }
-        updateTeam(context)
-    }
-
-    fun deleteTeam(context: Context, teamId: String) {
-
-        currentUser?.teams = currentUser?.teams?.minus(1)!!
-
-        firestore.collection("user")
-            .document(currentUser?.id.toString())
-            .collection("teams")
-            .document(teamId)
-            .delete()
-            .addOnSuccessListener {
-                updateFireStoreUser(context)
-                _currentTeam.value = BattleTeams("", "", "", "")
-                messageDialogSuccess(context, "Löschen des Teams erfolgreich")
-            }
-            .addOnFailureListener {
-                messageDialogError(context, "Das Team konnte nicht gelöscht werden")
-                Log.e("TEAM_LÖSCHEN", "Das Team konnte nicht gelöscht werden")
-            }
-    }
 
 }

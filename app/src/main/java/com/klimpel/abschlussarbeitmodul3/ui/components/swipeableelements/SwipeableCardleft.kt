@@ -1,5 +1,6 @@
 package com.klimpel.abschlussarbeitmodul3.ui.components.swipeableelements
 
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Search
@@ -22,6 +23,7 @@ import com.klimpel.abschlussarbeitmodul3.util.calcDp
  * @param route Die Route für die Navigation.
  * @param content Der Inhalt der Karte.
  */
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SwipeableCardLeft(
     navController: NavController,
