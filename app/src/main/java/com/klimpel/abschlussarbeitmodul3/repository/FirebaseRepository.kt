@@ -47,6 +47,13 @@ class FirebaseRepository {
         _loadStoreCategory.asStateFlow()
 
 
+    /**
+     * Registers a new user with the provided email and password.
+     *
+     * @param context The context in which the registration is being performed.
+     * @param email The email address of the user.
+     * @param password The password for the user.
+     */
     fun register(context: Context, email: String, password: String) {
         if (email.isNotEmpty() && password.isNotEmpty()) {
             auth.createUserWithEmailAndPassword(email, password)
@@ -78,6 +85,9 @@ class FirebaseRepository {
         }
     }
 
+    /**
+     * Loads the list of battle teams for the current user from Firestore.
+     */
     fun loadTeamList() {
         firestore.collection("user")
             .document(currentUser?.id.toString())
@@ -103,6 +113,12 @@ class FirebaseRepository {
             }
     }
 
+    /**
+     * Loads a specific battle team for the current user from Firestore.
+     *
+     * @param name The name of the team to load.
+     * @return The loaded BattleTeams object representing the team.
+     */
     fun loadTeam(name: String): BattleTeams {
         firestore.collection("user")
             .document(currentUser?.id.toString())
@@ -125,16 +141,34 @@ class FirebaseRepository {
         return _currentTeam.value ?: BattleTeams("", "", "", "")
     }
 
+    /**
+     * Updates the alias of the current user with the provided value and updates the corresponding user document in Firestore.
+     *
+     * @param alias The new alias for the user.
+     * @param context The context in which the update is being performed.
+     */
     fun updateAlias(alias: String, context: Context) {
         currentUser?.alias = alias
         updateFireStoreUser(context)
     }
 
+            /**
+     * Updates the avatar of the current user with the provided avatar name and updates the corresponding user document in Firestore.
+     *
+     * @param avatarname The name of the new avatar for the user.
+     * @param context The context in which the update is being performed.
+     */
     fun updateAvatar(avatarname: String, context: Context) {
         currentUser?.avatar = avatarname
         updateFireStoreUser(context)
     }
 
+    /**
+     * Adds a Pokemon to the addTeam value based on the given name and ID.
+     *
+     * @param name The name of the Pokemon to add.
+     * @param id The ID representing the position of the Pokemon in the team.
+     */
     fun pokemonHinzufugenAddTeam(name: String, id: Int) {
         when (id) {
             1 -> {
@@ -151,10 +185,21 @@ class FirebaseRepository {
         }
     }
 
+    /**
+     * Adds a team name to the addTeam value.
+     *
+     * @param name The name of the team to add.
+     */
     fun teamNameHinzufugenAddTeam(name: String) {
         _addTeam.value.teamName = name
     }
 
+    /**
+     * Adds a new team to Firestore with the details from the addTeam value.
+     *
+     * @param context The context in which the team addition is being performed.
+     * @param navController The NavController used for navigation.
+     */
     fun teamHinzufugen(context: Context, navController: NavController) {
         val newteam = hashMapOf(
             "teamname" to _addTeam.value.teamName,
@@ -183,6 +228,12 @@ class FirebaseRepository {
             }
     }
 
+    /**
+     * Deletes a team from Firestore based on the provided BattleTeams object.
+     *
+     * @param context The context in which the team deletion is being performed.
+     * @param battleTeams The BattleTeams object representing the team to be deleted.
+     */
     fun deleteTeam(context: Context, battleTeams: BattleTeams) {
 
         currentUser?.teams = currentUser?.teams?.minus(1)!!
@@ -204,6 +255,9 @@ class FirebaseRepository {
             }
     }
 
+    /**
+     * Loads the owned Pokemon data from Firestore and populates the ownedPokemonList LiveData.
+     */
     fun loadOwnedPokemon() {
         firestore.collection("user")
             .document(currentUser?.id.toString())
@@ -233,14 +287,24 @@ class FirebaseRepository {
             }
     }
 
+
+    /**
+     * Deletes the addTeam value by resetting it to an empty BattleTeams object.
+     */
     private fun deleteAddTeam() {
         _addTeam.value = BattleTeams("", "", "", "")
     }
 
+    /**
+     * Deletes the currentTeam value by resetting it to an empty BattleTeams object.
+     */
     fun deleteCurrentTeam() {
         _currentTeam.value = BattleTeams("", "", "", "", 0, 0, 0, 0, 0, 0, 0, 0)
     }
 
+    /**
+     * Loads the store categories from Firestore and populates the loadStoreCategory LiveData.
+     */
     fun loadStoreCategory() {
         firestore.collection("store")
             .get()
@@ -262,37 +326,11 @@ class FirebaseRepository {
             }
     }
 
-    fun loadStoreItem(category: String){
-        firestore.collection("store")
-            .document(category)
-            .collection(category)
-            .get()
-            .addOnSuccessListener { result ->
-                Log.e("RESULT", "${result.documents}")
-                Log.e("RESULT_Cat", "${category}")
-                val subMap = mutableMapOf<String, MutableList<StoreItem>>()
-                for (document in result) {
-                    subMap.set(
-                        key = document.id,
-                        value = mutableListOf(
-                            StoreItem(
-                                name = document.data["name"].toString(),
-                                beschreibung = document.data["Beschreibung"].toString(),
-                                price1 = document.data["price1"].toString().toInt(),
-                                price2 = document.data["price2"].toString().toInt(),
-                                price3 = document.data["price3"].toString().toInt(),
-                                price4 = document.data["price4"].toString().toInt(),
-                            )
-                        )
-                    )
-                }
-            }
-            .addOnFailureListener {
-                Log.e("RESULT_FEHLER", "$it")
-            }
-    }
-
-    fun updateFireStoreUser(context: Context) {
+    /**
+     * Updates the user data in Firestore with the current user's information.
+     * @param context The context used to display a success message dialog.
+     */
+    private fun updateFireStoreUser(context: Context) {
         val updatedUser = hashMapOf(
             "alias" to currentUser?.alias,
             "avatar" to currentUser?.avatar,
@@ -309,6 +347,10 @@ class FirebaseRepository {
             .addOnFailureListener { Log.w("USER_UPDATE", "Update des User fehlgeschlagen") }
     }
 
+    /**
+     * Updates the current user's data by fetching the Firestore document with the specified ID.
+     * @param id The ID of the Firestore document corresponding to the user.
+     */
     fun updateCurrentUser(id: String) {
         // Firestore-Dokument mit der angegebenen ID abrufen
         firestore.collection("user").document(id)
@@ -333,6 +375,11 @@ class FirebaseRepository {
             }
     }
 
+
+    /**
+     * Loads the active team for the current user from Firestore and populates the _currentTeam LiveData.
+     * @return The loaded BattleTeams object representing the active team.
+     */
     private fun loadAktivTeam(): BattleTeams {
         firestore.collection("user")
             .document(currentUser?.id.toString())
@@ -352,6 +399,5 @@ class FirebaseRepository {
             }
         return _currentTeam.value ?: BattleTeams("", "", "", "")
     }
-
 
 }
