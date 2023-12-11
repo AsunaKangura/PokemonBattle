@@ -31,11 +31,14 @@ Für die Portfolio Projekt wurde folgende API verwendet:
 
 <!-- Uhrheberrecht -->
 <details>
-<summary>Verwendete API</summary>
+<summary>COPYRIGHT</summary>
   
-### API
-Für die Portfolio Projekt wurde folgende API verwendet: 
-> https://pokeapi.co
+### CopyRight
+Die Uhrheberrechte liegen bei der Pokemon Company. Für alle Info's sollte man folgendes lesen. 
+<a href="https://www.pokemon.com/us/terms-of-use/">Terms of Use</a>
+
+> ©2023 Pokémon.
+> ©1995–2023 Nintendo / Creatures Inc. / GAME FREAK inc. TM, ®
 
 </details>
 
