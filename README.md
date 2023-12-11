@@ -26,22 +26,9 @@ Dieses Projekt ist im Rahmen meiner Weiterbildung zum App-Entwickler entstanden.
 
 > Die Idee ein Pokemon Spiel ohne Kommerziellen Hintergrund zu erstellen, kam mir bei einem gemütlichen Abend wo in meinem Freundeskreis die Kids teilweise "Pokemon Go" gespielt haben. 
 Es gab aber auch kleinere Kinder die nicht die Möglichkeit hatten oder auch Kinder die es nicht durften da die Eltern zuviel Angst haben das deren Kind evtl ausversehen Geld ausgibt in dem Spiel oder 
-in eine Abo Falle rutscht. Da kam mir die Idee wie cool wäre es wenn, Es ein kleine Spiel Gibt so als "Fan to Fan" Projket ohne das ich daran Geld verdiene. Ich habe dann geschaut ob es sowas schon in irgendeiner Art gibt.
+in eine Abo Falle rutscht. Da kam mir die Idee wie cool wäre es wenn, es ein kleines Spiel gibt so als "Fan to Fan" Projket ohne das ich daran Geld verdiene. Ich habe dann geschaut ob es sowas schon in irgendeiner Art gibt.
 Nach dem ich nichts gefunden was zu 100% kostenlos ist, habe ich das Prjekt geplant und angefangen es um zu setzen. 
 
 </details>
 
-<!-- Wie kam es zum Projekt -->
-<details>
-<summary>Welche Resourcen wurden verwendet</summary>
-
-### Pokemon API
-
-Für die Infos der Pokemon wurde eine freizugängliche API verwendet. Ich habe mich mit der Nintendo Deutschland
-
-```ruby
-   puts "Hello World"
-```
-
-</details>
 
