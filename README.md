@@ -24,8 +24,7 @@ Das Projekt wird ablegen der Prüfung für Android im Rahmen meiner Freizeit fer
 <summary>Verwendete API</summary>
   
 ### API
-Für die Portfolio Projekt wurde folgende API verwendet: 
-> https://pokeapi.co
+Für die Portfolio Projekt wurde folgende API verwendet: <a href= "https://pokeapi.co">https://pokeapi.co</a>
 
 </details>
 
