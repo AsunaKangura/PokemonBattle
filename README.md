@@ -1,5 +1,5 @@
 
-<img src="src/main/res/drawable/pokemon_logo.png" width="800" height="350"/>
+<img src="app/src/main/res/drawable/pokemon_logo.png" width="800" height="350"/>
 
 
 ## *Inhaltsverzeichnis*
