@@ -34,7 +34,7 @@ fun TableHeader() {
             //.background(DeepRed)
         ) {
             val lfdWeight = .08f // 5%
-            val ItemWeight = .16f // 30%
+            val itemWeight = .16f // 30%
             val anzahlWeight = .11f // 20%
             val preisWeight = .11f // 30%
             val deleteWeight = .11f // 10%
@@ -46,7 +46,7 @@ fun TableHeader() {
                     .background(LightBlue)
             ) {
                 TableCellHeader(text = "Lfd.", weight = lfdWeight)
-                TableCellHeader(text = "Itemname", weight = ItemWeight)
+                TableCellHeader(text = "Itemname", weight = itemWeight)
                 TableCellHeader(text = "Anzahl", weight = anzahlWeight)
                 TableCellHeader(text = "Preis", weight = preisWeight)
                 TableCellHeader(text = "Aktion", weight = deleteWeight)

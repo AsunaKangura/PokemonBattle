@@ -1,11 +1,9 @@
-
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -14,7 +12,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.klimpel.abschlussarbeitmodul3.ui.components.TopAppBarTitelBackArrow
-import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.pokedexscreen.PokemonList
@@ -22,7 +19,6 @@ import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.pokedexscreen.Searchba
 import com.klimpel.abschlussarbeitmodul3.viewmodels.PokemonListViewModel
 import com.klimpel.pokemonbattlefinal.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Pokedex(
     navController: NavController,

@@ -1,7 +1,6 @@
 package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.store
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,7 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,22 +21,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.White
 import com.klimpel.abschlussarbeitmodul3.util.Dimension
 import com.klimpel.abschlussarbeitmodul3.util.calcDp
-import com.klimpel.abschlussarbeitmodul3.viewmodels.StoreViewModel
+
 
 @Composable
 fun StoreCategory(
     navController: NavController,
     categoryName: String,
-    categoryID: String,
-    viewModelStore: StoreViewModel = hiltViewModel()
 ) {
-    val scrollState = rememberScrollState()
 
     // Normale und Spezial Pokebälle
     Spacer(modifier = Modifier.height(calcDp(percentage = 0.02f, dimension = Dimension.Height)))

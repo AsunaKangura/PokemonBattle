@@ -42,7 +42,5 @@ fun PokemonDetailStateWrapper(
                 modifier = loadingModifier
             )
         }
-
-        else -> {}
     }
 }

@@ -72,35 +72,6 @@ class PokemonRepository @Inject constructor(
     }
 
     /**
-     * Finds an avatar by its name.
-     * @param name The name of the avatar.
-     * @return The avatar object if found, null otherwise.
-     */
-    fun findAvatar(name: String): Avatar? {
-        // Create a list of Avatar objects with corresponding names and resource IDs.
-        val avatars = listOf(
-            Avatar("default", R.drawable.ic_person),
-            Avatar("evoli", R.drawable.evoli),
-            Avatar("rattfratz", R.drawable.rattfratz),
-            Avatar("abra", R.drawable.abra),
-            Avatar("menki", R.drawable.menki),
-            Avatar("pummeluff", R.drawable.pummeluff),
-            Avatar("bisasam", R.drawable.bisasam),
-            Avatar("knofensa", R.drawable.knofensa),
-            Avatar("ponita", R.drawable.ponita),
-            Avatar("enton", R.drawable.enton),
-            Avatar("marill", R.drawable.marill),
-            Avatar("mauzi", R.drawable.mauzi),
-            Avatar("schiggy", R.drawable.schiggy),
-            Avatar("taubsi", R.drawable.taubsi),
-            Avatar("pikachu", R.drawable.pikachu),
-        )
-
-        // Search for the avatar in the list based on the name and return it.
-        return avatars.find { it.name == name }
-    }
-
-    /**
      * Finds the resource ID of an avatar by its name.
      * @param name The name of the avatar.
      * @return The resource ID of the avatar if found, -1 otherwise.

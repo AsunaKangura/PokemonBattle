@@ -15,7 +15,7 @@ fun MeinePokemon(navController: NavController, viewModelTeam: TeamViewModel = hi
     val ownedPokemonList = viewModelTeam.pokemonUbersicht.collectAsState()
 
     if (ownedPokemonList.value.isNotEmpty()){
-        OwnedPokemonContent(navController = navController, pokemonlist = ownedPokemonList.value)
+        OwnedPokemonContent(navController = navController)
     }else {
         NoOwnedPokemon(navController)
     }

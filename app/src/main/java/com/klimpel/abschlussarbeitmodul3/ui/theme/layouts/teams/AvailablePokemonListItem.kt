@@ -1,7 +1,6 @@
 package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams
 
 
-import android.content.Context
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -42,11 +41,9 @@ import com.klimpel.abschlussarbeitmodul3.util.calcDp
 import com.klimpel.abschlussarbeitmodul3.util.parsePokemonNameToGerman
 import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AvailablePokemonListItem(
     navController: NavController,
-    context: Context,
     clickid: Int,
     pokemon: PokemonGrindEntry,
     viewModelteam: TeamViewModel = hiltViewModel()
@@ -55,7 +52,6 @@ fun AvailablePokemonListItem(
         modifier = Modifier
             .width(calcDp(percentage = 0.4f, dimension = Dimension.Width))
             .height(calcDp(percentage = 0.2f, dimension = Dimension.Height))
-        //.background(DeepRed)
     ) {
         ConstraintLayout(
             modifier = Modifier
@@ -89,7 +85,7 @@ fun AvailablePokemonListItem(
                     modifier = Modifier
                         .fillMaxSize()
                 ) {
-                    val (name, level, image) = createRefs()
+                    val (image) = createRefs()
 
                     // Anzahl der Pokemons
                     Card(
@@ -192,15 +188,13 @@ fun AvailablePokemonListItem(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AvailablePokemonListItemMyPokemonm(
-    navController: NavController,
     pokemon: PokemonGrindEntry,
-    viewModelteam: TeamViewModel = hiltViewModel()
 ) {
     Column(
         modifier = Modifier
             .width(calcDp(percentage = 0.4f, dimension = Dimension.Width))
             .height(calcDp(percentage = 0.2f, dimension = Dimension.Height))
-        //.background(DeepRed)
+
     ) {
         ConstraintLayout(
             modifier = Modifier
@@ -229,7 +223,7 @@ fun AvailablePokemonListItemMyPokemonm(
                     modifier = Modifier
                         .fillMaxSize()
                 ) {
-                    val (name, level, image) = createRefs()
+                    val (image) = createRefs()
 
                     // Anzahl der Pokemons
                     Card(
@@ -333,11 +327,7 @@ fun AvailablePokemonListItemMyPokemonm(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AvailablePokemonListItemEditTeam(
-    navController: NavController,
-    context: Context,
-    clickid: Int,
     pokemon: PokemonGrindEntry,
-    viewModel: TeamViewModel = hiltViewModel()
 ) {
 
     Column(
@@ -355,17 +345,6 @@ fun AvailablePokemonListItemEditTeam(
 
             Card(
                 onClick = {
-                    /*
-                    when(clickid){
-                        1 -> viewModel.updatePokemonTeam(context,clickid,pokemon.name)
-                        2 -> viewModel.updatePokemonTeam(context,clickid, pokemon.name)
-                        3 -> viewModel.updatePokemonTeam(context,clickid, pokemon.name)
-                    }
-                    Log.e("POKEMON_CLICK", "${viewModel.currentTeam.value}")
-                    Log.e("POKEMON_CLICK", "${clickid}")
-                    navController.navigate(Screen.Teambearbeiten.route)
-
-                     */
                 },
                 modifier = Modifier
                     .width(calcDp(percentage = 0.30f, dimension = Dimension.Width))
@@ -384,7 +363,7 @@ fun AvailablePokemonListItemEditTeam(
                     modifier = Modifier
                         .fillMaxSize()
                 ) {
-                    val (name, level, image) = createRefs()
+                    val (image) = createRefs()
 
                     // Anzahl der Pokemons
                     Card(

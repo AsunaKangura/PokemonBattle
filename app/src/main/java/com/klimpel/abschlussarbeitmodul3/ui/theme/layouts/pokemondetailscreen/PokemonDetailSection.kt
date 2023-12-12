@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.asunakangura.pokemonbattle.data.remote.responses.Pokemon
 import com.klimpel.abschlussarbeitmodul3.util.parsePokemonNameToGerman
-import java.util.Locale
+
 
 @Composable
 fun PokemonDetailSection(

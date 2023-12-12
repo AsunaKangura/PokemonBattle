@@ -2,7 +2,6 @@ package com.klimpel.abschlussarbeitmodul3.ui.components
 
 import android.app.Activity
 import android.content.Context
-import androidx.compose.runtime.Composable
 import androidx.core.content.res.ResourcesCompat
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle

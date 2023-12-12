@@ -21,7 +21,6 @@ import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Remove
 import androidx.compose.material.icons.outlined.ShoppingCart
@@ -39,26 +38,19 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.google.android.play.integrity.internal.w
-import com.google.firestore.v1.TransactionOptions.ReadWriteOrBuilder
 import com.klimpel.abschlussarbeitmodul3.ui.components.Pokeball
 import com.klimpel.abschlussarbeitmodul3.ui.components.TopAppBarTitelBackArrowProduktScreen
-import com.klimpel.abschlussarbeitmodul3.ui.components.TopAppBarTitelBackArrowStore
-import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
-import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.store.StoreItemProduktseite
 import com.klimpel.abschlussarbeitmodul3.util.Dimension
 import com.klimpel.abschlussarbeitmodul3.util.calcDp
-import com.klimpel.pokemonbattlefinal.R
 import com.seanproctor.datatable.Table
 import com.seanproctor.datatable.TableColumnDefinition
-import com.seanproctor.datatable.TableColumnWidth
+
 
 
 @Composable
@@ -142,7 +134,7 @@ fun ProduktScreen(navController: NavController) {
                                 .fillMaxHeight(0.4f)
                         ) {
                             Button(
-                                onClick = { /*TODO*/ },
+                                onClick = {  },
                                 colors = ButtonDefaults.buttonColors(containerColor = Color.White),
                                 elevation = ButtonDefaults.buttonElevation(
                                     defaultElevation = 10.dp
@@ -176,7 +168,7 @@ fun ProduktScreen(navController: NavController) {
                             }
 
                             Button(
-                                onClick = { /*TODO*/ },
+                                onClick = { },
                                 colors = ButtonDefaults.buttonColors(containerColor = LightBlue),
                                 elevation = ButtonDefaults.buttonElevation(
                                     defaultElevation = 10.dp
@@ -194,7 +186,7 @@ fun ProduktScreen(navController: NavController) {
                                 .height(60.dp)
                         ) {
                             Button(
-                                onClick = { /*TODO*/ },
+                                onClick = {  },
                                 colors = ButtonDefaults.buttonColors(containerColor = LightBlue),
                                 elevation = ButtonDefaults.buttonElevation(
                                     defaultElevation = 10.dp

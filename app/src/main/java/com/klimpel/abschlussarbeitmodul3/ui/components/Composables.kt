@@ -51,7 +51,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.draw.shadow
@@ -80,9 +79,7 @@ import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.pokemondetailscreen.PokemonTypeSection
-import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.profilscreen.PokemonCardTeamUbersichtOhneBattleTeam
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.AvailablePokemonListItem
-import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.AvailablePokemonRow
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.AvailablePokemonRowEditTeam
 import com.klimpel.abschlussarbeitmodul3.util.Dimension
 import com.klimpel.abschlussarbeitmodul3.util.Resource
@@ -91,9 +88,7 @@ import com.klimpel.abschlussarbeitmodul3.util.parsePokemonNameToGerman
 import com.klimpel.abschlussarbeitmodul3.viewmodels.MeinePokemonViewModel
 import com.klimpel.abschlussarbeitmodul3.viewmodels.PokemonDetailViewModel
 import com.klimpel.abschlussarbeitmodul3.viewmodels.SearchingViewModel
-import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
 import com.klimpel.pokemonbattlefinal.R
-
 
 @Composable
 fun GradientButton(
@@ -144,46 +139,6 @@ fun GradientButton(
 
 }
 
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TeamCardAdd(
-    onClick: () -> Unit,
-    viewModelteam: TeamViewModel = hiltViewModel()
-) {
-    //viewModelteam.deleteCurrentTeam()
-    Card(
-        onClick = {
-            onClick()
-        },
-        modifier = Modifier
-            .width(calcDp(percentage = 0.3f, dimension = Dimension.Width))
-            .height(calcDp(percentage = 0.05f, dimension = Dimension.Height)),
-        shape = RoundedCornerShape(
-            topStart = 25.dp,
-            topEnd = 10.dp,
-            bottomStart = 10.dp,
-            bottomEnd = 25.dp
-        ),
-        elevation = CardDefaults.elevatedCardElevation(
-            defaultElevation = 10.dp
-        ),
-        border = BorderStroke(1.dp, LightBlue)
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Icon(
-                imageVector = Icons.Filled.Add,
-                contentDescription = "AddTeam",
-                tint = LightBlue
-            )
-        }
-    }
-}
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PokemonTeamCardAddBearbeiten(
@@ -191,7 +146,6 @@ fun PokemonTeamCardAddBearbeiten(
     context: Context,
     clickeid: Int,
     viewModel: MeinePokemonViewModel = hiltViewModel(),
-    viewModelteam: TeamViewModel = hiltViewModel()
 ) {
     var clickedID = clickeid
     val pokemonList = viewModel.pokemonUbersicht.collectAsState()
@@ -224,7 +178,7 @@ fun PokemonTeamCardAddBearbeiten(
                 ConstraintLayout(
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    val (titel, listViewPokemon, btnsave) = createRefs()
+                    val (titel, listViewPokemon) = createRefs()
                     // Profil Titel
                     Card(
                         colors = CardDefaults.cardColors(
@@ -283,13 +237,6 @@ fun PokemonTeamCardAddBearbeiten(
                                 .background(DeepRed)
                         ) {
 
-                            /*
-                            Searchbar(hint = stringResource(R.string.searchbarHint)){
-                                viewModel.searchPokemonList(it)
-                            }
-
-                             */
-
                             Spacer(modifier = Modifier.height(20.dp))
 
                             LazyVerticalGrid(
@@ -299,9 +246,6 @@ fun PokemonTeamCardAddBearbeiten(
                                 val itemCount = pokemonList.value.size
                                 items(itemCount) {
                                     AvailablePokemonRowEditTeam(
-                                        navController = navController,
-                                        context = context,
-                                        clickedID = clickedID,
                                         rowIndex = it,
                                         entries = pokemonList.value
                                     )
@@ -361,9 +305,7 @@ fun PokemonTeamCardAddErstellen(
     context: Context,
     clickeid: Int,
     viewModelSearch: SearchingViewModel = hiltViewModel(),
-    viewModelteam: TeamViewModel = hiltViewModel()
 ) {
-    var clickedID = clickeid
     val openPokemonAddDialog = remember { mutableStateOf(false) }
     if (openPokemonAddDialog.value) {
         Dialog(
@@ -386,7 +328,7 @@ fun PokemonTeamCardAddErstellen(
                 ConstraintLayout(
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    val (titel, listViewPokemon, btnsave) = createRefs()
+                    val (titel, listViewPokemon) = createRefs()
                     // Profil Titel
 
                     Card(
@@ -514,7 +456,6 @@ fun PokemonTeamCardAddErstellen(
                                     items(itemcount) {
                                         AvailablePokemonListItem(
                                             navController = navController,
-                                            context = context,
                                             clickid = clickeid,
                                             pokemon = ownedPokemon[it]
                                         )
@@ -531,7 +472,6 @@ fun PokemonTeamCardAddErstellen(
     Card(
         onClick = {
             openPokemonAddDialog.value = true
-            clickedID = clickeid
         },
         modifier = Modifier
             .fillMaxWidth()
@@ -570,7 +510,6 @@ fun PokemonTeamCardAddErstellen(
 
 @Composable
 fun PokemonTeamCard(
-    navController: NavController,
     pokemonName: String,
     viewModel: PokemonDetailViewModel = hiltViewModel(),
 ) {
@@ -763,53 +702,3 @@ fun CardWithAnimatedBorderTeam(
     }
 }
 
-
-@Composable
-fun CardWithAnimatedBorderOwnedPokemon(
-    modifier: Modifier = Modifier,
-    onCardClick: () -> Unit = {},
-    borderColors: List<Color> = emptyList(),
-    content: @Composable () -> Unit
-) {
-    val infiniteTransition = rememberInfiniteTransition(label = "")
-    val angle by
-    infiniteTransition.animateFloat(
-        initialValue = 0f,
-        targetValue = 360f,
-        animationSpec =
-        infiniteRepeatable(
-            animation = tween(1500, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart
-        ), label = ""
-    )
-
-    val brush =
-        if (borderColors.isNotEmpty()) Brush.sweepGradient(borderColors)
-        else Brush.sweepGradient(listOf(Color.Gray, Color.White))
-
-    Surface(modifier = modifier
-        .clickable { onCardClick() }
-        .shadow(10.dp, shape = RectangleShape), shape = RoundedCornerShape(20.dp)) {
-        Surface(
-            modifier =
-            Modifier
-                .clipToBounds()
-                .fillMaxWidth()
-                .padding(4.dp)
-                .drawWithContent {
-                    rotate(angle) {
-                        drawCircle(
-                            brush = brush,
-                            radius = size.width,
-                            blendMode = BlendMode.SrcIn,
-                        )
-                    }
-                    drawContent()
-                },
-            color = LightBlueBackground,
-            shape = RoundedCornerShape(20.dp)
-        ) {
-            Box(modifier = Modifier.padding(0.dp)) { content() }
-        }
-    }
-}

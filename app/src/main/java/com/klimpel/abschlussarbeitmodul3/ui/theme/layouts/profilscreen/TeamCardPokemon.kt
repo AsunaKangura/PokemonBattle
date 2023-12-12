@@ -2,7 +2,6 @@ package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.profilscreen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -21,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.asunakangura.pokemonbattle.data.remote.responses.Pokemon
-import com.klimpel.abschlussarbeitmodul3.Screen
 import com.klimpel.abschlussarbeitmodul3.data.models.BattleTeams
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.teamerstellen.PokemonTypeItem
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.teampage.createPokemon
@@ -147,27 +145,6 @@ fun TeamCardPokemonProfil(
     viewModelteam: TeamViewModel = hiltViewModel(),
 ){
     val scope = rememberCoroutineScope()
-    val currentAktivteam = viewModelteam.currentTeam.collectAsState()
-
-    /*
-    val pokemonInfoPokemonOne = produceState<Resource<Pokemon>>(initialValue = Resource.Loading())
-    {
-        value = viewModelteam.getPokemonInfo(currentAktivteam.value.pokemonOne)
-    }.value
-    val pokemonInfoPokemonTwo = produceState<Resource<Pokemon>>(initialValue = Resource.Loading())
-    {
-        value = viewModelteam.getPokemonInfo(currentAktivteam.value.pokemonTwo)
-    }.value
-    val pokemonInfoPokemonThree = produceState<Resource<Pokemon>>(initialValue = Resource.Loading())
-    {
-        value = viewModelteam.getPokemonInfo(currentAktivteam.value.pokemonThree)
-    }.value
-
-    val pokemonOne = createPokemon(pokemonInfoPokemonOne)
-    val pokemonTwo = createPokemon(pokemonInfoPokemonTwo)
-    val pokemonThree = createPokemon(pokemonInfoPokemonThree)
-
-     */
 
     Row(
         horizontalArrangement = Arrangement.SpaceAround,

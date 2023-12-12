@@ -1,18 +1,14 @@
-package com.klimpel.pokemonbattlefinal.ui.theme.layouts
+package com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.welcomescreen
 
-
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.klimpel.abschlussarbeitmodul3.Screen
-import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.welcomescreen.WelcomeScreenContent
 import com.klimpel.abschlussarbeitmodul3.util.Contants
 import com.klimpel.abschlussarbeitmodul3.viewmodels.ProfilViewModel
 import kotlinx.coroutines.delay
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WelcomeScreen(navController: NavController, viewModel: ProfilViewModel = hiltViewModel()) {
 

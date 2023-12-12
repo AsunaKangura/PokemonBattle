@@ -33,7 +33,7 @@ fun TeamInfoSectionErstellen(context: Context, navController: NavController, bat
         CardWithAnimatedBorder(
             borderColors = pokemonEvoloutionBorder(battleTeams.pokemonOne),
         ) {
-            PokemonTeamCard(navController, battleTeams.pokemonOne)
+            PokemonTeamCard(battleTeams.pokemonOne)
         }
         Spacer(modifier = Modifier.height(30.dp))
     }
@@ -53,7 +53,7 @@ fun TeamInfoSectionErstellen(context: Context, navController: NavController, bat
         CardWithAnimatedBorder(
             borderColors = pokemonEvoloutionBorder(battleTeams.pokemonTwo),
         ) {
-            PokemonTeamCard(navController, battleTeams.pokemonTwo)
+            PokemonTeamCard(battleTeams.pokemonTwo)
         }
         Spacer(modifier = Modifier.height(30.dp))
     }
@@ -73,7 +73,7 @@ fun TeamInfoSectionErstellen(context: Context, navController: NavController, bat
         CardWithAnimatedBorder(
             borderColors = pokemonEvoloutionBorder(battleTeams.pokemonThree),
         ) {
-            PokemonTeamCard(navController, battleTeams.pokemonThree)
+            PokemonTeamCard(battleTeams.pokemonThree)
         }
         Spacer(modifier = Modifier.height(30.dp))
     }

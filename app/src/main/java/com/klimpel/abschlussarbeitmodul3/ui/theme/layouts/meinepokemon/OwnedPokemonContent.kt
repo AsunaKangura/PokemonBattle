@@ -16,7 +16,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,7 +36,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.klimpel.abschlussarbeitmodul3.data.models.PokemonGrindEntry
 import com.klimpel.abschlussarbeitmodul3.ui.components.TopAppBarTitelBackArrow
 import com.klimpel.abschlussarbeitmodul3.ui.theme.AbschlussarbeitModul3Theme
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
@@ -46,9 +44,8 @@ import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.AvailablePokemon
 import com.klimpel.abschlussarbeitmodul3.viewmodels.SearchingViewModel
 import com.klimpel.pokemonbattlefinal.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun OwnedPokemonContent(navController: NavController, viewModelSearch: SearchingViewModel= hiltViewModel(), pokemonlist: List<PokemonGrindEntry>){
+fun OwnedPokemonContent(navController: NavController, viewModelSearch: SearchingViewModel= hiltViewModel()){
 
     AbschlussarbeitModul3Theme {
         Scaffold(
@@ -146,46 +143,12 @@ fun OwnedPokemonContent(navController: NavController, viewModelSearch: Searching
 
                         items(itemcount) {
                             AvailablePokemonListItemMyPokemonm(
-                                navController = navController,
                                 pokemon = ownedPokemon[it]
                             )
                         }
                     }
                 }
             }
-            /*
-            Column(
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerpadding)
-            ) {
-                viewModelMeinPokemon.loadOwnedPokemon()
-                LazyVerticalGrid(
-                    columns = GridCells.Adaptive(130.dp),
-                    modifier = Modifier
-                        .fillMaxWidth(0.9f)
-                        .fillMaxHeight(0.9f),
-                    verticalArrangement = Arrangement.spacedBy(20.dp),
-                    horizontalArrangement = Arrangement.spacedBy(20.dp),
-                    content = {
-                        val itemcount = pokemonlist.size
-
-                        items(itemcount) {
-                            val pokemonname = pokemonlist[it]
-                            CardWithAnimatedBorderOwnedPokemon(
-                                borderColors = PokemonEvoloutionBorder(pokemonname.name)
-                            ) {
-                                PokemonGridCard(navController, pokemonlist[it])
-                            }
-                        }
-                    }
-                )
-            }
-
-             */
         }
     }
-
 }

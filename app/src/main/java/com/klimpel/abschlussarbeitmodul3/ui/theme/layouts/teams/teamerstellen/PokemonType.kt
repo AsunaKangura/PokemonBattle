@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,8 +18,6 @@ import androidx.compose.ui.unit.sp
 import com.asunakangura.pokemonbattle.data.remote.responses.Type
 import com.klimpel.abschlussarbeitmodul3.util.parseTypeToColor
 import java.util.Locale
-
-
 
 @Composable
 fun PokemonTypeItem(types: List<Type>){

@@ -8,8 +8,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -21,8 +19,6 @@ import com.klimpel.abschlussarbeitmodul3.ui.theme.pokemonFontFamily
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopAppBarTitelBackArrowProfil(pageTitle: Int, navController: NavController) {
-
-    val showMenu = remember { mutableStateOf(false) }
 
     CenterAlignedTopAppBar(
         title = {

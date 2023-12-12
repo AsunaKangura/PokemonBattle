@@ -17,13 +17,12 @@ import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.profilscreen.rucksack.
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.store.StoreScreen
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.store.produktdetail.ProduktScreen
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.store.warenkorb.WarenkorbScreen
-import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.teambearbeiten.TeamBearbeitenScreen
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.teamerstellen.TeamErstellenScreen
 import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.teampage.TeamPage
 import com.klimpel.pokemonbattlefinal.ui.theme.layouts.HomeScreen
-import com.klimpel.pokemonbattlefinal.ui.theme.layouts.RegisterScreen
-import com.klimpel.pokemonbattlefinal.ui.theme.layouts.SplashScreen
-import com.klimpel.pokemonbattlefinal.ui.theme.layouts.WelcomeScreen
+import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.registerscreen.RegisterScreen
+import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.splashoutscreen.SplashScreen
+import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.welcomescreen.WelcomeScreen
 import java.util.Locale
 
 @Composable
@@ -37,7 +36,6 @@ fun NavigationAppStart(navController: NavHostController){
         composable(Screen.Pokedex.route) { Pokedex(navController) }
         composable(Screen.MeinePokemon.route) { MeinePokemon(navController) }
         composable(Screen.Teamerstellen.route) { TeamErstellenScreen(navController) }
-        composable(Screen.Teambearbeiten.route) { TeamBearbeitenScreen(navController) }
         composable(Screen.ProfilScreen.route) { ProfilScreen(navController) }
         composable(Screen.Rucksack.route) { RucksackScreen(navController) }
         composable(Screen.Store.route) { StoreScreen(navController) }

@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.produceState
@@ -29,10 +28,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.asunakangura.pokemonbattle.data.remote.responses.Pokemon
-import com.example.ssjetpackcomposeswipeableview.SwipeDirection
 import com.klimpel.abschlussarbeitmodul3.data.models.PokedexListEntry
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.White
@@ -42,43 +39,23 @@ import com.klimpel.abschlussarbeitmodul3.util.backgroundBrush
 import com.klimpel.abschlussarbeitmodul3.util.calcDp
 import com.klimpel.abschlussarbeitmodul3.util.parsePokemonNameToGerman
 import com.klimpel.abschlussarbeitmodul3.viewmodels.PokemonDetailViewModel
-import com.klimpel.abschlussarbeitmodul3.viewmodels.PokemonListViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PokemonCard(
     entry: PokedexListEntry,
-    navController: NavController,
-    modifier: Modifier = Modifier,
-    viewModel: PokemonListViewModel = hiltViewModel(),
     viewModelpokemondetail: PokemonDetailViewModel = hiltViewModel(),
 ) {
-    val swipeDirection: SwipeDirection? = null
 
     val pokemonInfo = produceState<Resource<Pokemon>>(initialValue = Resource.Loading())
     {
         value = viewModelpokemondetail.getPokemonInfo(entry.pokemonName)
     }.value
 
-
     Box(
-        //onClick = { },
         modifier = Modifier
             .fillMaxWidth()
             .height(calcDp(percentage = 0.30f, dimension = Dimension.Width)),
-        /*
-        elevation = CardDefaults.elevatedCardElevation(
-            defaultElevation = 10.dp
-        ),
-        border = BorderStroke(2.dp, Color.White),
-        shape = RoundedCornerShape(
-            topStart = 50.dp,
-            topEnd = 20.dp,
-            bottomStart = 20.dp,
-            bottomEnd = 50.dp
-        )
 
-         */
     ) {
         pokemonInfo.data?.types?.let {
             Box(
@@ -86,19 +63,6 @@ fun PokemonCard(
                     .fillMaxSize()
                     .background(Brush.horizontalGradient(backgroundBrush(pokemonInfo.data.types)))
                     .border(4.dp, White, RoundedCornerShape(topStart = 50.dp, topEnd = 20.dp, bottomStart = 20.dp, bottomEnd = 50.dp))
-                /*
-            elevation = CardDefaults.elevatedCardElevation(
-                defaultElevation = 10.dp
-            ),
-            border = BorderStroke(2.dp, Color.White),
-            shape = RoundedCornerShape(
-                topStart = 50.dp,
-                topEnd = 20.dp,
-                bottomStart = 20.dp,
-                bottomEnd = 50.dp
-            )
-
-             */
             ) {
                 Row(
                     modifier = Modifier

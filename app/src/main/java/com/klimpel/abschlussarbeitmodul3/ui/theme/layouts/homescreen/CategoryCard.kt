@@ -16,9 +16,7 @@ import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.klimpel.abschlussarbeitmodul3.ui.components.TitelCard
 
@@ -30,9 +28,6 @@ fun CategoryCard(
     image: Int,
     cardheight: Dp = 200.dp,
     cardpadding: Dp = 20.dp,
-    fontSize: TextUnit = 18.sp,
-    titelcardwidth: Dp = 200.dp,
-    titelcardheight: Dp = 50.dp,
 ) {
     Card(
         modifier = Modifier

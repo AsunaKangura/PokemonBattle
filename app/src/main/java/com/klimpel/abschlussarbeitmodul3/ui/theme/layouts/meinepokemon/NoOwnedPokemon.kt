@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,13 +14,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.klimpel.abschlussarbeitmodul3.ui.components.TopAppBarTitelBackArrow
-import com.klimpel.abschlussarbeitmodul3.ui.theme.AbschlussarbeitModul3Theme
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
 import com.klimpel.abschlussarbeitmodul3.ui.theme.pokemonFontFamily
 import com.klimpel.pokemonbattlefinal.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NoOwnedPokemon(navController: NavController) {
 

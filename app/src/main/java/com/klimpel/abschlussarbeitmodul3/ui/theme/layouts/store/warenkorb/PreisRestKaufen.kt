@@ -15,11 +15,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.Payment
-import androidx.compose.material.icons.outlined.Remove
-import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
@@ -47,7 +44,6 @@ import com.klimpel.abschlussarbeitmodul3.Screen
 import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
 import com.klimpel.abschlussarbeitmodul3.ui.theme.Green
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
-import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
 import com.klimpel.abschlussarbeitmodul3.util.Dimension
 import com.klimpel.abschlussarbeitmodul3.util.calcDp
 

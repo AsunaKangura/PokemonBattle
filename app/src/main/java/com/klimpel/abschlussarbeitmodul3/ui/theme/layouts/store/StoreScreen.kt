@@ -50,7 +50,7 @@ fun StoreScreen(
             GuthabenUndWarenkorb(navController = navController)
 
             for ( entry in storeCategoryList){
-                StoreCategory(navController = navController, categoryName = entry.name, categoryID = entry.id)
+                StoreCategory(navController = navController, categoryName = entry.name)
             }
         }
         Spacer(modifier = Modifier.height(calcDp(percentage = 0.02f, dimension = Dimension.Height)))

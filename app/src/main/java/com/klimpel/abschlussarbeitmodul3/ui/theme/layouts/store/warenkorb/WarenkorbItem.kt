@@ -37,7 +37,6 @@ import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.util.Dimension
 import com.klimpel.abschlussarbeitmodul3.util.calcDp
 
-
 @Preview
 @Composable
 fun WarenkorbItem() {
@@ -49,7 +48,7 @@ fun WarenkorbItem() {
         //.background(DeepRed)
     ) {
         val lfdWeight = .1f // 5%
-        val ItemWeight = .18f // 30%
+        val itemWeight = .18f // 30%
         val anzahlWeight = .1f // 20%
         val preisWeight = .1f // 30%
         val deleteWeight = .1f // 10%
@@ -61,7 +60,7 @@ fun WarenkorbItem() {
                 .background(LightBlue)
         ) {
             TableCellHeader(text = "Lfd.", weight = lfdWeight)
-            TableCellHeader(text = "Itemname", weight = ItemWeight)
+            TableCellHeader(text = "Itemname", weight = itemWeight)
             TableCellHeader(text = "Anzahl", weight = anzahlWeight)
             TableCellHeader(text = "Preis", weight = preisWeight)
             TableCellHeader(text = "Aktion", weight = deleteWeight)
@@ -104,9 +103,7 @@ fun RowScope.TableCell(
 }
 
 @Composable
-fun TableCellDeleteIcon(
-    itemname: String
-) {
+fun TableCellDeleteIcon() {
     val openDeleteDialog = remember { mutableStateOf(false) }
     if (openDeleteDialog.value){
         AlertDialog(

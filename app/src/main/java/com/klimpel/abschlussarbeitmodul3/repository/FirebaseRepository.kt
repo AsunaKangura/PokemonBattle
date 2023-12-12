@@ -9,7 +9,6 @@ import androidx.navigation.NavController
 import com.klimpel.abschlussarbeitmodul3.Screen
 import com.klimpel.abschlussarbeitmodul3.data.models.BattleTeams
 import com.klimpel.abschlussarbeitmodul3.data.models.PokemonGrindEntry
-import com.klimpel.abschlussarbeitmodul3.data.models.StoreItem
 import com.klimpel.abschlussarbeitmodul3.data.models.StroreCategoryItem
 import com.klimpel.abschlussarbeitmodul3.data.models.User
 import com.klimpel.abschlussarbeitmodul3.ui.components.messageDialogError
@@ -43,8 +42,7 @@ class FirebaseRepository {
 
     private var storeCategoryList by mutableStateOf<MutableList<StroreCategoryItem>>(mutableListOf())
     private var _loadStoreCategory = MutableStateFlow(storeCategoryList)
-    var loadStoreCategory: StateFlow<MutableList<StroreCategoryItem>> =
-        _loadStoreCategory.asStateFlow()
+    var loadStoreCategory: StateFlow<MutableList<StroreCategoryItem>> = _loadStoreCategory.asStateFlow()
 
 
     /**
@@ -149,10 +147,10 @@ class FirebaseRepository {
      */
     fun updateAlias(alias: String, context: Context) {
         currentUser?.alias = alias
-        updateFireStoreUser(context)
+        updateFireStoreUser()
     }
 
-            /**
+    /**
      * Updates the avatar of the current user with the provided avatar name and updates the corresponding user document in Firestore.
      *
      * @param avatarname The name of the new avatar for the user.
@@ -160,7 +158,7 @@ class FirebaseRepository {
      */
     fun updateAvatar(avatarname: String, context: Context) {
         currentUser?.avatar = avatarname
-        updateFireStoreUser(context)
+        updateFireStoreUser()
     }
 
     /**
@@ -218,7 +216,7 @@ class FirebaseRepository {
             .document(addteam.value.teamName)
             .set(newteam)
             .addOnSuccessListener {
-                updateFireStoreUser(context)
+                updateFireStoreUser()
                 deleteAddTeam()
                 navController.navigate(Screen.ProfilScreen.route)
                 messageDialogSuccess(context, "Team gespeichert")
@@ -244,7 +242,7 @@ class FirebaseRepository {
             .document(battleTeams.teamName)
             .delete()
             .addOnSuccessListener {
-                updateFireStoreUser(context)
+                updateFireStoreUser()
                 messageDialogSuccess(
                     context,
                     "Das Löschen des \"${battleTeams.teamName}\" Team war erfolgreich"
@@ -267,7 +265,6 @@ class FirebaseRepository {
                 val pokemonList = mutableListOf<PokemonGrindEntry>()
 
                 for (document in result) {
-                    //val typeMap = (document.data["type"] as Map<String, *>).toList()
                     pokemonList.add(
                         PokemonGrindEntry(
                             document.data["name"].toString(),
@@ -286,7 +283,6 @@ class FirebaseRepository {
                 Log.e("LOAD_OWNED_POKEMON", "Lader der eigenen Pokemon fehlgeschlagen")
             }
     }
-
 
     /**
      * Deletes the addTeam value by resetting it to an empty BattleTeams object.
@@ -317,7 +313,6 @@ class FirebaseRepository {
                             name = document.data["name"].toString()
                         )
                     )
-                    //loadStoreItem(document.id)
                 }
                 _loadStoreCategory.value = sublist
             }
@@ -330,7 +325,7 @@ class FirebaseRepository {
      * Updates the user data in Firestore with the current user's information.
      * @param context The context used to display a success message dialog.
      */
-    private fun updateFireStoreUser(context: Context) {
+    private fun updateFireStoreUser() {
         val updatedUser = hashMapOf(
             "alias" to currentUser?.alias,
             "avatar" to currentUser?.avatar,
@@ -342,9 +337,9 @@ class FirebaseRepository {
         firestore.collection("user").document(currentUser?.id.toString())
             .set(updatedUser)
             .addOnSuccessListener {
-                messageDialogSuccess(context = context, messageText = "Benutzer wurde geupdated")
+                Log.w("USER_UPDATE", "Update des User Erfolgreich")
             }
-            .addOnFailureListener { Log.w("USER_UPDATE", "Update des User fehlgeschlagen") }
+            .addOnFailureListener { Log.e("USER_UPDATE", "Update des User fehlgeschlagen") }
     }
 
     /**
@@ -374,7 +369,6 @@ class FirebaseRepository {
                 Log.e("LOADUSER_FEHLER", "$it")
             }
     }
-
 
     /**
      * Loads the active team for the current user from Firestore and populates the _currentTeam LiveData.

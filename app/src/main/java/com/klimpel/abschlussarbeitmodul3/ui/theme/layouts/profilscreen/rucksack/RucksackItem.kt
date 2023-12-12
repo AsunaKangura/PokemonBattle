@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -24,7 +23,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.klimpel.abschlussarbeitmodul3.ui.components.Pokeball
-import com.klimpel.abschlussarbeitmodul3.ui.theme.DeepRed
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlue
 import com.klimpel.abschlussarbeitmodul3.ui.theme.LightBlueBackground
 
@@ -78,7 +76,7 @@ fun RucksackListItem() {
         ) {
 
             Button(
-                onClick = { /*TODO*/ },
+                onClick = { },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = LightBlue,
                     disabledContainerColor = LightBlue.copy(alpha = 0.3f)

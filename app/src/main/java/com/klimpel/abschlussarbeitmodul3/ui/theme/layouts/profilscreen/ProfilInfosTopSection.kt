@@ -40,7 +40,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.klimpel.abschlussarbeitmodul3.ui.components.EditTextField
 import com.klimpel.abschlussarbeitmodul3.ui.components.GradientButton
 import com.klimpel.abschlussarbeitmodul3.ui.components.TitelCard
@@ -53,7 +52,6 @@ import com.klimpel.pokemonbattlefinal.R
 
 @Composable
 fun ProfilInfosTopSection(
-    navController: NavController,
     viewModelprofil: ProfilViewModel = hiltViewModel()
 ) {
 

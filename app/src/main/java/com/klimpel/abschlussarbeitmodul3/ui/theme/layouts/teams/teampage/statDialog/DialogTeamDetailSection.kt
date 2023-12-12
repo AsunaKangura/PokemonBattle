@@ -10,16 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.klimpel.abschlussarbeitmodul3.data.models.BattleTeams
-import com.klimpel.abschlussarbeitmodul3.viewmodels.TeamViewModel
-
 
 @Composable
 fun DialogTeamDetailSection(
     teams: BattleTeams,
     modifier: Modifier = Modifier,
-    viewModelteam: TeamViewModel = hiltViewModel(),
 ) {
     val scrollState = rememberScrollState()
 

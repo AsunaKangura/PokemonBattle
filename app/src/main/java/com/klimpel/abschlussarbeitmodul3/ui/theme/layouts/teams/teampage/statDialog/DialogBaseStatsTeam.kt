@@ -20,7 +20,6 @@ import com.klimpel.abschlussarbeitmodul3.util.parseStatToColorString
 @Composable
 fun DialogBaseStatsTeam(
     teams: BattleTeams,
-    //pokemonInfo: Pokemon,
     animDelayPerItem: Int = 100
 ) {
 

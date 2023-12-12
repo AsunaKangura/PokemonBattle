@@ -185,7 +185,7 @@ fun StoreItem(
                                 .fillMaxHeight(0.5f)
                         ) {
                             Button(
-                                onClick = { /*TODO*/ },
+                                onClick = {  },
                                 colors = ButtonDefaults.buttonColors(containerColor = LightBlueBackground),
                                 elevation = ButtonDefaults.buttonElevation(
                                     defaultElevation = 10.dp
@@ -205,7 +205,7 @@ fun StoreItem(
                             }
 
                             Button(
-                                onClick = { /*TODO*/ },
+                                onClick = {  },
                                 colors = ButtonDefaults.buttonColors(containerColor = LightBlue),
                                 elevation = ButtonDefaults.buttonElevation(
                                     defaultElevation = 10.dp
@@ -220,7 +220,7 @@ fun StoreItem(
                                 .fillMaxSize()
                         ) {
                             Button(
-                                onClick = { /*TODO*/ },
+                                onClick = {  },
                                 colors = ButtonDefaults.buttonColors(containerColor = LightBlue),
                                 elevation = ButtonDefaults.buttonElevation(
                                     defaultElevation = 10.dp
@@ -238,46 +238,3 @@ fun StoreItem(
     }
 }
 
-@Composable
-fun StoreItemProduktseite() {
-
-    Column(
-        modifier = Modifier
-            .width(70.dp)
-            .height(70.dp)
-            .background(Color.Transparent)
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .border(1.dp, LightBlue, shape = RoundedCornerShape(10.dp))
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight()
-                    .clip(shape = RoundedCornerShape(10.dp))
-            ) {
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.7f)
-                        .background(LightBlueBackground)
-                ) {
-                    Pokeball()
-                }
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight()
-                        .background(LightBlue)
-                ) {
-                    Text(text = "Itemname", color = Color.White, fontSize = 12.sp)
-                }
-            }
-        }
-    }
-}

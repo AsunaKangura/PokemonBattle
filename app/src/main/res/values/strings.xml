@@ -14,6 +14,8 @@
 
     <!-- TODO: Rucksack -->
     <string name="titelRucksack">Rucksack</string>
+    <string name="anzahltext">Anzahl 0</string>
+
 
     <!-- TODO: Warenkorb-->
     <string name="titelwarenkorb">Warenkorb</string>

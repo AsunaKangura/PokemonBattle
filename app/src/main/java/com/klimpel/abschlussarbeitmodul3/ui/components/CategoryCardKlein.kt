@@ -15,9 +15,7 @@ import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 
 @Composable
@@ -27,9 +25,6 @@ fun CategoryCardKlein(
     image: Int,
     cardheight: Dp = 100.dp,
     cardpadding: Dp = 0.dp,
-    fontSize: TextUnit = 12.sp,
-    titelcardwidth: Dp = 200.dp,
-    titelcardheight: Dp = 40.dp,
 ) {
     Card(
         modifier = Modifier

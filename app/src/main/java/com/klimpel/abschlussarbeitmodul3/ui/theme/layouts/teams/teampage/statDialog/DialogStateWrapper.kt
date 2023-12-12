@@ -8,9 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.asunakangura.pokemonbattle.data.remote.responses.Pokemon
 import com.klimpel.abschlussarbeitmodul3.data.models.BattleTeams
-import com.klimpel.abschlussarbeitmodul3.ui.theme.layouts.teams.teampage.TeamDetailSection
 import com.klimpel.abschlussarbeitmodul3.util.Resource
 
 @Composable
@@ -45,6 +43,6 @@ fun DialogStateWrapper(
             )
         }
 
-        else -> {}
+        else ->{}
     }
 }
