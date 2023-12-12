@@ -46,8 +46,6 @@ fun PokedexRow(
                 ) {
                     PokemonCard(
                         entry = entries[rowIndex],
-                        navController = navController,
-                        modifier = Modifier.weight(1f)
                     )
                 }
             }

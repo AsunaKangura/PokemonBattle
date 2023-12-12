@@ -45,7 +45,7 @@ fun TableRow() {
             TableCell(text = "Standart Ball", weight = itemWeight)
             TableCell(text = "5", weight = anzahlWeight)
             TableCell(text = "500 $", weight = preisWeight)
-            TableCellDeleteIcon("")
+            TableCellDeleteIcon()
         }
     }
 }
