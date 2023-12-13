@@ -44,7 +44,6 @@ class FirebaseRepository {
     private var _loadStoreCategory = MutableStateFlow(storeCategoryList)
     var loadStoreCategory: StateFlow<MutableList<StroreCategoryItem>> = _loadStoreCategory.asStateFlow()
 
-
     /**
      * Registers a new user with the provided email and password.
      *
